@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ template "conntrack-exporter.fullname" . }}
+  namespace: {{ template "conntrack-exporter.namespace" . }}
+  labels:
+{{ include "conntrack-exporter.labels" . | indent 4 }}
+spec:
+  revisionHistoryLimit: 5
+  {{- if .Values.updateStrategy }}
+  updateStrategy:
+{{ toYaml .Values.updateStrategy | indent 4 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      k8s-app: {{ template "conntrack-exporter.fullname" . }}
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+      {{- if .Values.podAnnotations }}
+      {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
+      labels:
+        k8s-app: {{ template "conntrack-exporter.fullname" . }}
+{{ include "conntrack-exporter.labels" . | indent 8 }}
+    spec:
+{{- if and .Values.rbac.create .Values.serviceAccount.create }}
+      serviceAccountName: {{ template "conntrack-exporter.serviceAccountName" . }}
+{{- end}}
+      containers:
+        - name: {{ template "conntrack-exporter.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            privileged: true
+          args:
+            - -engine
+            - kubelet
+            - -listen-address
+            - ":{{ .Values.port }}"
+            - -kubelet-ca
+            - /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            - -kubelet-token
+            - /var/run/secrets/kubernetes.io/serviceaccount/token
+            {{- if .Values.workloadLabels }}
+            - -workload-labels
+            - '{{- join "," .Values.workloadLabels }}'
+            {{- end }}
+            {{- if .Values.skipTLSVerify }}
+            - '-insecure-skip-tls-verify=true'
+            {{- end }}
+{{- if .Values.extraArgs }}
+{{ toYaml .Values.extraArgs | indent 12 }}
+{{- end }}
+          ports:
+            - name: http-metrics
+              hostPort: {{ .Values.port }}
+              containerPort:  {{ .Values.port }}
+              protocol: TCP
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+

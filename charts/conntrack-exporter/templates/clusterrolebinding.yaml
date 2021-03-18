@@ -1,0 +1,18 @@
+{{- if .Values.rbac.create }}
+apiVersion: v1
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ template "conntrack-exporter.fullname" . }}
+  labels:
+    app: {{ template "conntrack-exporter.name" . }}
+{{ include "conntrack-exporter.labels" . | indent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "conntrack-exporter.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ template "conntrack-exporter.serviceAccountName" . }}
+  namespace: {{ template "conntrack-exporter.namespace" . }}
+{{ end }}
