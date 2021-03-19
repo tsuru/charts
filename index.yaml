@@ -3,6 +3,15 @@ entries:
   conntrack-exporter:
   - apiVersion: v1
     appVersion: 0.6.0
+    created: "2021-03-19T17:29:17.197226967Z"
+    description: Prometheus Conntrack Exporter
+    digest: 978545bcfc0893a1d933f983d59a03aa70d8d0c20b363c0c19a6b177669e4946
+    name: conntrack-exporter
+    urls:
+    - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.5/conntrack-exporter-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v1
+    appVersion: 0.6.0
     created: "2021-03-19T15:05:50.485150696Z"
     description: Prometheus Conntrack Exporter
     digest: 3f2075001126a806a5116218cf3d8c89f75d6513de424c1abf76221dffb7a93f
