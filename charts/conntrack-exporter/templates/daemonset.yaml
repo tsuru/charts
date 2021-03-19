@@ -13,7 +13,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      k8s-app: {{ template "conntrack-exporter.fullname" . }}
+      app: {{ template "conntrack-exporter.fullname" . }}
   template:
     metadata:
       annotations:
@@ -22,7 +22,7 @@ spec:
       {{- toYaml .Values.podAnnotations | nindent 8 }}
       {{- end }}
       labels:
-        k8s-app: {{ template "conntrack-exporter.fullname" . }}
+        app: {{ template "conntrack-exporter.fullname" . }}
 {{ include "conntrack-exporter.labels" . | indent 8 }}
     spec:
 {{- if and .Values.rbac.create .Values.serviceAccount.create }}
