@@ -5,7 +5,7 @@ kind: ClusterRole
 metadata:
   name: {{ template "conntrack-exporter.fullname" . }}
   labels:
-    app: {{ template "conntrack-exporter.name" . }}-operator
+    app: {{ template "conntrack-exporter.name" . }}
 {{ include "conntrack-exporter.labels" . | indent 4 }}
 rules:
 - apiGroups: [""]

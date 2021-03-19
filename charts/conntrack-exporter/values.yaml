@@ -12,6 +12,17 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+serviceMonitor:
+  enabled: true
+  additionalLabels: []
+
+  scheme: http
+  bearerTokenFile:
+  tlsConfig: {}
+
+  scrapeTimeout: 10s
+  relabelings: []
+
 podAnnotations: {}
 
 podLabels: {}
