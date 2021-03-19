@@ -13,7 +13,6 @@ spec:
   selector:
     matchLabels:
       app: {{ template "conntrack-exporter.name" . }}
-      release: {{ .Release.Name }}
   endpoints:
     - port: http-metrics
       scheme: {{ $.Values.serviceMonitor.scheme }}
