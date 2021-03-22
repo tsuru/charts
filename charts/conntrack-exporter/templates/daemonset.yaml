@@ -60,7 +60,7 @@ spec:
               protocol: TCP
           resources:
 {{ toYaml .Values.resources | indent 12 }}
-      dnsPolicy: ClusterFirst
+      dnsPolicy: {{ .Values.dnsPolicy }}
       hostNetwork: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

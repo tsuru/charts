@@ -57,6 +57,8 @@ extraArgs:
 
 port: 9127
 
+dnsPolicy: ClusterFirst
+
 ## Override the deployment namespace
 ##
 namespaceOverride: ""
