@@ -55,4 +55,15 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.2/conntrack-exporter-0.1.2.tgz
     version: 0.1.2
+  tsuru-prometheus-pool:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-04-16T18:27:33.082868466Z"
+    description: Dedicated prometheus instance by tsuru pool
+    digest: 06cb6c52c43705b5e3e47199a5feefd803764826b6eb8c9ca58a8cdfff9b87b5
+    name: tsuru-prometheus-pool
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-prometheus-pool-0.1.0/tsuru-prometheus-pool-0.1.0.tgz
+    version: 0.1.0
 generated: "2021-03-18T21:41:10.45913895Z"
