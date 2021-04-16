@@ -1,0 +1,57 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: {{ include "..fullname" . }}
+  labels:
+    {{- include "..labels" . | nindent 4 }}
+spec:
+  alerting:
+    alertmanagers: []
+  arbitraryFSAccessThroughSMs: {}
+  externalLabels:
+    prometheus_from: tsuru-pool-{{ .Values.tsuru.pool.name }}
+  {{- if .Values.ingress.enabled }}
+  externalUrl: http://{{ .Values.ingress.host }}
+  {{ end }}
+  image: {{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.version }}
+  logFormat: logfmt
+  logLevel: info
+  podMetadata:
+    labels:
+      tsuru.io/pool: {{ .Values.tsuru.pool.name }}
+      {{- include "..labels" . | nindent 6 }}
+  podMonitorNamespaceSelector:
+    matchLabels:
+      name: tsuru-{{ .Values.tsuru.pool.name }}
+  podMonitorSelector:
+    matchLabels:
+      tsuru.io/pool: {{ .Values.tsuru.pool.name }}
+  portName: web
+  probeNamespaceSelector:
+    matchLabels:
+      name: tsuru-{{ .Values.tsuru.pool.name }}
+  replicas: {{ .Values.replicaCount }}
+  resources: {}
+  retention: 10d
+  routePrefix: /
+  ruleNamespaceSelector:
+    matchLabels:
+      name: tsuru-{{ .Values.tsuru.pool.name }}
+  rules:
+    alert: {}
+  securityContext:
+    {{- .Values.securityContext | toYaml | nindent 4 }}
+    fsGroup: 2000
+    runAsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: {{ include "..serviceAccountName" . }}
+  serviceMonitorNamespaceSelector:
+    matchLabels:
+      name: tsuru-{{ .Values.tsuru.pool.name }}
+  serviceMonitorSelector: {}
+  shards: 1
+  version: {{ .Values.prometheus.version }}
+  storage:
+    volumeClaimTemplate:
+      {{- .Values.volumeClaimTemplate | toYaml |nindent 6}}

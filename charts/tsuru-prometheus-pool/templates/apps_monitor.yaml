@@ -1,0 +1,58 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: tsuru-apps
+  labels:
+    tsuru.io/pool: {{ .Values.tsuru.pool.name }}
+    {{- include "..labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      tsuru.io/is-tsuru: "true"
+      tsuru.io/is-build: "false"
+      tsuru.io/is-deploy: "false"
+  podMetricsEndpoints:
+  - relabelings:
+      - sourceLabels:
+        - '__meta_kubernetes_pod_annotation_prometheus_io_scrape'
+        regex: 'true'
+        action: 'keep'
+      - sourceLabels:
+        - '__meta_kubernetes_pod_annotation_prometheus_io_scheme'
+        regex: '(https?)'
+        targetLabel: '__scheme__'
+      - sourceLabels:
+          - '__meta_kubernetes_pod_annotation_prometheus_io_path'
+        regex: '(.+)'
+        targetLabel: '__metrics_path__'
+        action: replace
+      - sourceLabels:
+        - '__address__'
+        - '__meta_kubernetes_pod_annotation_prometheus_io_port'
+        regex: '([^:]+)(?::\d+)?;(\d+)'
+        targetLabel: '__address__'
+        replacement: '$1:$2'
+        action: 'replace'
+
+      - sourceLabels:
+        - '__meta_kubernetes_pod_label_tsuru_io_app_name'
+        targetLabel: 'tsuru_app'
+      - sourceLabels:
+        - '__meta_kubernetes_pod_label_tsuru_io_app_version'
+        targetLabel: 'tsuru_app_version'
+      - sourceLabels:
+        - '__meta_kubernetes_pod_label_tsuru_io_app_process'
+        targetLabel: 'tsuru_app_process'
+      - sourceLabels:
+        - '__meta_kubernetes_pod_label_tsuru_io_app_team'
+        targetLabel: 'tsuru_team'
+      - sourceLabels:
+        - '__meta_kubernetes_pod_label_tsuru_io_app_pool'
+        targetLabel: 'tsuru_pool'
+      - sourceLabels:
+        - '__meta_kubernetes_pod_label_tsuru_io_app_platform'
+        targetLabel: 'tsuru_platform'
+      - sourceLabels:
+        - 'pod'
+        targetLabel: 'tsuru_unit'
+        action: replace

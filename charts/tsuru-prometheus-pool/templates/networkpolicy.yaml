@@ -1,0 +1,36 @@
+{{- if .Values.networkPolicy.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "..fullname" . }}
+  labels:
+    {{- include "..labels" . | nindent 4 }}
+spec:
+  egress:
+  - to: # allow egress to same namespace
+    - namespaceSelector:
+        matchLabels:
+          name: tsuru-{{ .Values.tsuru.pool.name }}
+
+  - ports: # allow egress to k8s-apiserver
+    - port: 80
+      protocol: TCP
+    - port: 443
+      protocol: TCP
+    to:
+    - namespaceSelector:
+        matchLabels:
+          name: default
+
+    {{ range $_, $ip := .Values.networkPolicy.k8sAPIAddresses }}
+    - ipBlock:
+        cidr: {{ $ip }}/32
+    {{ end }}
+
+  podSelector:
+    matchLabels:
+      tsuru.io/pool: {{ .Values.tsuru.pool.name }}
+
+  policyTypes:
+  - Egress
+{{- end }}
