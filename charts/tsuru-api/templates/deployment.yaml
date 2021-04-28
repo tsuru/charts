@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tsuru-api.fullname" . }}
+  labels:
+    {{- include "tsuru-api.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  {{- if .Values.strategy }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "tsuru-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "tsuru-api.selectorLabels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: 600
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "tsuru-api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetHTTPPort }}
+              protocol: TCP
+            - name: https
+              containerPort: {{ .Values.service.targetHTTPSPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: {{ .Values.service.targetHTTPPort }}
+            initialDelaySeconds: 90
+            timeoutSeconds: 20
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: {{ .Values.service.targetHTTPPort }}
+            timeoutSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          {{- range $secret := .Values.secretKeys }}
+            - name: {{ $secret | upper }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Values.secretName }}
+                  key: {{ $secret }}
+            {{- end }}
+            {{- if .Values.tracing.enabled }}
+            - name: JAEGER_AGENT_HOST
+              value: {{ .Values.tracing.agentHost }}
+            - name: JAEGER_SAMPLER_TYPE
+              value: {{ .Values.tracing.sampler.type }}
+            {{- if .Values.tracing.sampler.param }}
+            - name: JAEGER_SAMPLER_PARAM
+              value: {{ .Values.tracing.sampler.param | quote }}
+            {{- end }}
+            {{- end }}
+          volumeMounts:
+            - name: tsuru-api-config
+              mountPath: /etc/tsuru
+            {{- if .Values.tlsSecretName }}
+            - name: tls
+              mountPath: /mnt/tls
+              readOnly: true
+            {{- end }}
+            {{- if .Values.hostCertBundleFile }}
+            - name: host-cert-bundle
+              mountPath: {{ .Values.hostCertBundleFile }}
+            {{- end }}
+      restartPolicy: Always
+      volumes:
+        - name: tsuru-api-config
+          configMap:
+            name: {{ include "tsuru-api.fullname" . }}-config
+        {{- if .Values.tlsSecretName }}
+        - name: tls
+          secret:
+            secretName: {{ .Values.tlsSecretName }}
+        {{- end }}
+        {{- if .Values.hostCertBundleFile }}
+        - name: host-cert-bundle
+          hostPath:
+            path: {{ .Values.hostCertBundleFile }}
+            type: File
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
