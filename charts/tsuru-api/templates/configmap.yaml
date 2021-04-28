@@ -1,0 +1,157 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "tsuru-api.fullname" . }}-config
+  labels:
+    {{- include "tsuru-api.labels" . | nindent 4 }}
+data:
+{{- with .Values.indexPageTemplate }}
+  index.tpl: |-
+{{ . | indent 4 }}
+{{- end }}
+  tsuru.conf: |-
+    listen: "{{ .Values.tsuruConfig.listen | default "0.0.0.0:8080" }}"
+    host: "{{ .Values.tsuruConfig.host }}"
+{{- if .Values.tsuruConfig.useTLS }}
+    use-tls: true
+    tls:
+      cert-file: {{ .Values.tsuruConfig.TLS.certFilename }}
+      key-file: {{ .Values.tsuruConfig.TLS.certKeyFile }}
+      listen: {{ .Values.tsuruConfig.TLS.listen }}
+      {{- if .Values.tsuruConfig.TLS.autoreloadInterval }}
+      auto-reload:
+        interval: {{ .Values.tsuruConfig.TLS.autoreloadInterval }}
+      {{- end }}
+      {{- if .Values.tsuruConfig.TLS.validateCertificate }}
+      validate-certificate: {{ .Values.tsuruConfig.TLS.validateCertificate }}
+      {{- end }}
+{{- end }}
+
+    disable-index-page: {{ .Values.tsuruConfig.disableIndexPage | default true }}
+{{- if .Values.tsuruConfig.indexPageTemplate }}
+    index-page-template: /etc/tsuru/index.tpl
+{{- end }}
+
+    database:
+      url: {{ .Values.tsuruConfig.database.mongodbURL | default "localhost:27017" }}
+      name: {{ .Values.tsuruConfig.database.databaseName | default "tsuru" }}
+
+{{ if .Values.tsuruConfig.SMTP }}
+    smtp:
+      server: {{ .Values.tsuruConfig.SMTP.server }}
+      user: {{ .Values.tsuruConfig.SMTP.username }}
+      {{- with .Values.tsuruConfig.SMTP.password }}
+      password: {{.}}
+      {{- end }}
+{{- end }}
+
+    auth:
+      scheme: {{ .Values.tsuruConfig.auth.scheme }}
+      user-registration: {{ .Values.tsuruConfig.auth.userRegistration }}
+      {{- with .Values.tsuruConfig.auth.maxSimultaneousSessions }}
+      max-simultaneous-sessions: {{.}}
+      {{- end }}
+{{- if (eq .Values.tsuruConfig.auth.scheme "native") }}
+      token-expire-days: {{ .Values.tsuruConfig.auth.native.tokenExpire }}
+      hash-cost: {{ .Values.tsuruConfig.auth.native.hashCost }}
+{{- else if (eq .Values.tsuruConfig.auth.scheme "oauth") }}
+      oauth:
+        client-id: {{ .Values.tsuruConfig.auth.oauth.clientID }}
+        client-secret: {{ .Values.tsuruConfig.auth.oauth.clientSecret }}
+        scope: {{ .Values.tsuruConfig.auth.oauth.scope }}
+        auth-url: {{ .Values.tsuruConfig.auth.oauth.authURL }}
+        token-url: {{ .Values.tsuruConfig.auth.oauth.tokenURL }}
+        info-url: {{ .Values.tsuruConfig.auth.oauth.infoURL }}
+        collection: {{ .Values.tsuruConfig.auth.oauth.collection }}
+        callback-port: {{ .Values.tsuruConfig.auth.oauth.callbackPort }}
+{{- end }}
+
+    queue:
+      mongo-url: {{ .Values.tsuruConfig.queue.mongodbURL | default "localhost:27017" }}
+      mongo-database: {{ .Values.tsuruConfig.queue.databaseName  | default "tsuru" }}
+
+    admin-team: {{ .Values.tsuruConfig.adminTeam }}
+
+{{- if .Values.tsuruConfig.quota }}
+    quota:
+      apps-per-user: {{ .Values.tsuruConfig.quota.appsPerUser }}
+      units-per-app: {{ .Values.tsuruConfig.quota.unitsPerApp }}
+{{- end }}
+
+    # - Router configuration
+    # http://docs.tsuru.io/en/stable/reference/config.html#config-routers
+    routers:
+{{- toYaml .Values.tsuruConfig.routers | nindent 6}}
+
+    # - Events configuration
+    events:
+      suppress-sensitive-envs: {{ .Values.tsuruConfig.events.suppressSensitiveEnvs | default "true" }}
+
+    # - Provisioner configuration
+    # http://docs.tsuru.io/en/stable/reference/config.html#provisioner
+    provisioner: {{ .Values.tsuruConfig.provisioner }}
+{{- if .Values.tsuruConfig.docker }}
+    docker:
+{{- toYaml .Values.tsuruConfig.docker | nindent 6}}
+{{- end }}
+    kubernetes:
+      {{- if .Values.tsuruConfig.kubernetes.deploySidecarImage }}
+      deploy-sidecar-image: {{ .Values.tsuruConfig.kubernetes.deploySidecarImage }}
+      {{- end }}
+      {{- if .Values.tsuruConfig.kubernetes.deployInspectImage }}
+      deploy-inspect-image: {{ .Values.tsuruConfig.kubernetes.deployInspectImage }}
+      {{- end }}
+      {{- if .Values.tsuruConfig.kubernetes.usePoolNamespaces }}
+      use-pool-namespaces: {{ .Values.tsuruConfig.kubernetes.usePoolNamespaces }}
+      {{- end }}
+      {{- if .Values.tsuruConfig.kubernetes.deploymentProgressTimeout }}
+      deployment-progress-timeout: {{ .Values.tsuruConfig.kubernetes.deploymentProgressTimeout }}
+      {{- end }}
+
+    {{ if .Values.tsuruConfig.volumePlans }}
+    # - Volume Plans
+    # https://docs.tsuru.io/stable/managing/volumes.html#volume-plans
+    volume-plans:
+{{- .Values.tsuruConfig.volumePlans | toYaml | nindent 6 }}
+    {{- end }}
+
+    {{- if .Values.tsuruConfig.iaas }}
+    # - Iaas configuration
+    # http://docs.tsuru.io/en/stable/reference/config.html#iaas-configuration
+    iaas:
+      default: {{ .Values.tsuruConfig.iaas.iaas_default | default "ec2" }}
+      {{- if .Values.tsuruConfig.iaas.cloudstack }}
+      {{ .Values.tsuruConfig.iaas.cloudstack | indent 6 }}
+      {{- end }}
+      {{- if .Values.tsuruConfig.iaas.ec2 }}
+      {{ .Values.tsuruConfig.iaas.ec2 | indent 6 }}
+      {{- end }}
+      {{- if .Values.tsuruConfig.iaas.customIaaS }}
+      custom:
+        {{ .Values.tsuruConfig.iaas.customIaaS | indent 8 }}
+      {{- end }}
+      node-protocol: {{ .Values.tsuruConfig.iaas.nodeProtocol | default "http" }}
+      node-port: {{ .Values.tsuruConfig.iaas.nodePort | default "2375" }}
+    {{- end }}
+
+    # - Debug configuration
+    # http://docs.tsuru.io/en/stable/reference/config.html#log-level
+    debug: {{ .Values.tsuruConfig.debug | default "false" }}
+    log:
+      {{- if .Values.tsuruConfig.log.file }}
+      file: {{ .Values.tsuruConfig.log.file }}
+      {{- end }}
+      disable-syslog: {{ .Values.tsuruConfig.log.disableSyslog  | default "false" }}
+      syslog-tag: {{ .Values.tsuruConfig.log.syslogTag | default "tsurud" }}
+      use-stderr: {{ .Values.tsuruConfig.log.useStdErr | default "false" }}
+      app-log-service: "memory"
+      app-log-memory-buffer-bytes: {{ .Values.tsuruConfig.log.appLogBufferBytes | default "1048576"}}
+
+
+    {{ if .Values.tsuruConfig.eventThrottling }}
+    # - Event throttling configuration
+    # https://docs.tsuru.io/master/reference/config.html#event-throttling-configuration
+    event:
+      throttling:
+{{ .Values.tsuruConfig.eventThrottling | toYaml | indent 6 }}
+    {{- end }}

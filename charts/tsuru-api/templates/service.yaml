@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tsuru-api.fullname" . }}
+  labels:
+    {{- include "tsuru-api.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  {{- if eq .Values.service.type "ClusterIP" }}
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- else }}
+  {{- if .Values.service.httpsOnly }}
+  - port: {{ .Values.service.httpsPort }}
+    targetPort: {{ .Values.service.targetHTTPSPort }}
+    name: "https"
+  {{- else  }}
+  - port: {{ .Values.service.httpsPort }}
+    targetPort: {{ .Values.service.targetHTTPSPort }}
+    name: "https"
+  - port: {{ .Values.service.httpPort }}
+    targetPort: {{ .Values.service.targetHTTPPort }}
+    name: "http"
+  {{- end }}
+  {{- end }}
+  selector:
+    {{- include "tsuru-api.selectorLabels" . | nindent 4 }}
