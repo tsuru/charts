@@ -55,6 +55,17 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.2/conntrack-exporter-0.1.2.tgz
     version: 0.1.2
+  tsuru-api:
+  - apiVersion: v2
+    appVersion: 1.9.2
+    created: "2021-04-28T15:49:10.098080342Z"
+    description: A Helm chart to install Tsuru API Server
+    digest: d8e01390cc450aa641c2823f9ac2c1b49c1f4b3bd3973fb130dc502ff049689d
+    name: tsuru-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-api-0.1.0/tsuru-api-0.1.0.tgz
+    version: 0.1.0
   tsuru-prometheus-pool:
   - apiVersion: v2
     appVersion: 1.16.0
