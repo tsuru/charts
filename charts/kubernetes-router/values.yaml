@@ -32,6 +32,10 @@ multiCluster:
 
 hostCertBundleFile: ""
 
+api:
+  username: ""
+  password: ""
+
 tracing:
   enabled: false
   agent_host: jaeger-agent.observability.svc.cluster.local

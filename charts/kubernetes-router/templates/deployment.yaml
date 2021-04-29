@@ -70,12 +70,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: kubernetes-router
-                  key: api-user
+                  key: username
             - name: ROUTER_API_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: kubernetes-router
-                  key: api-password
+                  key: password
             {{- if .Values.tracing.enabled }}
             - name: JAEGER_AGENT_HOST
               value: {{ .Values.tracing.agent_host }}
