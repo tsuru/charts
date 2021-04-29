@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
   {{- if eq .Values.service.type "ClusterIP" }}
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: {{ .Values.service.httpPort }}
+      targetPort: {{ .Values.service.targetHTTPPort }}
       protocol: TCP
       name: http
   {{- else }}
