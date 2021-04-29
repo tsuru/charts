@@ -1,0 +1,17 @@
+{{- if .Values.rpaas.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+{{ include "tsuru-monitoring.labels" . | indent 4 }}
+{{- if .Values.tsuruRules.labels }}
+{{ toYaml .Values.tsuruRules.labels | indent 4 }}
+{{- end }}
+{{- if .Values.tsuruRules.annotations }}
+  annotations:
+{{ toYaml .Values.tsuruRules.annotations | indent 4 }}
+{{- end }}
+  name: tsuru-rpaas-slis
+spec:
+{{ .Files.Get "files/rules/tsuru-rpaas-slis.yaml" | indent 2 }}
+{{- end }}

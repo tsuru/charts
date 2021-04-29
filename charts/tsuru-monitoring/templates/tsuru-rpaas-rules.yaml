@@ -1,0 +1,47 @@
+{{- if .Values.rpaas.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+{{ include "tsuru-monitoring.labels" . | indent 4 }}
+{{- if .Values.tsuruRules.labels }}
+{{ toYaml .Values.tsuruRules.labels | indent 4 }}
+{{- end }}
+{{- if .Values.tsuruRules.annotations }}
+  annotations:
+{{ toYaml .Values.tsuruRules.annotations | indent 4 }}
+{{- end }}
+  name: tsuru-rpaas-rule
+spec:
+  groups:
+  - interval: 30s
+    name: tsuru-rpaas.rules
+    rules:
+      - expr: |
+          container_memory_working_set_bytes{} * on(pod_name) group_left(label_rpaas_service, label_rpaas_instance) label_replace(kube_pod_labels{label_nginx_tsuru_io_app="nginx"}, "pod_name", "$1", "pod", "(.*)")
+        record: "rpaas:container_memory_working_set_bytes"
+
+      - expr: |
+          container_cpu_usage_seconds_total{} * on(pod_name) group_left(label_rpaas_service, label_rpaas_instance) label_replace(kube_pod_labels{label_nginx_tsuru_io_app="nginx"}, "pod_name", "$1", "pod", "(.*)")
+        record: "rpaas:container_cpu_usage_seconds_total"
+
+      - expr: |
+          container_network_receive_bytes_total{} * on(pod_name) group_left(label_rpaas_service, label_rpaas_instance) label_replace(kube_pod_labels{label_nginx_tsuru_io_app="nginx"}, "pod_name", "$1", "pod", "(.*)")
+        record: "rpaas:container_network_receive_bytes_total"
+
+      - expr: |
+          container_network_transmit_bytes_total{} * on(pod_name) group_left(label_rpaas_service, label_rpaas_instance) label_replace(kube_pod_labels{label_nginx_tsuru_io_app="nginx"}, "pod_name", "$1", "pod", "(.*)")
+        record: "rpaas:container_network_transmit_bytes_total"
+
+      - expr: |
+          container_cpu_load_average_10s{} * on(pod_name) group_left(label_rpaas_service, label_rpaas_instance) label_replace(kube_pod_labels{label_nginx_tsuru_io_app="nginx"}, "pod_name", "$1", "pod", "(.*)")
+        record: "rpaas:container_cpu_load_average_10s"
+
+      - expr: |
+          container_spec_memory_limit_bytes{} * on(pod_name) group_left(label_rpaas_service, label_rpaas_instance) label_replace(kube_pod_labels{label_nginx_tsuru_io_app="nginx"}, "pod_name", "$1", "pod", "(.*)")
+        record: "rpaas:container_spec_memory_limit_bytes"
+
+      - expr: |
+          sum by (service_cluster, service_instance, service, le) (increase(nginx_vts_server_request_duration_seconds_bucket[2m]))/2
+        record: "rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m"
+{{- end }}
