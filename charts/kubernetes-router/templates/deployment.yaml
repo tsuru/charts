@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kubernetes-router.fullname" . }}
+  labels:
+    {{- include "kubernetes-router.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  {{- if .Values.strategy }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "kubernetes-router.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kubernetes-router.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "kubernetes-router.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["./kubernetes-router"]
+          args:
+            - "-v"
+            - "3"
+            - "-k8s-namespace"
+            - "tsuru"
+            {{- range $mode := .Values.controllerModes }}
+            - "-controller-modes"
+            - {{ $mode | quote }}
+            {{- end }}
+            {{- range $arg := .Values.arguments }}
+            - {{ $arg }}
+            {{- end }}
+            {{- if .Values.multiCluster.enabled }}
+            - "-clusters-file"
+            - "/clusters/clusters.yaml"
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: 8077
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8077
+            timeoutSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: ROUTER_API_USER
+              valueFrom:
+                secretKeyRef:
+                  name: kubernetes-router
+                  key: api-user
+            - name: ROUTER_API_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kubernetes-router
+                  key: api-password
+            {{- if .Values.tracing.enabled }}
+            - name: JAEGER_AGENT_HOST
+              value: {{ .Values.tracing.agent_host }}
+            - name: JAEGER_SAMPLER_TYPE
+              value: {{ .Values.tracing.sampler.type }}
+            {{- if .Values.tracing.sampler.param }}
+            - name: JAEGER_SAMPLER_PARAM
+              value: {{ .Values.tracing.sampler.param | quote }}
+            {{- end }}
+            {{- end }}
+          volumeMounts:
+            {{- if .Values.multiCluster.enabled }}
+            - mountPath: "/clusters"
+              name: clusters
+            {{- end }}
+            {{- if .Values.hostCertBundleFile }}
+            - name: host-cert-bundle
+              mountPath: {{ .Values.hostCertBundleFile }}
+            {{- end }}
+      volumes:
+        {{- if .Values.multiCluster.enabled }}
+        - name: clusters
+          secret:
+            secretName: kubernetes-router-clusters
+        {{- end }}
+        {{- if .Values.hostCertBundleFile }}
+        - name: host-cert-bundle
+          hostPath:
+            path: {{ .Values.hostCertBundleFile }}
+            type: File
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
