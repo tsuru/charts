@@ -1,0 +1,33 @@
+{{- if .Values.remoteRead.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tsuru-remote-prometheus-reader
+  labels:
+    {{- include "tsuru-monitoring.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - access-prometheus:80
+  resources:
+  - services/proxy
+  verbs:
+  - get
+  - create
+  - update
+  - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    {{- include "tsuru-monitoring.labels" . | nindent 4 }}
+  name: tsuru-remote-prometheus-reader
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tsuru-remote-prometheus-reader
+subjects:
+{{ toYaml .Values.remoteRead.Readers | nindent 2 }}
+{{- end }}
