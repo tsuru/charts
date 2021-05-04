@@ -24,6 +24,10 @@ jobs:
         with:
           version: v3.4.1
 
+      - name: Add dependency chart repos
+        run: |
+          helm repo add tsuru https://tsuru.github.io/charts
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
