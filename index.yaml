@@ -76,6 +76,19 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/kubernetes-router-0.1.1/kubernetes-router-0.1.1.tgz
     version: 0.1.1
+  nginx-operator:
+  - apiVersion: v2
+    appVersion: 0.6.3
+    created: "2021-05-04T12:59:13.922493911Z"
+    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    digest: 0fe800036a6f30dbca32646bf8e4eb4a326dfe0a899e4c59a3a8aa66028efdfa
+    name: nginx-operator
+    sources:
+    - https://github.com/tsuru/nginx-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/nginx-operator-0.1.0/nginx-operator-0.1.0.tgz
+    version: 0.1.0
   tsuru-api:
   - apiVersion: v2
     appVersion: 1.9.2-rc1
