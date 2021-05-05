@@ -9,7 +9,7 @@ subjects:
   name: {{ include "rpaas-operator.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 {{- with .Values.additionalSubjectsAllowed }}
-{{ toYaml .Values.additionalSubjectsAllowed }}
+{{ toYaml . }}
 {{- end }}
 roleRef:
   kind: ClusterRole
