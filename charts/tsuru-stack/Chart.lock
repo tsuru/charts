@@ -1,7 +1,7 @@
 dependencies:
 - name: tsuru-api
   repository: https://tsuru.github.io/charts
-  version: 0.1.2
+  version: 0.1.3
 - name: kubernetes-router
   repository: https://tsuru.github.io/charts
   version: 0.1.2
@@ -17,5 +17,5 @@ dependencies:
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
   version: 10.12.6
-digest: sha256:ddde9b4133f17d081d5d67c7bb21477b749cf5219d77f7b8f8b6fe53009baf2f
-generated: "2021-05-10T17:17:01.030300138-03:00"
+digest: sha256:b2c0cbd57476ce84ad6f6e6e134db2f5220071251e7e36e73096e6a3a5d48011
+generated: "2021-05-10T17:31:12.488261479-03:00"

@@ -69,12 +69,12 @@ spec:
             - name: ROUTER_API_USER
               valueFrom:
                 secretKeyRef:
-                  name: kubernetes-router
+                  name: {{ include "kubernetes-router.fullname" . }}
                   key: username
             - name: ROUTER_API_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: kubernetes-router
+                  name: {{ include "kubernetes-router.fullname" . }}
                   key: password
             {{- if .Values.tracing.enabled }}
             - name: JAEGER_AGENT_HOST
