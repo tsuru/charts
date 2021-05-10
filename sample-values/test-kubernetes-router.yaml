@@ -1,8 +1,0 @@
-controllerModes:
-  - ingress-nginx
-
-api:
-  username: "admin"
-  password: "mypassword"
-
-
