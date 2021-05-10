@@ -149,7 +149,7 @@ tsuruConfig:
   # http://docs.tsuru.io/en/stable/reference/config.html#authentication-configuration
   auth:
     scheme: "oauth"
-    userRegistration:
+    userRegistration: true
     maxSimultaneousSessions:
     native:
       tokenExpire:
@@ -202,7 +202,7 @@ tsuruConfig:
   debug: false
   log:
     file: ""
-    disableSyslog: ""
+    disableSyslog: true
     syslogTag: ""
-    useStdErr: false
+    useStdErr: true
     appLogBufferBytes: "1048576"

@@ -1,0 +1,40 @@
+# Default values for tsuru-stack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+tsuru-api:
+  
+
+
+mongodb:
+  enabled: true
+
+monitoring:
+  enabled: true
+
+ingressNginx:
+  enabled: true
+
+privateRegistry:
+  enabled: true
+
+  # set the type of filesystem to use: filesystem, s3
+  storage: filesystem
+
+  configData:
+  version: 0.1
+  log:
+    fields:
+      service: registry
+  storage:
+    cache:
+      blobdescriptor: inmemory
+  http:
+    addr: :5000
+    headers:
+      X-Content-Type-Options: [nosniff]
+  health:
+    storagedriver:
+      enabled: true
+      interval: 10s
+      threshold: 3

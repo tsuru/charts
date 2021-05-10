@@ -1,0 +1,4 @@
+auth:
+  username: tsuru
+  password: tsuru
+  database: tsuru
