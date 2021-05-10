@@ -27,6 +27,9 @@ jobs:
       - name: Add dependency chart repos
         run: |
           helm repo add tsuru https://tsuru.github.io/charts
+          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm repo add twun https://helm.twun.io
+          helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
