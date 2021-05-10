@@ -3,20 +3,59 @@
 # Declare variables to be passed into your templates.
 
 tsuru-api:
-  
+  image:
+    tag: "edge"
 
+  service:
+    type: ClusterIP
+    httpPort: 80
+    targetHTTPPort: 8080
+
+  indexPageTemplate: "<html><head></head><body><h1>Hello!</h1></body></html>"
+
+  tsuruConfig:
+    useTLS: false
+
+    database:
+      mongodbURL: "mongodb://tsuru:tsuru@mongodb.default.svc.cluster.local/tsuru"
+
+    auth:
+      scheme: "native"
+      native:
+        tokenExpire: 2
+        hashCost: 4
+
+    queue:
+      mongodbURL: "mongodb://tsuru:tsuru@mongodb.default.svc.cluster.local/tsuru"
+
+    provisioner: "kubernetes"
+
+    docker:
+      registry: docker-registry:5000
+      router: ingress-router
+      cluster:
+        storage: mongodb
+        mongo-url: "mongodb://tsuru:tsuru@mongodb.default.svc.cluster.local/tsuru"
+        mongo-database: tsuru
+
+    routers:
+      ingress-router:
+        type: api
+        api-url: http://kubernetes-router.default.svc.cluster.local
+
+    debug: true
 
 mongodb:
   enabled: true
 
 monitoring:
+  enabled: false
+
+ingress-nginx:
   enabled: true
 
-ingressNginx:
-  enabled: true
-
-privateRegistry:
-  enabled: true
+registry:
+  enabled: false
 
   # set the type of filesystem to use: filesystem, s3
   storage: filesystem

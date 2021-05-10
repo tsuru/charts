@@ -33,8 +33,7 @@ dependencies:
   - name: ingress-nginx
     version: "3.*.*"
     repository: https://kubernetes.github.io/ingress-nginx
-    alias: ingressNginx
-    condition: ingressNginx.enabled
+    condition: ingress-nginx.enabled
   - name: tsuru-monitoring
     version: "0.1.*"
     repository: https://tsuru.github.io/charts
@@ -43,8 +42,8 @@ dependencies:
   - name: docker-registry
     version: "1.10.*"
     repository: https://helm.twun.io
-    alias: privateRegistry
-    condition: privateRegistry.enabled
+    alias: registry
+    condition: registry.enabled
   - name: mongodb
     version: "10.12.6"
     repository: https://charts.bitnami.com/bitnami
