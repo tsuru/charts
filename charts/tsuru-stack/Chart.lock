@@ -1,0 +1,21 @@
+dependencies:
+- name: tsuru-api
+  repository: https://tsuru.github.io/charts
+  version: 0.1.2
+- name: kubernetes-router
+  repository: https://tsuru.github.io/charts
+  version: 0.1.2
+- name: ingress-nginx
+  repository: https://kubernetes.github.io/ingress-nginx
+  version: 3.30.0
+- name: tsuru-monitoring
+  repository: https://tsuru.github.io/charts
+  version: 0.1.1
+- name: docker-registry
+  repository: https://helm.twun.io
+  version: 1.10.1
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.12.6
+digest: sha256:f1c15de25e3f0316e7658e9c228a10166ba09042d139bcc9a55c86aa9c84b430
+generated: "2021-05-10T15:57:51.589399622-03:00"
