@@ -17,7 +17,7 @@ tsuru-api:
     useTLS: false
 
     database:
-      mongodbURL: "mongodb://tsuru:tsuru@mongodb.default.svc.cluster.local/tsuru"
+      mongodbURL: "mongodb://tsuru:tsuru@tsuru-mongodb/tsuru"
 
     auth:
       scheme: "native"
@@ -26,7 +26,7 @@ tsuru-api:
         hashCost: 4
 
     queue:
-      mongodbURL: "mongodb://tsuru:tsuru@mongodb.default.svc.cluster.local/tsuru"
+      mongodbURL: "mongodb://tsuru:tsuru@tsuru-mongodb/tsuru"
 
     provisioner: "kubernetes"
 
@@ -35,24 +35,40 @@ tsuru-api:
       router: ingress-router
       cluster:
         storage: mongodb
-        mongo-url: "mongodb://tsuru:tsuru@mongodb.default.svc.cluster.local/tsuru"
+        mongo-url: "mongodb://tsuru:tsuru@tsuru-mongodb/tsuru"
         mongo-database: tsuru
 
     routers:
       ingress-router:
         type: api
-        api-url: http://kubernetes-router.default.svc.cluster.local
+        api-url: http://tsuru-kubernetes-router
+
+    log:
+      disableSyslog: true
 
     debug: true
 
+kubernetes-router:
+  controllerModes:
+  - ingress-nginx
+
+  api:
+    username: "admin"
+    password: "mypassword"
+
 mongodb:
   enabled: true
+  auth:
+    username: tsuru
+    password: tsuru
+    database: tsuru
 
 monitoring:
   enabled: false
 
 ingress-nginx:
   enabled: true
+  ingressClass: tsuru-nginx
 
 registry:
   enabled: false
