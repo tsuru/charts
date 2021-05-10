@@ -3,12 +3,14 @@
 # Declare variables to be passed into your templates.
 
 tsuru-api:
+  nameOverride: api
   image:
     tag: "edge"
 
   service:
-    type: ClusterIP
+    type: LoadBalancer
     httpPort: 80
+    httpsOnly: false
     targetHTTPPort: 8080
 
   indexPageTemplate: "<html><head></head><body><h1>Hello!</h1></body></html>"

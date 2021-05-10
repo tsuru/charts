@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.3
 - name: kubernetes-router
   repository: https://tsuru.github.io/charts
-  version: 0.1.2
+  version: 0.1.4
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
   version: 3.30.0
@@ -17,5 +17,5 @@ dependencies:
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
   version: 10.12.6
-digest: sha256:136094332dbee89df7a3768ef203b1c2ca4ea379106404cb1fba9ce983363eee
-generated: "2021-05-10T17:42:25.898414904-03:00"
+digest: sha256:195d67aad36b2aa2ee19b105926dd51dfb9a1bb56dd028c58d17d337fda73a07
+generated: "2021-05-10T17:51:25.924840064-03:00"
