@@ -35,7 +35,7 @@ rules:
   verbs: ["watch", "list", "get", "create", "delete"]
 - apiGroups: ["extensions"]
   resources: ["deployments", "deployments/rollback"]
-  verbs: ["get", "create", "update", "delete"]
+  verbs: ["get", "create", "update", "delete", "list"]
 - apiGroups: ["apps"]
   resources: ["deployments", "deployments/rollback"]
   verbs: ["get", "create", "update", "delete"]
