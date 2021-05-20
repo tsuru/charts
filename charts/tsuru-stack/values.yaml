@@ -33,7 +33,9 @@ tsuru-api:
     provisioner: "kubernetes"
 
     docker:
-      registry: docker-registry:5000
+      registry: tsuru-registry:5000
+      gc:
+        dry-run: false
       router: ingress-router
       cluster:
         storage: mongodb
@@ -43,7 +45,9 @@ tsuru-api:
     routers:
       ingress-router:
         type: api
-        api-url: http://tsuru-kubernetes-router
+        api-url: http://tsuru-kubernetes-router/api/ingress
+        headers:
+          Authorization: "Basic YWRtaW46bXlwYXNzd29yZA=="
 
     log:
       disableSyslog: true
@@ -72,6 +76,9 @@ ingress-nginx:
   enabled: true
   ingressClass: tsuru-nginx
 
+certManager:
+  enabled: true
+
 registry:
   enabled: false
 
@@ -79,19 +86,19 @@ registry:
   storage: filesystem
 
   configData:
-  version: 0.1
-  log:
-    fields:
-      service: registry
-  storage:
-    cache:
-      blobdescriptor: inmemory
-  http:
-    addr: :5000
-    headers:
-      X-Content-Type-Options: [nosniff]
-  health:
-    storagedriver:
-      enabled: true
-      interval: 10s
-      threshold: 3
+    version: 0.1
+    log:
+      fields:
+        service: registry
+    storage:
+      cache:
+        blobdescriptor: inmemory
+    http:
+      addr: :5000
+      headers:
+        X-Content-Type-Options: [nosniff]
+    health:
+      storagedriver:
+        enabled: true
+        interval: 10s
+        threshold: 3
