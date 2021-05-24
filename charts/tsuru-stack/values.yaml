@@ -77,10 +77,10 @@ ingress-nginx:
   ingressClass: tsuru-nginx
 
 certManager:
-  enabled: true
+  enabled: false
 
 registry:
-  enabled: false
+  enabled: true
 
   # set the type of filesystem to use: filesystem, s3
   storage: filesystem
