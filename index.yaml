@@ -55,6 +55,21 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.2/conntrack-exporter-0.1.2.tgz
     version: 0.1.2
+  ingress-merge:
+  - apiVersion: v1
+    created: "2021-05-25T12:17:36.717235168Z"
+    description: Merge Ingress Controller combines multiple ingress resorces into a new one.
+    digest: 4427a2521b5c13240423c61cdc077b2decfe3965ba8b93d5a07e44d056941d6c
+    home: https://github.com/jakubkulhan/ingress-merge
+    keywords:
+    - ingress
+    maintainers:
+    - email: jakub.kulhan@gmail.com
+      name: Jakub Kulhan
+    name: ingress-merge
+    urls:
+    - https://github.com/tsuru/charts/releases/download/ingress-merge-0.1-alpha1/ingress-merge-0.1-alpha1.tgz
+    version: 0.1-alpha1
   kubernetes-router:
   - apiVersion: v2
     appVersion: 0.14.0
