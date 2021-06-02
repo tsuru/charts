@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.5
 - name: kubernetes-router
   repository: https://tsuru.github.io/charts
-  version: 0.1.4
+  version: 0.1.5
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
   version: 3.30.0
@@ -20,5 +20,5 @@ dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.3.1
-digest: sha256:5ed0a6ff7fb04fda021c6ae1d478041da84a3e062175358e9d3376bcc7d460ee
-generated: "2021-05-20T16:02:59.770124747-03:00"
+digest: sha256:81e4e325203413e5f5fc3b78825ccd2f4b76e7826ea09c64f4c7140a4e10b269
+generated: "2021-06-02T10:22:59.337530746-03:00"
