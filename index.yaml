@@ -55,6 +55,16 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.2/conntrack-exporter-0.1.2.tgz
     version: 0.1.2
+  gke-ingress-config:
+  - apiVersion: v1
+    appVersion: 0.1.0
+    created: "2021-06-09T20:34:28.304887849Z"
+    description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
+    digest: e3338278d528095bb3d8007466237586ab2baeff46da6083cab65268c7a4bfa7
+    name: gke-ingress-config
+    urls:
+    - https://github.com/tsuru/charts/releases/download/gke-ingress-config-0.1.0/gke-ingress-config-0.1.0.tgz
+    version: 0.1.0
   ingress-merge:
   - apiVersion: v1
     created: "2021-05-25T12:17:36.717235168Z"
