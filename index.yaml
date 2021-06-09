@@ -57,6 +57,14 @@ entries:
     version: 0.1.2
   gke-ingress-config:
   - apiVersion: v1
+    created: "2021-06-09T20:50:21.69714534Z"
+    description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
+    digest: 53c50d02560376ee8982a5560b060e2667915e27de4eca19a2a89375f7599c02
+    name: gke-ingress-config
+    urls:
+    - https://github.com/tsuru/charts/releases/download/gke-ingress-config-0.1.1/gke-ingress-config-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
     appVersion: 0.1.0
     created: "2021-06-09T20:34:28.304887849Z"
     description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
