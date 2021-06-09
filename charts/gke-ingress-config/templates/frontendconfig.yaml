@@ -1,0 +1,14 @@
+{{- if .Values.frontendConfig.enabled }}
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: {{ template "gke-ingress-config.fullname" . }}
+  namespace: {{ template "gke-ingress-config.namespace" . }}
+  labels:
+{{ include "gke-ingress-config.labels" . | indent 4 }}
+{{- if .Values.annotations }}
+  annotations:
+{{- toYaml .Values.annotations | indent 4 }}
+{{- end }}
+spec: {{ .Values.frontendConfig.spec }}
+{{- end }}

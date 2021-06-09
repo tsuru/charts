@@ -1,0 +1,14 @@
+{{- if .Values.backendConfig.enabled }}
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: {{ template "gke-ingress-config.fullname" . }}
+  namespace: {{ template "gke-ingress-config.namespace" . }}
+  labels:
+{{ include "gke-ingress-config.labels" . | indent 4 }}
+{{- if .Values.annotations }}
+  annotations:
+{{- toYaml .Values.annotations | indent 4 }}
+{{- end }}
+spec: {{ .Values.backendConfig.spec }}
+{{- end }}
