@@ -1,4 +1,4 @@
 apiVersion: v1
 description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
 name: gke-ingress-config
-version: 0.1.1
+version: 0.2.0

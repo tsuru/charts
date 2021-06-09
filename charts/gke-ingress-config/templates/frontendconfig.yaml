@@ -2,7 +2,7 @@
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
-  name: {{ template "gke-ingress-config.fullname" . }}
+  name: {{ template "gke-ingress-config.name" . }}
   namespace: {{ template "gke-ingress-config.namespace" . }}
   labels:
 {{ include "gke-ingress-config.labels" . | indent 4 }}
