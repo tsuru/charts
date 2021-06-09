@@ -10,5 +10,6 @@ metadata:
   annotations:
 {{- toYaml .Values.annotations | indent 4 }}
 {{- end }}
-spec: {{ .Values.frontendConfig.spec }}
+spec:
+{{ toYaml .Values.frontendConfig.spec | indent 2 }}
 {{- end }}
