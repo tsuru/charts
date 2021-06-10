@@ -7,7 +7,7 @@ tsuruRules:
   annotations: {}
 
 rpaas:
-  enable: true
+  enabled: true
   namespaceSelector: {}
   selector: {}
 

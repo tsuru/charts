@@ -29,5 +29,5 @@ roleRef:
   kind: Role
   name: tsuru-remote-prometheus-reader
 subjects:
-{{ toYaml .Values.remoteRead.Readers | nindent 2 }}
+{{ toYaml .Values.remoteRead.readers | nindent 2 }}
 {{- end }}
