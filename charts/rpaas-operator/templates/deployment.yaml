@@ -33,6 +33,13 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - rpaas-operator
+          args:
+          - --config
+          - /etc/rpaas-operator/rpaas-operator-conf.yaml
+          {{- with .Values.arguments }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+
           ports:
             - name: metrics
               containerPort: 6000
@@ -48,6 +55,10 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "rpaas-operator"
+      volumes:
+      - name: rpaas-operator-conf
+        configMap:
+          name: rpaas-operator-conf
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
