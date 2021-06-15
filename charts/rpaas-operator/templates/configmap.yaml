@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "rpaas-operator.fullname" . }}
-  labels:
-    {{- include "rpaas-operator.labels" . | nindent 4 }}
-data:
-  rpaas-operator-conf.yaml: |-
-{{ .Values.config | toYaml | indent 4 }}
