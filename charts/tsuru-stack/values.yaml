@@ -4,8 +4,6 @@
 
 tsuru-api:
   nameOverride: api
-  image:
-    tag: "edge"
 
   service:
     type: LoadBalancer
@@ -33,7 +31,7 @@ tsuru-api:
     provisioner: "kubernetes"
 
     docker:
-      registry: tsuru-registry:5000
+      registry: tsuru-registry:80
       gc:
         dry-run: false
       router: ingress-router
@@ -84,6 +82,9 @@ registry:
 
   # set the type of filesystem to use: filesystem, s3
   storage: filesystem
+
+  service:
+    port: 80
 
   configData:
     version: 0.1
