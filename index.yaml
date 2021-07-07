@@ -55,6 +55,17 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.2/conntrack-exporter-0.1.2.tgz
     version: 0.1.2
+  gcp-state-metrics:
+  - apiVersion: v2
+    appVersion: 0.0.0
+    created: "2021-07-07T18:26:41.92723995Z"
+    description: A Helm chart for Kubernetes
+    digest: 9043e5f7db817f452173f0cb8da6777418abf6f2c18f3689f39e07d0fe12eb11
+    name: gcp-state-metrics
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/gcp-state-metrics-0.1.0/gcp-state-metrics-0.1.0.tgz
+    version: 0.1.0
   gke-ingress-config:
   - apiVersion: v1
     created: "2021-06-09T21:02:18.494850386Z"
