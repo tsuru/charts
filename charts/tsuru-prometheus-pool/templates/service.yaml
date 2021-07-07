@@ -4,6 +4,8 @@ metadata:
   name: {{ include "..fullname" . }}
   labels:
     {{- include "..labels" . | nindent 4 }}
+  annotation:
+    cloud.google.com/neg: '{"ingress": true}'
 spec:
   type: ClusterIP
   ports:
