@@ -57,6 +57,16 @@ entries:
     version: 0.1.2
   gcp-state-metrics:
   - apiVersion: v2
+    appVersion: latest
+    created: "2021-07-08T21:05:10.315916502Z"
+    description: A Helm chart for Kubernetes
+    digest: cd0f568c62dfb2a114c9e944c60280dda1e4a582fce8ab4a4d1d9d6089bd2cd5
+    name: gcp-state-metrics
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/gcp-state-metrics-0.1.3/gcp-state-metrics-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     appVersion: 0.0.0
     created: "2021-07-08T19:46:59.138989806Z"
     description: A Helm chart for Kubernetes
