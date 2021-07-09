@@ -57,6 +57,7 @@ spec:
           replacement: $1
           action: replace
   namespaceSelector:
+    matchNames:
     - {{ .Release.Namespace }}
   selector:
 {{- toYaml .Values.rpaas.selector | nindent 4}}

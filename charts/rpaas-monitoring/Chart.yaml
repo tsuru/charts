@@ -2,5 +2,4 @@ apiVersion: v2
 name: rpaas-monitoring
 description: Service monitor to scrape all rpaas pods
 type: application
-version: 0.1.0
-
+version: 0.1.1
