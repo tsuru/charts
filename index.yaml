@@ -191,6 +191,16 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/nginx-operator-0.1.0/nginx-operator-0.1.0.tgz
     version: 0.1.0
+  rpaas-monitoring:
+  - apiVersion: v2
+    created: "2021-07-09T18:49:56.756212841Z"
+    description: Service monitor to scrape all rpaas pods
+    digest: dfdb25aa693a6f4be8b6bd6319d19343f8164366973c6861b95db97cc5f28f9f
+    name: rpaas-monitoring
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.0/rpaas-monitoring-0.1.0.tgz
+    version: 0.1.0
   rpaas-operator:
   - apiVersion: v2
     appVersion: 0.12.6
