@@ -1,0 +1,15 @@
+{{- if .Values.prometheus.servicemonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ include "gcp-state-metrics.fullname" . }}
+  labels:
+    {{- include "gcp-state-metrics.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "gcp-state-metrics.selectorLabels" . | nindent 6 }}
+  podMetricsEndpoints:
+    - port: http
+      scheme: http
+{{- end }}
