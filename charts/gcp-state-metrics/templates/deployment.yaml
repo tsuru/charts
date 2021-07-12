@@ -30,11 +30,13 @@ spec:
               value: {{ .Values.gcp.project }}
             - name: "GCP_REGION"
               value: {{ .Values.gcp.region }}
+            - name: "PORT"
+              value: "8080"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           readinessProbe:
             httpGet:
