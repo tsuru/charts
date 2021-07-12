@@ -25,16 +25,17 @@ spec:
       serviceAccountName: {{ include "gcp-state-metrics.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
+          env:
+            - name: "GCP_PROJECT"
+              value: {{ .Values.gcp.project }}
+            - name: "GCP_REGION"
+              value: {{ .Values.gcp.region }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
           readinessProbe:
             httpGet:
               path: /
