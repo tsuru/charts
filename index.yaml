@@ -248,6 +248,17 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/kubernetes-router-0.1.1/kubernetes-router-0.1.1.tgz
     version: 0.1.1
+  networkapi-ingress-controller:
+  - apiVersion: v2
+    appVersion: edge
+    created: "2021-07-23T18:33:09.237284547Z"
+    description: A Helm chart for Kubernetes
+    digest: 2976d5d9c88b3385bafd12cae111d116199b1ea72eb0e95bb0c486642827cb23
+    name: networkapi-ingress-controller
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/networkapi-ingress-controller-0.1.0/networkapi-ingress-controller-0.1.0.tgz
+    version: 0.1.0
   nginx-operator:
   - apiVersion: v2
     appVersion: 0.6.3
