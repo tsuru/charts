@@ -6,6 +6,8 @@ replicaCount: 1
 
 networkapi:
   zapLogLevel: 2
+  username: ""
+  password: ""
   config:
     debugReconcileOnce: false
     debugDisableCleanup: false
@@ -13,8 +15,6 @@ networkapi:
     podNetworkID: 0
     lbNetworkID: 0
     networkAPIURL: ""
-    networkAPIUsername: ""
-    networkAPIPassword: ""
     defaultPoolEnvironmentID: 0
     defaultVIPEnvironmentID: 0
     defaultCacheGroupID: 0

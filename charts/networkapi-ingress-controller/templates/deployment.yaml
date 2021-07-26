@@ -60,6 +60,17 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+          env:
+            - name: NETWORK_API_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "networkapi-ingress-controller.fullname" . }}
+                  key: username
+            - name: NETWORK_API_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "networkapi-ingress-controller.fullname" . }}
+                  key: password
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
