@@ -39,9 +39,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
           - -ingress-config
-          - /config/ingress-config.json
+          - /config/networkapi-config.json
           - -controller-config
-          - /config/networkapi-config.yaml
+          - /config/controller-config.yaml
           - -zap-log-level
           - "{{ .Values.networkapi.zapLogLevel | default "2" }}"
           ports:
