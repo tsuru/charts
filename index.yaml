@@ -1,5 +1,15 @@
 apiVersion: v1
 entries:
+  certmanager-certificate:
+  - apiVersion: v2
+    created: "2021-07-26T12:08:49.95510107Z"
+    description: Set up a cert-manager certificate using helm
+    digest: 51b40f0ec392252358d41ce7be0522566041ffc3177b0501317b8076d650747b
+    name: certmanager-certificate
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/certmanager-certificate-0.1.0/certmanager-certificate-0.1.0.tgz
+    version: 0.1.0
   certmanager-cluster-issuer:
   - apiVersion: v2
     created: "2021-07-12T12:26:12.496661527Z"
