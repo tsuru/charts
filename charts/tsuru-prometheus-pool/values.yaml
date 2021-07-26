@@ -8,6 +8,9 @@ prometheus:
   image:
     repository: quay.io/prometheus/prometheus
 
+
+resources: {}
+
 nameOverride: ""
 fullnameOverride: ""
 

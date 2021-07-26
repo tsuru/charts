@@ -31,7 +31,8 @@ spec:
     matchLabels:
       name: tsuru-{{ .Values.tsuru.pool.name }}
   replicas: {{ .Values.replicaCount }}
-  resources: {}
+  resources:
+  {{- .Values.resources | toYaml |nindent 4 }}
   retention: 10d
   routePrefix: /
   ruleNamespaceSelector:
