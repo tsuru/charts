@@ -261,6 +261,16 @@ entries:
   networkapi-ingress-controller:
   - apiVersion: v2
     appVersion: edge
+    created: "2021-07-26T13:47:52.360382664Z"
+    description: A Helm chart for Kubernetes
+    digest: 1b516a93161bdd9f2d7fd308e20152ce8a4fef1bf6c2069d5a7d87cfef02f3c3
+    name: networkapi-ingress-controller
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/networkapi-ingress-controller-0.2.0/networkapi-ingress-controller-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: edge
     created: "2021-07-23T18:33:09.237284547Z"
     description: A Helm chart for Kubernetes
     digest: 2976d5d9c88b3385bafd12cae111d116199b1ea72eb0e95bb0c486642827cb23
