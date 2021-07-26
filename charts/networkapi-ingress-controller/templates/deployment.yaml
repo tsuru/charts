@@ -43,7 +43,7 @@ spec:
           - -controller-config
           - /config/networkapi-config.yaml
           - -zap-log-level
-          - {{ .Values.networkapi.zapLogLevel | default "2" }}
+          - "{{ .Values.networkapi.zapLogLevel | default "2" }}"
           ports:
             - name: metrics
               containerPort: 9091
