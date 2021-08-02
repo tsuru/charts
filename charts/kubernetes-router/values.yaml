@@ -68,6 +68,7 @@ securityContext: {}
 service:
   type: LoadBalancer
   port: 80
+  annotations: {}
 
 ingress:
   enabled: false
