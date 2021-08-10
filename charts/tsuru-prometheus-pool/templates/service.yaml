@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "..labels" . | nindent 4 }}
   annotations:
-    cloud.google.com/neg: '{"ingress": true}'
+    {{- .Values.service.annotations | toYaml | nindent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.service.type }}
   ports:
     - port: 9090
       targetPort: 9090
@@ -15,3 +15,4 @@ spec:
       name: http
   selector:
     tsuru.io/pool: {{ .Values.tsuru.pool.name }}
+    prometheus: tsuru-prometheus-pool

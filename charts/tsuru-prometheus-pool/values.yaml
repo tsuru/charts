@@ -8,6 +8,9 @@ prometheus:
   image:
     repository: quay.io/prometheus/prometheus
 
+service:
+  type: ClusterIP
+  annotations: {}
 
 resources: {}
 
