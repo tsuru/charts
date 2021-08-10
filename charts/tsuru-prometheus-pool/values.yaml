@@ -56,3 +56,8 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+# additionalScrapeConfigs:
+#   # Read more at: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/additional-scrape-config.md
+#   name: additional-scrape-configs
+#   key: prometheus-additional.yaml

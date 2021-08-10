@@ -56,3 +56,7 @@ spec:
   storage:
     volumeClaimTemplate:
       {{- .Values.volumeClaimTemplate | toYaml |nindent 6}}
+  {{- with .Values.additionalScrapeConfigs }}
+  additionalScrapeConfigs:
+    {{- . | toYaml |nindent 4}}
+  {{ end }}
