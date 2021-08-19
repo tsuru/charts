@@ -12,6 +12,15 @@ entries:
     version: 0.1.0
   certmanager-cluster-issuer:
   - apiVersion: v2
+    created: "2021-08-19T21:06:25.550300436Z"
+    description: Set up a cluster issuer using helm
+    digest: 7176d64c02a95e8862a6a9dfaf8e0c6fefe24b824015b99e0935d0e073586af7
+    name: certmanager-cluster-issuer
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/certmanager-cluster-issuer-0.1.1/certmanager-cluster-issuer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2021-07-12T12:26:12.496661527Z"
     description: Set up a cluster issuer using helm
     digest: 3195572586bc4d69ab908e534599e4187f3b4c23cf5ccfddb7d4139818590110
