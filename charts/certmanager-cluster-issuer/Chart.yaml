@@ -2,4 +2,4 @@ apiVersion: v2
 name: certmanager-cluster-issuer
 description: Set up a cluster issuer using helm
 type: application
-version: 0.1.0
+version: 0.1.1

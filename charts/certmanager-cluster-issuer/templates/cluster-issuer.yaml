@@ -4,5 +4,7 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     {{- include "certmanager-cluster-issuer.labels" . | nindent 4 }}
+  annotations:
+    {{ toYaml .Values.annotations | nindent 4 }}
 spec:
 {{ toYaml .Values.spec | indent 2 }}
