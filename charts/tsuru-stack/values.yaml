@@ -32,6 +32,7 @@ tsuru-api:
 
     docker:
       registry: tsuru-registry:80
+      resolve-registry-name: true
       gc:
         dry-run: false
       router: ingress-router
