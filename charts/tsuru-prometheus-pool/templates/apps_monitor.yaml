@@ -12,7 +12,9 @@ spec:
       tsuru.io/is-build: "false"
       tsuru.io/is-deploy: "false"
   podMetricsEndpoints:
-  - relabelings:
+  - tlsConfig:
+      insecureSkipVerify: true
+    relabelings:
       - sourceLabels:
         - '__meta_kubernetes_pod_annotation_prometheus_io_scrape'
         regex: 'true'
