@@ -1,0 +1,67 @@
+{{- if .Values.rpaas.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: rpaas-pods
+  labels:
+    tsuru.io/pool: {{ .Values.tsuru.pool.name }}
+    {{- include "..labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - scheme: http
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+          action: replace
+          targetLabel: __metrics_path__
+        - sourceLabels: [__meta_kubernetes_pod_container_port_name]
+          action: keep
+          regex: '.*-metrics'
+        - sourceLabels: [__meta_kubernetes_pod_label_rpaas_service]
+          separator: ;
+          regex: (.*)
+          targetLabel: service
+          replacement: $1
+          action: replace
+        - sourceLabels: [__meta_kubernetes_pod_label_rpaas_instance]
+          separator: ;
+          regex: (.*)
+          targetLabel: service_instance
+          replacement: $1
+          action: replace
+        - sourceLabels: [__meta_kubernetes_pod_label_rpaas_extensions_tsuru_io_team_owner]
+          separator: ;
+          regex: (.*)
+          targetLabel: service_owner
+          replacement: $1
+          action: replace
+        - sourceLabels: [__meta_kubernetes_pod_label_rpaas_extensions_tsuru_io_cluster_name]
+          separator: ;
+          regex: (.*)
+          targetLabel: service_cluster
+          replacement: $1
+          action: replace
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          separator: ;
+          regex: (.*)
+          targetLabel: kubernetes_pod_name
+          replacement: $1
+          action: replace
+        - sourceLabels: [__meta_kubernetes_pod_container_name]
+          separator: ;
+          regex: (.*)
+          targetLabel: kubernetes_container_name
+          replacement: $1
+          action: replace
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          separator: ;
+          regex: (.*)
+          targetLabel: kubernetes_node
+          replacement: $1
+          action: replace
+{{- with .Values.rpaas.namespaceSelector }}
+  namespaceSelector:
+{{- toYaml . | nindent 4}}
+{{- end }}
+  selector:
+{{- toYaml .Values.rpaas.selector | nindent 4}}
+{{- end }}
