@@ -3,6 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   labels:
+    tsuru.io/pool: {{ .Values.tsuru.pool.name }}
     {{- include "..labels" . | nindent 4 }}
   name: tsuru-rpaas-slis
 spec:

@@ -38,6 +38,9 @@ spec:
   ruleNamespaceSelector:
     matchLabels:
       name: tsuru-{{ .Values.tsuru.pool.name }}
+  ruleSelector:
+    matchLabels:
+      tsuru.io/pool: {{ .Values.tsuru.pool.name }}
   rules:
     alert: {}
   securityContext:
