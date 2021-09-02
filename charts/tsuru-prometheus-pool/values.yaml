@@ -44,6 +44,12 @@ networkPolicy:
   k8sAPIAddresses: []
   # - IPs of k8s-apiserver
 
+  # additionalEgressRules:
+  # - to:
+  #   - namespaceSelector:
+  #       matchLabels:
+  #         name: myothernamespace
+
 
 ingress:
   enabled: false
