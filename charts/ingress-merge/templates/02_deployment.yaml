@@ -27,7 +27,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - --logtostderr
             - --ingress-class={{ .Values.ingressClass }}
             {{- if .Values.configMapSelector }}
             - --configmap-selector={{ .Values.configMapSelector }}{{ end }}
