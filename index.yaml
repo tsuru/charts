@@ -213,6 +213,20 @@ entries:
     version: 0.1.0
   ingress-merge:
   - apiVersion: v1
+    created: "2021-09-03T17:21:11.981258984Z"
+    description: Merge Ingress Controller combines multiple ingress resorces into a new one.
+    digest: fd29e2697812a6994ecc87cd33956f1b55f9e4e6925a363b9fec781dfa73a9b5
+    home: https://github.com/jakubkulhan/ingress-merge
+    keywords:
+    - ingress
+    maintainers:
+    - email: jakub.kulhan@gmail.com
+      name: Jakub Kulhan
+    name: ingress-merge
+    urls:
+    - https://github.com/tsuru/charts/releases/download/ingress-merge-0.1-alpha3/ingress-merge-0.1-alpha3.tgz
+    version: 0.1-alpha3
+  - apiVersion: v1
     created: "2021-09-03T17:04:42.41928309Z"
     description: Merge Ingress Controller combines multiple ingress resorces into a new one.
     digest: cbc8254dc964e1ea905353f8396813a573554c043ef61551407753cfbc0bbbd8
