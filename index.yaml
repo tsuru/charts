@@ -389,6 +389,18 @@ entries:
   nginx-operator:
   - apiVersion: v2
     appVersion: 0.8.0
+    created: "2021-09-06T21:47:58.907322243Z"
+    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    digest: 95575db054c8e39737060c0544d151a352432391703d4221e927fa19daa46b5e
+    name: nginx-operator
+    sources:
+    - https://github.com/tsuru/nginx-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/nginx-operator-1.2.0/nginx-operator-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: 0.8.0
     created: "2021-09-06T19:52:07.30985369Z"
     description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
     digest: 3e780df9ed830b3da255b3ba7ab00fc39ae3d824dc9b499b8fd9b1988f8a7b67
@@ -467,6 +479,23 @@ entries:
     - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.0/rpaas-monitoring-0.1.0.tgz
     version: 0.1.0
   rpaas-operator:
+  - apiVersion: v2
+    appVersion: 0.12.6
+    created: "2021-09-06T21:47:59.07592896Z"
+    dependencies:
+    - condition: nginxOperator.enabled
+      name: nginx-operator
+      repository: https://tsuru.github.io/charts
+      version: 0.1.*
+    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    digest: 092cf952741bfff5a6c01bf00d653de6eef916611e6295b1b6189fbb0c922e08
+    name: rpaas-operator
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.2.0/rpaas-operator-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: 0.12.6
     created: "2021-08-24T17:56:09.954012236Z"
