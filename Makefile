@@ -1,4 +1,6 @@
-.PHONY: update-crds clean-tmp-dirs update-crds
+.PHONY: all update-crds update-slis
+
+all: update-crds update-slis
 
 update-crds:
 	kustomize build \
