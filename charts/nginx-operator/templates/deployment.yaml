@@ -32,14 +32,31 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: metrics
-              containerPort: 60000
-              protocol: TCP
+          - name: metrics
+            containerPort: 60000
+            protocol: TCP
+          - name: health
+            containerPort: 60001
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: health
+              path: /healthz
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           command:
           - nginx-operator
-          args: []
+          args:
+          - --metrics-addr=:60000
+          - --enable-leader-election=true
+          - --leader-election-namespace=$(POD_NAMESPACE)
+          - --health-addr=:60001
+          {{- with .Values.extraArgs }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
           env:
             - name: WATCH_NAMESPACE
               value: ""
@@ -47,6 +64,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
             - name: OPERATOR_NAME
               value: "nginx-operator"
       {{- with .Values.nodeSelector }}

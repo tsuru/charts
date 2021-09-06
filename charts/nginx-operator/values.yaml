@@ -10,6 +10,13 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+# a list of custom arguments provided to nginx-operator;
+#
+# extraArgs:
+# - --log-level=debug
+# - --log-format=console
+extraArgs: []
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
