@@ -7,7 +7,7 @@ update-crds:
 		github.com/tsuru/nginx-operator//config/crd/?ref=main > ./charts/nginx-operator/crds/crds.yaml
 
 	kustomize build \
-		github.com/tsuru/rpaas-operator//config/crd/?ref=master > ./charts/rpaas-operator/templates/crds.yaml
+		github.com/tsuru/rpaas-operator//config/crd/?ref=master > ./charts/rpaas-operator/crds/crds.yaml
 
 update-slis:
 	go get github.com/globocom/slo-generator
