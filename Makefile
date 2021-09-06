@@ -1,18 +1,11 @@
 .PHONY: update-crds clean-tmp-dirs update-crds
 
-update-crds: clean-tmp-dirs
-	git clone --depth 1 https://github.com/tsuru/nginx-operator.git ./nginx-operator
-	git clone --depth 1 https://github.com/tsuru/rpaas-operator.git ./rpaas-operator
+update-crds:
+	kustomize build \
+		github.com/tsuru/nginx-operator//config/crd/?ref=main > ./charts/nginx-operator/templates/crds.yaml
 
-	kustomize build ./config/nginx-operator > charts/nginx-operator/templates/crds.yaml
-	kustomize build ./config/rpaas-operator > charts/rpaas-operator/templates/crds.yaml
-
-	rm -rf ./nginx-operator
-	rm -rf ./rpaas-operator
-
-clean-tmp-dirs:
-	rm -rf ./nginx-operator
-	rm -rf ./rpaas-operator
+	kustomize build \
+		github.com/tsuru/rpaas-operator//config/crd/?ref=master > ./charts/rpaas-operator/templates/crds.yaml
 
 update-slis:
 	go get github.com/globocom/slo-generator
