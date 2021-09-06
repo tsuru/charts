@@ -4,7 +4,7 @@ all: update-crds update-slis
 
 update-crds:
 	kustomize build \
-		github.com/tsuru/nginx-operator//config/crd/?ref=main > ./charts/nginx-operator/templates/crds.yaml
+		github.com/tsuru/nginx-operator//config/crd/?ref=main > ./charts/nginx-operator/crds/crds.yaml
 
 	kustomize build \
 		github.com/tsuru/rpaas-operator//config/crd/?ref=master > ./charts/rpaas-operator/templates/crds.yaml
