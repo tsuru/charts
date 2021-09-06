@@ -4,14 +4,6 @@
 
 replicaCount: 1
 
-config:
-  nginx-controller:
-    pod-template:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/status"
-        prometheus.io/port: nginx-metrics
-
 image:
   repository: tsuru/nginx-operator
   pullPolicy: IfNotPresent

@@ -39,9 +39,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           command:
           - nginx-operator
-          args:
-          - --config
-          - /etc/nginx-operator/nginx-operator-conf.yaml
+          args: []
           env:
             - name: WATCH_NAMESPACE
               value: ""
@@ -51,10 +49,6 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "nginx-operator"
-          volumeMounts:
-          - name: nginx-operator-conf
-            mountPath: /etc/nginx-operator
-  
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -67,7 +61,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
-      - name: nginx-operator-conf
-        configMap:
-          name: {{ include "nginx-operator.fullname" . }}
