@@ -254,6 +254,15 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/ingress-merge-0.1-alpha1/ingress-merge-0.1-alpha1.tgz
     version: 0.1-alpha1
+  ip-masq-agent:
+  - apiVersion: v2
+    created: "2021-09-15T13:15:42.954459522Z"
+    description: A Helm chart for Kubernetes IP Masq Agent
+    digest: b1563b0e8648a96925e993b1a49016f5ab2e632d14356f0e7bf2e84df19eba5a
+    name: ip-masq-agent
+    urls:
+    - https://github.com/tsuru/charts/releases/download/ip-masq-agent-0.1.0/ip-masq-agent-0.1.0.tgz
+    version: 0.1.0
   kubernetes-router:
   - apiVersion: v2
     appVersion: 0.16.0-rc2
