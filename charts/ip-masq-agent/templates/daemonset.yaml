@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "ip-masq-agent.fullname" . }}
+  labels:
+    {{- include "ip-masq-agent.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "ip-masq-agent.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ip-masq-agent.selectorLabels" . | nindent 8 }}
+    spec:
+      hostNetwork: true
+      containers:
+       - name: {{ .Chart.Name }}
+         args:
+         {{- if .Values.args }}
+           {{- toYaml .Values.args | nindent 12 }}
+         {{- end }}
+         securityContext:
+           {{- toYaml .Values.securityContext | nindent 12 }}
+         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+         imagePullPolicy: {{ .Values.image.pullPolicy }}
+         resources:
+           {{- toYaml .Values.resources | nindent 12 }}
+         volumeMounts:
+           - name: config
+             mountPath: /etc/config
+      volumes:
+        - name: config
+          configMap:
+            name: ip-masq-agent
+            optional: true
+            items:
+              - key: config
+                path: ip-masq-agent
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
