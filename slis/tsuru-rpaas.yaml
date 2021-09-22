@@ -33,6 +33,7 @@ slos:
         # reference: https://landing.google.com/sre/workbook/chapters/alerting-on-slos/#alerting_at_scale
         - '0.100'
         - '0.200'
+        - '0.500'
         - '1.000'
         - '5.000'
 
