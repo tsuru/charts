@@ -680,6 +680,16 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.1.0/rpaas-operator-0.1.0.tgz
     version: 0.1.0
+  rpaas-slo-controller:
+  - apiVersion: v2
+    created: "2021-09-23T20:27:45.753427273Z"
+    description: Integrate slo-generator with rpaasinstances
+    digest: 78c2390cc281c8ebaa0478031582cc1a9ce1037c964918538d2765623a7bc1be
+    name: rpaas-slo-controller
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-slo-controller-0.1.1/rpaas-slo-controller-0.1.1.tgz
+    version: 0.1.1
   tsuru-api:
   - apiVersion: v2
     appVersion: 1.10.1-rc1
