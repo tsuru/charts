@@ -1,0 +1,36 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "rpaas-slo-controller.fullname" . }}
+  labels: {{- include "rpaas-slo-controller.labels" . | nindent 4 }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "rpaas-slo-controller.serviceAccountName" . }}
+  namespace: {{.Release.Namespace}}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "rpaas-slo-controller.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "rpaas-slo-controller.fullname" . }}
+  labels: {{- include "rpaas-slo-controller.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - prometheus
+  - prometheusrules
+  verbs:
+  - '*'
+- apiGroups:
+  - extensions.tsuru.io
+  resources:
+  - rpaasinstances
+  - rpaasinstances/status
+  verbs:
+  - 'get'
+  - 'list'
+  - 'watch'
