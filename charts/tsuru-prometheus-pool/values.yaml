@@ -8,6 +8,14 @@ prometheus:
   image:
     repository: quay.io/prometheus/prometheus
 
+  alerting: {}
+  # alertmanagers:
+  # - apiVersion: v2
+  #   name: alertmanager
+  #   namespace: default
+  #   pathPrefix: /
+  #   port: web
+
 service:
   type: ClusterIP
   annotations: {}

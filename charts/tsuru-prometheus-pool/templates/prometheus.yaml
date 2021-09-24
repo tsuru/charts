@@ -5,8 +5,11 @@ metadata:
   labels:
     {{- include "..labels" . | nindent 4 }}
 spec:
+  {{- with .Values.prometheus.alerting }}
   alerting:
-    alertmanagers: []
+    {{- . | toYaml | nindent 4 }}
+  {{- end }}
+
   arbitraryFSAccessThroughSMs: {}
   externalLabels:
     prometheus_from: tsuru-pool-{{ .Values.tsuru.pool.name }}
