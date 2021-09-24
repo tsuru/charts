@@ -35,6 +35,13 @@ spec:
             - name: http
               containerPort: 8888
               protocol: TCP
+
+          {{- with .Values.alertLinkTemplate }}
+          env:
+          - name: ALERT_LINK_TEMPLATE
+            value: {{ . | quote }}
+          {{- end }}
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
