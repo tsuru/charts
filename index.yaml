@@ -682,6 +682,15 @@ entries:
     version: 0.1.0
   rpaas-slo-controller:
   - apiVersion: v2
+    created: "2021-09-24T19:33:54.765219801Z"
+    description: Integrate slo-generator with rpaasinstances
+    digest: 9316564c6c3b0f74a624dbf438d2877f0f69eb62224c4052ac4700cd5096a433
+    name: rpaas-slo-controller
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-slo-controller-0.1.2/rpaas-slo-controller-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2021-09-23T20:27:45.753427273Z"
     description: Integrate slo-generator with rpaasinstances
     digest: 78c2390cc281c8ebaa0478031582cc1a9ce1037c964918538d2765623a7bc1be
