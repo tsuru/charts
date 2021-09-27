@@ -41,7 +41,7 @@ rules:
   verbs: ["get", "create", "update", "delete", "list"]
 - apiGroups: ["apps"]
   resources: ["deployments", "deployments/rollback"]
-  verbs: ["get", "create", "update", "delete"]
+  verbs: ["get", "create", "update", "delete","list"]
 - apiGroups: ["apps"]
   resources: ["daemonsets"]
   verbs: ["get", "create", "update"]
