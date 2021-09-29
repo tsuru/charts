@@ -702,6 +702,16 @@ entries:
   tsuru-api:
   - apiVersion: v2
     appVersion: 1.10.1-rc1
+    created: "2021-09-29T20:30:08.601091009Z"
+    description: A Helm chart to install Tsuru API Server
+    digest: f9d076dd250ad0d779908ae446142b4f3fca8e5299423123a06367a2da23fabc
+    name: tsuru-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-api-0.1.8/tsuru-api-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
+    appVersion: 1.10.1-rc1
     created: "2021-09-27T20:38:52.363391614Z"
     description: A Helm chart to install Tsuru API Server
     digest: 96ffe84e3591beb45b2a6dc513406d7201cbcb65ab5e81227d2e5bfa015817a8
@@ -987,6 +997,44 @@ entries:
     - https://github.com/tsuru/charts/releases/download/tsuru-prometheus-pool-0.1.0/tsuru-prometheus-pool-0.1.0.tgz
     version: 0.1.0
   tsuru-stack:
+  - apiVersion: v2
+    created: "2021-09-29T20:30:08.801410282Z"
+    dependencies:
+    - name: tsuru-api
+      repository: https://tsuru.github.io/charts
+      version: 0.1.7
+    - name: kubernetes-router
+      repository: https://tsuru.github.io/charts
+      version: 0.1.5
+    - condition: ingress-nginx.enabled
+      name: ingress-nginx
+      repository: https://kubernetes.github.io/ingress-nginx
+      version: 3.30.0
+    - alias: monitoring
+      condition: monitoring.enabled
+      name: tsuru-monitoring
+      repository: https://tsuru.github.io/charts
+      version: 0.1.1
+    - alias: registry
+      condition: registry.enabled
+      name: docker-registry
+      repository: https://helm.twun.io
+      version: 1.10.1
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.12.6
+    - condition: certManager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: 1.3.1
+    description: A Helm chart for Kubernetes
+    digest: c09896ccbf916387ee99f1eaad8f80784c06e0e1594af14d3ad09a8689711f6e
+    name: tsuru-stack
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.2.0/tsuru-stack-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     created: "2021-09-27T20:46:06.364202731Z"
     dependencies:
