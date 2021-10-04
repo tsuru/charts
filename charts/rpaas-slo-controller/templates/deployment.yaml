@@ -36,9 +36,15 @@ spec:
               containerPort: 8888
               protocol: TCP
 
-          {{- with .Values.alertLinkTemplate }}
+
           env:
+          {{- with .Values.alertLinkTemplate }}
           - name: ALERT_LINK_TEMPLATE
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.alertMessageTemplate }}
+          - name: ALERT_MESSAGE_TEMPLATE
             value: {{ . | quote }}
           {{- end }}
 
