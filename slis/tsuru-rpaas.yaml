@@ -8,7 +8,7 @@ slos:
         sum(label_replace(label_join(sum by (namespace, service_instance) (
                                      rate(nginx_vts_server_requests_total{code="total",host="*"}[$window])),
                                      "service", ".", "namespace", "service_instance"),
-                          "service", "tsuru.$1", "service",  "(.*)")) by (service)
+                          "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
 
     errorRateRecord:
       expr: |
@@ -17,7 +17,7 @@ slos:
                                      sum by (namespace, service_instance) (
                                          rate(nginx_vts_server_requests_total{code="total",host="*"}[$window])),
                                      "service", ".", "namespace", "service_instance"),
-                          "service", "tsuru.$1", "service",  "(.*)")) by (service) >= 0
+                          "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
 
     latencyQuantileRecord:
       expr: |
@@ -25,7 +25,7 @@ slos:
                                                         sum by (namespace, service_instance, le) (
                                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[$window])) >= 0),
                                      "service", ".", "namespace", "service_instance"),
-                          "service", "tsuru.$1", "service",  "(.*)")) by (service) >= 0
+                          "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
 
     latencyRecord:
       buckets:
@@ -43,4 +43,4 @@ slos:
                                      sum by (namespace, service_instance) (
                                          sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[$window])),
                                      "service", ".", "namespace", "service_instance"),
-                          "service", "tsuru.$1", "service",  "(.*)")) by (service) >= 0
+                          "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
