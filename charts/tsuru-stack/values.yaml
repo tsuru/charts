@@ -44,7 +44,7 @@ tsuru-api:
     routers:
       ingress-router:
         type: api
-        api-url: http://tsuru-kubernetes-router/api/ingress
+        api-url: http://tsuru-kubernetes-router/api/ingress-nginx
         headers:
           Authorization: "Basic YWRtaW46bXlwYXNzd29yZA=="
 
