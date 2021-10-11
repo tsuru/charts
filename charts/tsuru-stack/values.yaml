@@ -14,6 +14,7 @@ tsuru-api:
   indexPageTemplate: "<html><head></head><body><h1>Hello!</h1></body></html>"
 
   tsuruConfig:
+    host: "http://tsuru-api.tsuru-system.svc.cluster.local" # requires that we always install into tsuru-system namespace
     useTLS: false
 
     database:
