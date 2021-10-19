@@ -13,6 +13,7 @@ spec:
     plural: rpaasflavors
     singular: rpaasflavor
   scope: Namespaced
+  preserveUnknownFields: false
   versions:
   - name: v1alpha1
     schema:
@@ -4659,6 +4660,7 @@ spec:
     plural: rpaasinstances
     singular: rpaasinstance
   scope: Namespaced
+  preserveUnknownFields: false
   versions:
   - name: v1alpha1
     schema:
@@ -9151,6 +9153,7 @@ spec:
     plural: rpaasplans
     singular: rpaasplan
   scope: Namespaced
+  preserveUnknownFields: false
   versions:
   - name: v1alpha1
     schema:
@@ -9353,6 +9356,7 @@ spec:
     plural: rpaasportallocations
     singular: rpaasportallocation
   scope: Cluster
+  preserveUnknownFields: false
   versions:
   - name: v1alpha1
     schema:
