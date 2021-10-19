@@ -13,6 +13,7 @@ spec:
     plural: nginxes
     singular: nginx
   scope: Namespaced
+  preserveUnknownFields: false
   versions:
   - additionalPrinterColumns:
     - jsonPath: .status.currentReplicas
