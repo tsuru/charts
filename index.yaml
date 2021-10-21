@@ -1162,6 +1162,44 @@ entries:
     version: 0.1.0
   tsuru-stack:
   - apiVersion: v2
+    created: "2021-10-21T20:10:49.759550011Z"
+    dependencies:
+    - name: tsuru-api
+      repository: https://tsuru.github.io/charts
+      version: 0.1.14
+    - name: kubernetes-router
+      repository: https://tsuru.github.io/charts
+      version: 0.1.5
+    - condition: ingress-nginx.enabled
+      name: ingress-nginx
+      repository: https://kubernetes.github.io/ingress-nginx
+      version: 3.30.0
+    - alias: monitoring
+      condition: monitoring.enabled
+      name: tsuru-monitoring
+      repository: https://tsuru.github.io/charts
+      version: 0.1.1
+    - alias: registry
+      condition: registry.enabled
+      name: docker-registry
+      repository: https://helm.twun.io
+      version: 1.10.1
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.12.6
+    - condition: certManager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: 1.3.1
+    description: A Helm chart for Kubernetes
+    digest: 4fae46b9cdabc0833dd234d4febfd8087567398b8b0387098121e545512c9d58
+    name: tsuru-stack
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.2.5/tsuru-stack-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2021-10-21T19:55:56.128892708Z"
     dependencies:
     - name: tsuru-api
