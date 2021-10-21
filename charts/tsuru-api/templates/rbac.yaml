@@ -48,10 +48,12 @@ rules:
   - cronjobs
   verbs:
   - "*"
+
 - apiGroups:
   - "metrics.k8s.io"
   resources:
   - pods
+  - nodes
   verbs:
   - get
   - list
@@ -82,6 +84,21 @@ rules:
   verbs:
   - create
   - get
+
+- apiGroups:
+  - autoscaling.k8s.io
+  resources:
+  - horizontalpodautoscalers
+  - verticalpodautoscalers
+  verbs:
+  - "*"
+
+- apiGroups:
+  - cloud.google.com
+  resources:
+  - backendconfigs
+  verbs:
+  - "*"
 
 - apiGroups:
   - tsuru.io
