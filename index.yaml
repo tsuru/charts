@@ -769,6 +769,16 @@ entries:
   tsuru-api:
   - apiVersion: v2
     appVersion: 1.10.1-rc1
+    created: "2021-10-21T19:52:12.459506969Z"
+    description: A Helm chart to install Tsuru API Server
+    digest: 021f4a50b99f51dbb6e730de8bd7784e006b8200afed4d1dc16f5594a73351cb
+    name: tsuru-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-api-0.1.13/tsuru-api-0.1.13.tgz
+    version: 0.1.13
+  - apiVersion: v2
+    appVersion: 1.10.1-rc1
     created: "2021-10-21T18:37:27.002950816Z"
     description: A Helm chart to install Tsuru API Server
     digest: 99b69b5b6a6106bd409b93fc79d107f26d7e5c808fd33742e51bfa3982ecc0a3
