@@ -86,9 +86,15 @@ rules:
   - get
 
 - apiGroups:
-  - autoscaling.k8s.io
+  - autoscaling
   resources:
   - horizontalpodautoscalers
+  verbs:
+  - "*"
+
+- apiGroups:
+  - autoscaling.k8s.io
+  resources:
   - verticalpodautoscalers
   verbs:
   - "*"
