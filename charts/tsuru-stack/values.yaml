@@ -48,6 +48,9 @@ tsuru-api:
         api-url: http://tsuru-kubernetes-router/api/ingress-nginx
         headers:
           Authorization: "Basic YWRtaW46bXlwYXNzd29yZA=="
+          X-Router-Opt:  
+            "domain-suffix=cloud.127.0.0.1.nip.io"
+
 
     log:
       disableSyslog: true
