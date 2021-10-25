@@ -13,7 +13,6 @@ rules:
   - pods
   - pods/attach
   - pods/exec
-  - pods/logs
   - pods/log
   - pods/eviction
   - services
