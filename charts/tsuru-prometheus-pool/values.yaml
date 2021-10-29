@@ -4,7 +4,7 @@ tsuru:
 
 replicaCount: 1
 prometheus:
-  version: v2.24.0
+  version: v2.30.0
   image:
     repository: quay.io/prometheus/prometheus
 
