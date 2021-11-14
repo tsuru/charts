@@ -48,8 +48,6 @@ tsuru-api:
         api-url: http://tsuru-kubernetes-router/api/ingress-nginx
         headers:
           Authorization: "Basic YWRtaW46bXlwYXNzd29yZA=="
-          X-Router-Opt:  
-            "domain-suffix=cloud.127.0.0.1.nip.io"
 
 
     log:
@@ -60,7 +58,11 @@ tsuru-api:
 kubernetes-router:
   controllerModes:
   - ingress-nginx
-
+  arguments:
+  - -ingress-domain
+  - cloud.127.0.0.1.nip.io
+  - -ingress-http-port=8890
+  
   api:
     username: "admin"
     password: "mypassword"
