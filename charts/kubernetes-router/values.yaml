@@ -26,6 +26,10 @@ controllerModes: []
 # Other arguments for kubernetes-router
 arguments: []
 
+ingressExpose: {}
+  #  domain: ""
+  #  port:  ""
+  
 # multicluster support
 multiCluster:
   enabled: false

@@ -50,6 +50,14 @@ spec:
             {{- range $arg := .Values.arguments }}
             - {{ $arg }}
             {{- end }}
+            {{- with .Values.ingressExpose.domain}}
+            - "-ingress-domain"
+            - {{ . }}
+            {{- end }}
+              {{- with .Values.ingressExpose.port}}
+            - "-ingress-http-port"
+            - {{ . | quote }}
+            {{- end }}
             {{- if .Values.multiCluster.enabled }}
             - "-clusters-file"
             - "/clusters/clusters.yaml"
