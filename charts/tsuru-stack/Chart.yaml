@@ -19,10 +19,10 @@ version: 0.2.5
 
 dependencies:
   - name: tsuru-api
-    version: "0.1.14"
+    version: "0.1.15"
     repository: https://tsuru.github.io/charts
   - name: kubernetes-router
-    version: "0.1.8"
+    version: "0.1.9"
     repository: https://tsuru.github.io/charts
   - name: ingress-nginx
     version: "3.30.0"
