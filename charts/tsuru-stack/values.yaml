@@ -57,6 +57,9 @@ tsuru-api:
 kubernetes-router:
   controllerModes:
   - ingress-nginx
+  ingressExpose:
+    domain: cloud.127.0.0.1.nip.io
+    port: 8890
 
   api:
     username: "admin"

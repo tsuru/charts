@@ -22,7 +22,7 @@ dependencies:
     version: "0.1.14"
     repository: https://tsuru.github.io/charts
   - name: kubernetes-router
-    version: "0.1.5"
+    version: "0.1.8"
     repository: https://tsuru.github.io/charts
   - name: ingress-nginx
     version: "3.30.0"
