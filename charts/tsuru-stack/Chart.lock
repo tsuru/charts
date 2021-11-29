@@ -7,7 +7,7 @@ dependencies:
   version: 0.1.5
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
-  version: 3.30.0
+  version: 4.0.12
 - name: tsuru-monitoring
   repository: https://tsuru.github.io/charts
   version: 0.1.1
@@ -20,5 +20,5 @@ dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.3.1
-digest: sha256:3be1da9e88f00b321d7010123d2be5d246218c934c86917f10110e2e4ac6675b
-generated: "2021-10-09T19:15:49.574296-03:00"
+digest: sha256:4261616deaab9e596418824a8b83998aa3b8e081ec5610760a414d1c53a4229d
+generated: "2021-11-29T11:49:48.594406-03:00"
