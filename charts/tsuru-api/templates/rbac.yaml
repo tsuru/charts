@@ -60,6 +60,13 @@ rules:
   - watch
 
 - apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - "*"
+  
+- apiGroups:
   - extensions
   resources:
   - deployments
