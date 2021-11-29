@@ -105,6 +105,13 @@ rules:
   - backendconfigs
   verbs:
   - "*"
+  
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - '*'
 
 - apiGroups:
   - tsuru.io
