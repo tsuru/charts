@@ -36,6 +36,6 @@ spec:
         record: "rpaas:container_spec_memory_limit_bytes"
 
       - expr: |
-          sum by (namespace, service_instance, service, le) (increase(nginx_vts_server_request_duration_seconds_bucket[2m]))/2
+          sum by (namespace, service_instance, service, le) (increase(nginx_vts_server_request_duration_seconds_bucket{service_instance!=""}[2m]))/2
         record: "rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m"
 {{- end }}

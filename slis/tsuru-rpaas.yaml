@@ -6,16 +6,16 @@ slos:
     trafficRateRecord:
       expr: |
         sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                     rate(nginx_vts_server_requests_total{code="total",host="*"}[$window])),
+                                     rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[$window])),
                                      "service", ".", "namespace", "service_instance"),
                           "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
 
     errorRateRecord:
       expr: |
         sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="5xx",host="*"}[$window])) /
+                                         rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[$window])) /
                                      sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*"}[$window])),
+                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[$window])),
                                      "service", ".", "namespace", "service_instance"),
                           "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
 
