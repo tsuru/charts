@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sysctl.fullname" . }}
+  labels:
+    {{- include "sysctl.labels" . | nindent 4 }}
+data:
+  config: |-
+    {{- toYaml .Values.sysctls | nindent 4 | replace ":" " = "}}
