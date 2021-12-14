@@ -27,7 +27,8 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 securityContext: 
-  allowPrivilegeEscalation: true
+  privileged: true
+  runAsUser: 0
   # capabilities:
   #   drop:
   #   - ALL
@@ -50,7 +51,11 @@ resources: {}
 
 nodeSelector: {}
 
-tolerations: []
+tolerations:
+- effect: "NoExecute"
+  operator: "Exists"
+- effect: "NoSchedule"
+  operator: "Exists"
 
 affinity: {}
 

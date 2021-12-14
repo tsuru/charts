@@ -35,12 +35,14 @@ spec:
           command: ["sh", "-c"]
           args: ["while true; do sysctl -p  /etc/sysctl.d/custom-sysctl.conf > /dev/null;sleep 10; done"]
           volumeMounts:
-           - name: sysctls
+           - name: sysctl
              mountPath: /etc/sysctl.d
+      hostNetwork: true
+      hostPID: true
       volumes:
-        - name: sysctls
+        - name: sysctl
           configMap:
-            name: sysctls
+            name: sysctl
             optional: true
             items:
               - key: config
