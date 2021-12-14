@@ -38,7 +38,7 @@ spec:
            - name: sysctls
              mountPath: /etc/sysctl.d
       volumes:
-        - name: config
+        - name: sysctls
           configMap:
             name: sysctls
             optional: true
