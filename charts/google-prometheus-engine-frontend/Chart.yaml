@@ -1,0 +1,5 @@
+apiVersion: v2
+name: google-prometheus-engine-frontend
+description: Install Google Prometheus Engine Frontend
+type: application
+version: 0.1.0
