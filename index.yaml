@@ -211,6 +211,16 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/gke-ingress-config-0.1.0/gke-ingress-config-0.1.0.tgz
     version: 0.1.0
+  google-prometheus-engine-frontend:
+  - apiVersion: v2
+    created: "2021-12-14T13:37:00.86379718Z"
+    description: Install Google Prometheus Engine Frontend
+    digest: 2938fe8425e14d69c416d10ef45ff7eb69056dda1337167723f0afb1efc235e6
+    name: google-prometheus-engine-frontend
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/google-prometheus-engine-frontend-0.1.1/google-prometheus-engine-frontend-0.1.1.tgz
+    version: 0.1.1
   ingress-merge:
   - apiVersion: v1
     created: "2021-09-03T17:21:11.981258984Z"
