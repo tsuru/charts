@@ -807,6 +807,15 @@ entries:
     version: 0.1.1
   sysctl:
   - apiVersion: v2
+    created: "2021-12-14T19:09:25.557265404Z"
+    description: A Helm chart for handle sysctl on Kubernetes nodes
+    digest: e2482052d58dffd878f4f385b3fcadbd55d497da609bd7814cb27cc419965a16
+    name: sysctl
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/sysctl-0.1.2/sysctl-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2021-12-14T13:29:32.881844766Z"
     description: A Helm chart for handle sysctl on Kubernetes nodes
     digest: 475e17caad1c9a87b2b770155edf941f3faf2a82ed610da9b08979f6c3c451db
