@@ -213,6 +213,15 @@ entries:
     version: 0.1.0
   google-prometheus-engine-frontend:
   - apiVersion: v2
+    created: "2021-12-14T14:57:59.892734889Z"
+    description: Install Google Prometheus Engine Frontend
+    digest: 2a1ed9b1b4655990ba033769962da04c587fa160d65448b8ba22413c15f8bae0
+    name: google-prometheus-engine-frontend
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/google-prometheus-engine-frontend-0.1.2/google-prometheus-engine-frontend-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2021-12-14T13:37:00.86379718Z"
     description: Install Google Prometheus Engine Frontend
     digest: 2938fe8425e14d69c416d10ef45ff7eb69056dda1337167723f0afb1efc235e6
