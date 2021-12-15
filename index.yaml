@@ -188,7 +188,8 @@ entries:
   gke-ingress-config:
   - apiVersion: v1
     created: "2021-06-09T21:02:18.494850386Z"
-    description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
+    description: A simple chart to expose BackendConfig and FrontendConfig objects
+      used by GKE for ingress customization.
     digest: a7326abd2d0158dfc39e49c1f6a45488242677c366a2b74c2ee6d299c1065a34
     name: gke-ingress-config
     urls:
@@ -196,7 +197,8 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     created: "2021-06-09T20:50:21.69714534Z"
-    description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
+    description: A simple chart to expose BackendConfig and FrontendConfig objects
+      used by GKE for ingress customization.
     digest: 53c50d02560376ee8982a5560b060e2667915e27de4eca19a2a89375f7599c02
     name: gke-ingress-config
     urls:
@@ -205,7 +207,8 @@ entries:
   - apiVersion: v1
     appVersion: 0.1.0
     created: "2021-06-09T20:34:28.304887849Z"
-    description: A simple chart to expose BackendConfig and FrontendConfig objects used by GKE for ingress customization.
+    description: A simple chart to expose BackendConfig and FrontendConfig objects
+      used by GKE for ingress customization.
     digest: e3338278d528095bb3d8007466237586ab2baeff46da6083cab65268c7a4bfa7
     name: gke-ingress-config
     urls:
@@ -233,7 +236,8 @@ entries:
   ingress-merge:
   - apiVersion: v1
     created: "2021-09-03T17:21:11.981258984Z"
-    description: Merge Ingress Controller combines multiple ingress resorces into a new one.
+    description: Merge Ingress Controller combines multiple ingress resorces into
+      a new one.
     digest: fd29e2697812a6994ecc87cd33956f1b55f9e4e6925a363b9fec781dfa73a9b5
     home: https://github.com/jakubkulhan/ingress-merge
     keywords:
@@ -247,7 +251,8 @@ entries:
     version: 0.1-alpha3
   - apiVersion: v1
     created: "2021-09-03T17:04:42.41928309Z"
-    description: Merge Ingress Controller combines multiple ingress resorces into a new one.
+    description: Merge Ingress Controller combines multiple ingress resorces into
+      a new one.
     digest: cbc8254dc964e1ea905353f8396813a573554c043ef61551407753cfbc0bbbd8
     home: https://github.com/jakubkulhan/ingress-merge
     keywords:
@@ -261,7 +266,8 @@ entries:
     version: 0.1-alpha2
   - apiVersion: v1
     created: "2021-05-25T12:17:36.717235168Z"
-    description: Merge Ingress Controller combines multiple ingress resorces into a new one.
+    description: Merge Ingress Controller combines multiple ingress resorces into
+      a new one.
     digest: 4427a2521b5c13240423c61cdc077b2decfe3965ba8b93d5a07e44d056941d6c
     home: https://github.com/jakubkulhan/ingress-merge
     keywords:
@@ -448,7 +454,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.8.1
     created: "2021-10-19T20:45:00.864750148Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 3699ac14a92061fab76cb6cde14118ae8a02e94eb4622f25532b194e20bf9e4e
     name: nginx-operator
     sources:
@@ -460,7 +467,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.8.1
     created: "2021-10-19T16:52:12.3605392Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: d200371562179f083ade68e855cba6d445ae75ff1152b079164d9726982516b3
     name: nginx-operator
     sources:
@@ -472,7 +480,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2021-09-08T20:45:19.719102232Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 7810cd12c799e29b1f594da72f205a2e784571a0c8ed19f4e50da28d1876264d
     name: nginx-operator
     sources:
@@ -484,7 +493,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2021-09-06T21:47:58.907322243Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 95575db054c8e39737060c0544d151a352432391703d4221e927fa19daa46b5e
     name: nginx-operator
     sources:
@@ -496,7 +506,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2021-09-06T19:52:07.30985369Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 3e780df9ed830b3da255b3ba7ab00fc39ae3d824dc9b499b8fd9b1988f8a7b67
     name: nginx-operator
     sources:
@@ -508,7 +519,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2021-09-06T18:45:05.312470816Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 12589bdb09d8d85785e464dfe389a13df4823f7e232c7731f4c9f6bbcce33e81
     name: nginx-operator
     sources:
@@ -520,7 +532,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.6.5
     created: "2021-08-24T17:53:55.289395682Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 296db45db3699a6eda75fa66ccc16e7550a837aaff699198be3588267c513723
     name: nginx-operator
     sources:
@@ -532,7 +545,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.6.5
     created: "2021-08-24T14:44:41.944961884Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: b1fd7555328f47cb496f90e6e40b47a01cdc3ecf366ef91cf9228ce634183e95
     name: nginx-operator
     sources:
@@ -544,7 +558,8 @@ entries:
   - apiVersion: v2
     appVersion: 0.6.3
     created: "2021-05-04T12:59:13.922493911Z"
-    description: Nginx operator follows the Kubernetes Operator pattern to provide a way to deploy and manage nginx instances inside a cluster.
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
     digest: 0fe800036a6f30dbca32646bf8e4eb4a326dfe0a899e4c59a3a8aa66028efdfa
     name: nginx-operator
     sources:
@@ -574,6 +589,24 @@ entries:
     version: 0.1.0
   rpaas-operator:
   - apiVersion: v2
+    appVersion: 0.22.3
+    created: "2021-12-15T20:52:27.72751261Z"
+    dependencies:
+    - condition: nginxOperator.enabled
+      name: nginx-operator
+      repository: https://tsuru.github.io/charts
+      version: 1.*
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
+    digest: 666d7a145975cd04b669661c242a0673f3968b0797a91e5739f73e3ee6c6c75e
+    name: rpaas-operator
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.6.2/rpaas-operator-0.6.2.tgz
+    version: 0.6.2
+  - apiVersion: v2
     appVersion: 0.22.0
     created: "2021-10-19T20:52:08.340844259Z"
     dependencies:
@@ -581,7 +614,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 32b8deaf5687f20def2a1dfd96ef6d3ca216e9367af9704443bc24c2cf0eb875
     name: rpaas-operator
     sources:
@@ -598,7 +632,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: f07cb9cac58b505e1ed4df89f279d604164a5c5c580e304346754ea2a6e5564a
     name: rpaas-operator
     sources:
@@ -615,7 +650,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 3069e21a6f256c432fac30bb2fdc8407ab8c6a44a9e14e771feb284cf6e6851e
     name: rpaas-operator
     sources:
@@ -632,7 +668,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 82e8c8a38ca69559cae33385642ec904ae90eeade57c7bd71ecca1b9376ec5d9
     name: rpaas-operator
     sources:
@@ -649,7 +686,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 092cf952741bfff5a6c01bf00d653de6eef916611e6295b1b6189fbb0c922e08
     name: rpaas-operator
     sources:
@@ -666,7 +704,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 2ab606506908d0890e462d9eb521cb52ce2402fbebae111844a913bdcc467574
     name: rpaas-operator
     sources:
@@ -683,7 +722,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 65d89790c0ef4b3089ca84e302fefbf223412c67def77c3af2d6de0d3f229dbf
     name: rpaas-operator
     sources:
@@ -700,7 +740,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: e713d111b8a6dee2f33f47139f232570f1c23d391ab3386a6af870ce77dfb0fd
     name: rpaas-operator
     sources:
@@ -717,7 +758,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: c683f501b7ac1f4f4fd4c58e68e9e46e279da5f096a987dca748dad6512c379c
     name: rpaas-operator
     sources:
@@ -734,7 +776,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 60630c91abf5ab7a8010f967e30c8ffeca69463b3ed1b38e9c1592ab75718705
     name: rpaas-operator
     sources:
@@ -751,7 +794,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: d125ca97b07cc42c4067398d2fb529beead9a584eb2d670dab6ab3e1554cea8d
     name: rpaas-operator
     sources:
@@ -768,7 +812,8 @@ entries:
       name: nginx-operator
       repository: https://tsuru.github.io/charts
       version: 0.1.*
-    description: RPaaS operator manages reverse proxy as service instances inside a Kubernetes cluster
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
     digest: 405ff63d410fdcc80da74ac0406bbc55b3a8f901401d4af5d3898cb609bc65b5
     name: rpaas-operator
     sources:
@@ -1964,4 +2009,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2021-03-18T21:41:10.45913895Z"
+generated: "2021-12-15T20:52:27.728138405Z"
