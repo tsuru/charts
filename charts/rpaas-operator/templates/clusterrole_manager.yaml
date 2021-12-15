@@ -123,6 +123,7 @@ rules:
   resources:
   - poddisruptionbudgets
   verbs:
+  - create
   - delete
   - get
   - list
