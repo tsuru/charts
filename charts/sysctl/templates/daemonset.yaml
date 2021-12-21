@@ -5,6 +5,10 @@ metadata:
   labels:
     {{- include "sysctl.labels" . | nindent 4 }}
 spec:
+  {{- with .Values.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "sysctl.selectorLabels" . | nindent 6 }}
