@@ -128,7 +128,7 @@ data:
       {{- end }}
       {{- if .Values.tsuruConfig.iaas.customIaaS }}
       custom:
-        {{ .Values.tsuruConfig.iaas.customIaaS | indent 8 }}
+{{- toYaml .Values.tsuruConfig.iaas.customIaaS | nindent 8 }}
       {{- end }}
       node-protocol: {{ .Values.tsuruConfig.iaas.nodeProtocol | default "http" }}
       node-port: {{ .Values.tsuruConfig.iaas.nodePort | default "2375" }}
