@@ -33,7 +33,7 @@ data:
       {{- end }}
 {{- end }}
 
-    disable-index-page: {{ .Values.tsuruConfig.disableIndexPage | default true }}
+    disable-index-page: {{ .Values.tsuruConfig.disableIndexPage }}
 {{- if .Values.tsuruConfig.indexPageTemplate }}
     index-page-template: /etc/tsuru/index.tpl
 {{- end }}
