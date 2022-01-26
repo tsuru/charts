@@ -80,7 +80,7 @@ spec:
           volumeMounts:
             - name: tsuru-api-config
               mountPath: /etc/tsuru
-            {{- if .Values.tlsSecretName }}
+            {{- if or (.Values.tlsSecretName) (.Values.certManager.enabled) }}
             - name: tls
               mountPath: /mnt/tls
               readOnly: true
@@ -94,7 +94,11 @@ spec:
         - name: tsuru-api-config
           configMap:
             name: {{ include "tsuru-api.fullname" . }}-config
-        {{- if .Values.tlsSecretName }}
+        {{- if .Values.certManager.enabled }}
+        - name: tls
+          secret:
+            secretName: {{ include "tsuru-api.fullname" . }}-tls
+        {{- else if .Values.tlsSecretName }}
         - name: tls
           secret:
             secretName: {{ .Values.tlsSecretName }}

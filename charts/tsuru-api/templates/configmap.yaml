@@ -15,8 +15,14 @@ data:
 {{- if .Values.tsuruConfig.useTLS }}
     use-tls: true
     tls:
+      {{- if .Values.certManager.enabled }}
+      cert-file: /mnt/tls/tls.crt
+      key-file: /mnt/tls/tls.key
+      {{- else }}
       cert-file: {{ .Values.tsuruConfig.TLS.certFilename }}
       key-file: {{ .Values.tsuruConfig.TLS.certKeyFile }}
+      {{- end }}
+
       listen: {{ .Values.tsuruConfig.TLS.listen }}
       {{- if .Values.tsuruConfig.TLS.autoreloadInterval }}
       auto-reload:
