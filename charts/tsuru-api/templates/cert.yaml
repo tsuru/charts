@@ -1,0 +1,18 @@
+{{- if .Values.certManager.enabled -}}
+{{- $fullName := include "tsuru-api.fullname" . -}}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "tsuru-api.labels" . | nindent 4 }}
+spec:
+  dnsNames:
+  {{- .Values.certManager.dnsNames | toYaml | nindent 4 }}
+  issuerRef:
+  {{- .Values.certManager.issuerRef | toYaml | nindent 4 }}
+  secretName: {{ $fullName }}-tls
+  usages:
+  - digital signature
+  - key encipherment
+{{- end }}
