@@ -89,6 +89,9 @@ spec:
             - name: host-cert-bundle
               mountPath: {{ .Values.hostCertBundleFile }}
             {{- end }}
+            {{- if .Values.volumeMounts }}
+{{ toYaml .Values.volumeMounts | indent 12 }}
+            {{- end }}
       restartPolicy: Always
       volumes:
         - name: tsuru-api-config
@@ -109,6 +112,10 @@ spec:
             path: {{ .Values.hostCertBundleFile }}
             type: File
         {{- end }}
+        {{- if .Values.volumes }}
+{{ toYaml .Values.volumes | indent 8 }}
+        {{- end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

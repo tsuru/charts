@@ -31,6 +31,9 @@ serviceAccount:
 
 podAnnotations: {}
 
+volumes: []
+volumeMounts: []
+
 podSecurityContext: {}
   # fsGroup: 2000
 
