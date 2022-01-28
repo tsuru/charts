@@ -52,6 +52,7 @@ service:
   targetHTTPPort: 8080
   httpsPort: 443
   targetHTTPSPort: 8443
+  annotations: {}
 
 secretKeys: []
 secretName: ""
