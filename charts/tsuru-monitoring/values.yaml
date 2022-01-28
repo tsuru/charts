@@ -20,3 +20,4 @@ remoteRead:
 
 nodeLocalDNS:
   enabled: false
+  # podMonitorLabels: {}

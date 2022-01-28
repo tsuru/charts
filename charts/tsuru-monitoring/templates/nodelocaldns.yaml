@@ -5,6 +5,10 @@ metadata:
   name: node-local-dns
   labels:
 {{ include "tsuru-monitoring.labels" . | indent 4 }}
+{{- with .Values.nodeLocalDNS.podMonitorLabels }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+
 spec:
   selector:
     matchLabels:
