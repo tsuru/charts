@@ -13,6 +13,9 @@ spec:
   selector:
     matchLabels:
       k8s-app: node-local-dns
+  namespaceSelector:
+    matchNames:
+    - kube-system
   podMetricsEndpoints:
     - port: metrics
       scheme: http
