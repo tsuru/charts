@@ -79,7 +79,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - name: {{ include "rpaas-api.fullname" . }}-conf
+          - name: rpaas-api-conf
             mountPath: /etc/rpaas-api
           {{- if .Values.volumeMounts }}
           {{- toYaml .Values.volumeMounts | indent 12 }}
@@ -99,7 +99,7 @@ spec:
       {{- end }}
 
       volumes:
-      - name: rpaasv2-conf
+      - name: rpaas-api-conf
         configMap:
           name: {{ include "rpaas-api.fullname" . }}-conf
       {{- if .Values.volumes }}
