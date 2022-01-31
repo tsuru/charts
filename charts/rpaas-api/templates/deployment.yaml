@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "rpaas-api.fullname" . }}
+  labels:
+    {{- include "rpaas-api.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "rpaas-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.metrics.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9999"
+        prometheus.io/path: "/metrics"
+        {{- end }}
+      labels:
+        {{- include "rpaas-api.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "rpaas-api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: rpaas-api
+          command:
+          - rpaas-api
+          - --config
+          - /etc/rpaas-api/rpaas-api-conf.yaml
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag  }}"
+          env:
+            - name: RPAASV2_SERVICE_NAME
+              value: {{with .Values.instances.serviceName }}{{.}}{{end}}
+            {{- if  .Values.instances.serviceAnnotations }}
+            - name: RPAASV2_SERVICE_ANNOTATIONS
+              value: '{
+              {{- $i := 0 -}}
+              {{- range $k, $v := .Values.instances.serviceAnnotations -}}
+                {{if $i}},{{end}}"{{$k}}":"{{$v}}"
+                {{- $i = add $i 1 -}}
+              {{- end }} }'
+            {{- end }}
+            {{- if .Values.auth.enabled }}
+            - name: RPAASV2_API_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.auth.secretName }}
+                  key: username
+            - name: RPAASV2_API_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.auth.secretName }}
+                  key: password
+            {{- end}}
+          tty: true
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 9999
+              name: api
+            - containerPort: 9993
+              name: api-secure
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: {{ include "rpaas-api.fullname" . }}-conf
+            mountPath: /etc/rpaas-api
+          {{- if .Values.volumeMounts }}
+          {{- toYaml .Values.volumeMounts | indent 12 }}
+          {{- end }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      volumes:
+      - name: rpaasv2-conf
+        configMap:
+          name: {{ include "rpaas-api.fullname" . }}-conf
+      {{- if .Values.volumes }}
+      {{- toYaml .Values.volumes | indent 8 }}
+      {{- end }}
