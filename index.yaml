@@ -594,6 +594,16 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/nginx-operator-0.1.0/nginx-operator-0.1.0.tgz
     version: 0.1.0
+  rpaas-api:
+  - apiVersion: v2
+    created: "2022-01-31T18:17:01.44642958Z"
+    description: The API of Tsuru/RPaaS
+    digest: a3d184da0da0d33be833fd23c2f2b84839585610425a77b7fd2c5844789e5878
+    name: rpaas-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-api-0.1.0/rpaas-api-0.1.0.tgz
+    version: 0.1.0
   rpaas-monitoring:
   - apiVersion: v2
     created: "2021-07-09T19:46:52.307921965Z"
@@ -2194,4 +2204,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-01-28T18:58:30.503171037Z"
+generated: "2022-01-31T18:17:01.447344304Z"
