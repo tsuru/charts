@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "tsuru-api.labels" . | nindent 4 }}
 data:
-{{- with .Values.indexPageTemplate }}
+{{- with .Values.tsuruConfig.indexPageTemplate }}
   index.tpl: |-
 {{ . | indent 4 }}
 {{- end }}
