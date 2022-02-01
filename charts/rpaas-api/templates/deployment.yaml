@@ -74,7 +74,7 @@ spec:
               name: api-secure
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthcheck
               port: api
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
