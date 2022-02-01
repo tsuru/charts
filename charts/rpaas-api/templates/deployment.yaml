@@ -75,7 +75,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: http
+              port: api
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
