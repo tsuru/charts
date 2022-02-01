@@ -82,7 +82,7 @@ spec:
           - name: rpaas-api-conf
             mountPath: /etc/rpaas-api
           {{- if .Values.volumeMounts }}
-          {{- toYaml .Values.volumeMounts | indent 12 }}
+          {{- toYaml .Values.volumeMounts | nindent 10 }}
           {{- end }}
 
       {{- with .Values.nodeSelector }}
@@ -103,5 +103,5 @@ spec:
         configMap:
           name: {{ include "rpaas-api.fullname" . }}-conf
       {{- if .Values.volumes }}
-      {{- toYaml .Values.volumes | indent 8 }}
+      {{- toYaml .Values.volumes | nindent 6 }}
       {{- end }}
