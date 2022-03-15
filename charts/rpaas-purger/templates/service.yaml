@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rpaas-purger
+  labels:
+    app: rpaas-purger
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ports:
+  - name: purger
+    port: 80
+    targetPort: 9990
+  selector:
+    name: rpaas-purger
+  type: {{ .Values.service.type }}

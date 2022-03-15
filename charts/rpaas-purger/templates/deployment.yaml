@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rpaas-purger
+  labels:
+    app: rpaas-purger
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      name: rpaas-purger
+  template:
+    metadata:
+      labels:
+        name: rpaas-purger
+      annotations:
+        {{- if .Values.metrics.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9990"
+        prometheus.io/path: "/metrics"
+        {{- end }}
+    spec:
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "rpaas-purger.serviceAccountName" . }}
+      containers:
+        - name: rpaas-purger
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            {{- if .Values.tracing }}
+            {{- if .Values.tracing.enabled }}
+            - name: JAEGER_SERVICE_NAME
+              value: rpaas-purger
+            - name: JAEGER_AGENT_HOST
+              value: {{ .Values.tracing.agent_host }}
+            - name: JAEGER_SAMPLER_TYPE
+              value: {{ .Values.tracing.sampler.type }}
+            {{- if .Values.tracing.sampler.param }}
+            - name: JAEGER_SAMPLER_PARAM
+              value: {{  .Values.tracing.sampler.param | quote }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+          ports:
+          - containerPort: 9990
+            name: purger
+          command:
+          - rpaas-purger
+          imagePullPolicy: Always

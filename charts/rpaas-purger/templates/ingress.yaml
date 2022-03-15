@@ -1,0 +1,26 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+{{- if .Values.ingress.annotations }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- end }}
+  labels:
+    app: rpaas-purger
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+    heritage: {{ $.Release.Service }}
+    release: {{ $.Release.Name }}
+  name: rpaas-purger
+spec:
+  rules:
+  {{- range .Values.ingress.hosts }}
+  - host: {{ . }}
+    http:
+      paths:
+      - path: {{ $.Values.ingress.path }}
+        backend:
+          serviceName: rpaas-purger
+          servicePort: 80
+  {{- end }}
+{{- end }}
