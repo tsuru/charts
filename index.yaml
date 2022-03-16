@@ -1010,6 +1010,19 @@ entries:
   rpaas-purger:
   - apiVersion: v2
     appVersion: 0.26.2
+    created: "2022-03-16T18:21:09.525563482Z"
+    description: RpaaS Purger API is a HTTP API that purges cache from the nginx instances
+      created by RpaaS.
+    digest: 75c03e1bcf31e726c9b2a5a83f152d1aaf3583616ba9fbcb93bebbd5cd398711
+    name: rpaas-purger
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-purger-0.1.1/rpaas-purger-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.26.2
     created: "2022-03-15T20:50:24.362095594Z"
     description: RpaaS Purger API is a HTTP API that purges cache from the nginx instances
       created by RpaaS.
@@ -2323,4 +2336,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-15T20:50:24.362738298Z"
+generated: "2022-03-16T18:21:09.526544089Z"
