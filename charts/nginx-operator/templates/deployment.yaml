@@ -50,26 +50,18 @@ spec:
           command:
           - nginx-operator
           args:
-          - --metrics-addr=:60000
-          - --enable-leader-election=true
-          - --leader-election-namespace=$(POD_NAMESPACE)
-          - --health-addr=:60001
+          - --leader-elect=true
+          - --leader-elect-resource-namespace=$(POD_NAMESPACE)
+          - --metrics-bind-address=:60000
+          - --health-probe-bind-address=:60001
           {{- with .Values.extraArgs }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
           env:
-            - name: WATCH_NAMESPACE
-              value: ""
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: OPERATOR_NAME
-              value: "nginx-operator"
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
