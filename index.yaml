@@ -678,6 +678,15 @@ entries:
     version: 0.1.0
   rpaas-monitoring:
   - apiVersion: v2
+    created: "2022-03-31T20:16:49.883313966Z"
+    description: Service monitor to scrape all rpaas pods
+    digest: 52bac850374c1287d8aaf124b472d44ac8ad37f7da42f7413330311a8753e630
+    name: rpaas-monitoring
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.3/rpaas-monitoring-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2021-07-09T19:46:52.307921965Z"
     description: Service monitor to scrape all rpaas pods
     digest: 006b92aa091b2a70a0b7ba0c2933d385c19a4c569849b3a07a2f7c78a3cd4124
@@ -1371,6 +1380,15 @@ entries:
     - https://github.com/tsuru/charts/releases/download/tsuru-api-0.1.0/tsuru-api-0.1.0.tgz
     version: 0.1.0
   tsuru-monitoring:
+  - apiVersion: v2
+    created: "2022-03-31T20:16:50.007391583Z"
+    description: A Helm chart for Kubernetes
+    digest: febee8ba11edef1e7c612b4a995ac5b431970761c82b990cf8a9467d3028de49
+    name: tsuru-monitoring
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-monitoring-0.3.12/tsuru-monitoring-0.3.12.tgz
+    version: 0.3.12
   - apiVersion: v2
     created: "2022-01-28T18:58:30.502657834Z"
     description: A Helm chart for Kubernetes
@@ -2367,4 +2385,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-23T15:00:49.888866176Z"
+generated: "2022-03-31T20:16:50.00821759Z"
