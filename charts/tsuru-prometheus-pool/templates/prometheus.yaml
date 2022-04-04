@@ -66,3 +66,8 @@ spec:
   additionalScrapeConfigs:
     {{- . | toYaml |nindent 4}}
   {{ end }}
+
+  {{- with .Values.additionalAlertManagerConfigs }}
+  additionalAlertManagerConfigs:
+    {{- . | toYaml |nindent 4}}
+  {{ end }}
