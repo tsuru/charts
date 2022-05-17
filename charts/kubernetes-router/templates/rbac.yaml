@@ -12,7 +12,7 @@ rules:
 - apiGroups: [""]
   resources: ["events"]
   verbs: ["get", "list"]
-- apiGroups: ["extensions"]
+- apiGroups: ["extensions", "networking.k8s.io"]
   resources: ["ingresses"]
   verbs: ["*"]
 - apiGroups: [""]
