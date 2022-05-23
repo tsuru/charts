@@ -100,6 +100,12 @@ data:
     docker:
 {{- toYaml .Values.tsuruConfig.docker | nindent 6}}
 {{- end }}
+
+{{- if .Values.tsuruConfig.tracker }}
+    tracker:
+{{- toYaml .Values.tsuruConfig.tracker | nindent 6}}
+{{- end }}
+
     kubernetes:
       {{- if .Values.tsuruConfig.kubernetes.deploySidecarImage }}
       deploy-sidecar-image: {{ .Values.tsuruConfig.kubernetes.deploySidecarImage }}
