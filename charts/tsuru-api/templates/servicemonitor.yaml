@@ -12,5 +12,5 @@ spec:
   jobLabel: app.kubernetes.io/name
   selector:
     matchLabels:
-      {{- include "tsuru-api.selectorLabels" . | nindent 4 }}
+      {{- include "tsuru-api.selectorLabels" . | nindent 6 }}
 {{- end }}
