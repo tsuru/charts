@@ -1,0 +1,16 @@
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "tsuru-api.fullname" . }}
+  labels:
+    {{- include "tsuru-api.labels" . | nindent 4 }}
+spec:
+  endpoints:
+  - honorLabels: true
+    port: http
+  jobLabel: app.kubernetes.io/name
+  selector:
+    matchLabels:
+      {{- include "tsuru-api.selectorLabels" . | nindent 4 }}
+{{- end }}
