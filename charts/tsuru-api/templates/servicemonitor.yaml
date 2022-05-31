@@ -7,8 +7,16 @@ metadata:
     {{- include "tsuru-api.labels" . | nindent 4 }}
 spec:
   endpoints:
+  {{- if .Values.service.httpsOnly }}
+  - honorLabels: true
+    port: https
+    scheme: https
+    tlsConfig:
+      insecureSkipVerify: true
+  {{- else }}
   - honorLabels: true
     port: http
+  {{- end }}
   jobLabel: app.kubernetes.io/name
   selector:
     matchLabels:
