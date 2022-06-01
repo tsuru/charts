@@ -50,6 +50,11 @@ serviceAccount:
 serviceMonitor:
   enabled: false
 
+
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: "10%"
+
 podAnnotations: {}
 
 volumes: []
