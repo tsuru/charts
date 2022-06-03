@@ -28,6 +28,13 @@ spec:
 {{- if and .Values.rbac.create .Values.serviceAccount.create }}
       serviceAccountName: {{ template "conntrack-exporter.serviceAccountName" . }}
 {{- end}}
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists
+      - key: CriticalAddonsOnly
+        operator: Exists
       containers:
         - name: {{ template "conntrack-exporter.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
