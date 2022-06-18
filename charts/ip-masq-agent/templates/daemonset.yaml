@@ -19,20 +19,24 @@ spec:
     spec:
       hostNetwork: true
       containers:
-       - name: {{ .Chart.Name }}
-         args:
-         {{- if .Values.args }}
-           {{- toYaml .Values.args | nindent 12 }}
-         {{- end }}
-         securityContext:
-           {{- toYaml .Values.securityContext | nindent 12 }}
-         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-         imagePullPolicy: {{ .Values.image.pullPolicy }}
-         resources:
-           {{- toYaml .Values.resources | nindent 12 }}
-         volumeMounts:
-           - name: config
-             mountPath: /etc/config
+      - name: {{ .Chart.Name }}
+        {{- with .Values.args }}
+        args:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 10 }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+        {{- with .Values.lifecycle }}
+        lifecycle:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
       volumes:
         - name: config
           configMap:

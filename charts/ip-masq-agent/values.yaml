@@ -34,3 +34,5 @@ tolerations:
 affinity: {}
 
 ipMasqConfig: {}
+
+lifecycle: {}
