@@ -17,6 +17,6 @@ spec:
     matchNames:
     - kube-system
   podMetricsEndpoints:
-    - port: {{ .Values.calicoNode.port }}
+    - port: {{ .Values.calicoNode.port | quote }}
       scheme: http
 {{- end }}
