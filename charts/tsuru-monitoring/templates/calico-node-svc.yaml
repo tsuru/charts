@@ -11,9 +11,9 @@ spec:
   clusterIP: None
   ports:
   - name: http-metrics
-    port: {{ .Values.calicoNode.port | quote }}
+    port: {{ .Values.calicoNode.port }}
     protocol: TCP
-    targetPort: {{ .Values.calicoNode.port | quote }}
+    targetPort: {{ .Values.calicoNode.port }}
   selector:
     k8s-app: calico-node
   type: ClusterIP
