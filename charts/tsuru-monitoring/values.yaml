@@ -25,4 +25,4 @@ nodeLocalDNS:
 calicoNode:
   enabled: false
   # podMonitorLabels: {}
-  port: 9099
+  port: "9099"
