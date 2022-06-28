@@ -1,0 +1,22 @@
+{{- if .Values.calicoNode.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: calico-node
+  labels:
+{{ include "tsuru-monitoring.labels" . | indent 4 }}
+{{- with .Values.calicoNode.podMonitorLabels }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+
+spec:
+  selector:
+    matchLabels:
+      k8s-app: calico-node
+  namespaceSelector:
+    matchNames:
+    - kube-system
+  podMetricsEndpoints:
+    - port: {{ .Values.calicoNode.port }}
+      scheme: http
+{{- end }}

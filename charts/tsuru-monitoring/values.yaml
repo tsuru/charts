@@ -21,3 +21,8 @@ remoteRead:
 nodeLocalDNS:
   enabled: false
   # podMonitorLabels: {}
+
+calicoNode:
+  enabled: false
+  # podMonitorLabels: {}
+  port: 9099
