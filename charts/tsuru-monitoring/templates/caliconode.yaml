@@ -1,6 +1,6 @@
 {{- if .Values.calicoNode.enabled }}
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
+kind: ServiceMonitor
 metadata:
   name: calico-node
   labels:
@@ -10,13 +10,14 @@ metadata:
 {{- end }}
 
 spec:
-  selector:
-    matchLabels:
-      k8s-app: calico-node
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    port: http-metrics
+  jobLabel: jobLabel
   namespaceSelector:
     matchNames:
     - kube-system
-  podMetricsEndpoints:
-    - port: {{ .Values.calicoNode.port | quote }}
-      scheme: http
+  selector:
+    matchLabels:
+      k8s-app: calico-node
 {{- end }}

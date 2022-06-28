@@ -1,0 +1,20 @@
+{{- if .Values.calicoNode.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: tsuru-monitoring-calico-node
+  namespace: kube-system
+  labels:
+    k8s-app: calico-node
+{{ include "tsuru-monitoring.labels" . | indent 4 }}
+spec:
+  clusterIP: None
+  ports:
+  - name: http-metrics
+    port: {{ .Values.calicoNode.port | quote }}
+    protocol: TCP
+    targetPort: {{ .Values.calicoNode.port | quote }}
+  selector:
+    k8s-app: calico-node
+  type: ClusterIP
+{{- end }}
