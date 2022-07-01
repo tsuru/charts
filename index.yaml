@@ -514,6 +514,19 @@ entries:
     version: 0.1.0
   nginx-operator:
   - apiVersion: v2
+    appVersion: 0.12.1
+    created: "2022-07-01T18:53:52.790616395Z"
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
+    digest: 2fdc2814244f66e58c89c55b72a298018e13790fed3ef92d618e55e91ae380df
+    name: nginx-operator
+    sources:
+    - https://github.com/tsuru/nginx-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/nginx-operator-1.4.9/nginx-operator-1.4.9.tgz
+    version: 1.4.9
+  - apiVersion: v2
     appVersion: 0.10.0
     created: "2022-03-22T22:16:26.491229643Z"
     description: Nginx operator follows the Kubernetes Operator pattern to provide
@@ -2630,4 +2643,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-28T19:53:07.964401965Z"
+generated: "2022-07-01T18:53:52.791712032Z"
