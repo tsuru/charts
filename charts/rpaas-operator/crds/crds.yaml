@@ -445,6 +445,20 @@ spec:
                             type: string
                           httpsListenOptions:
                             type: string
+                          logAdditionalFields:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          logAdditionalHeaders:
+                            items:
+                              type: string
+                            type: array
+                          logFormat:
+                            type: string
+                          logFormatEscape:
+                            type: string
+                          logFormatName:
+                            type: string
                           syslogEnabled:
                             type: boolean
                           syslogFacility:
@@ -6390,6 +6404,20 @@ spec:
                         type: string
                       httpsListenOptions:
                         type: string
+                      logAdditionalFields:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      logAdditionalHeaders:
+                        items:
+                          type: string
+                        type: array
+                      logFormat:
+                        type: string
+                      logFormatEscape:
+                        type: string
+                      logFormatName:
+                        type: string
                       syslogEnabled:
                         type: boolean
                       syslogFacility:
@@ -11836,6 +11864,20 @@ spec:
                   httpListenOptions:
                     type: string
                   httpsListenOptions:
+                    type: string
+                  logAdditionalFields:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  logAdditionalHeaders:
+                    items:
+                      type: string
+                    type: array
+                  logFormat:
+                    type: string
+                  logFormatEscape:
+                    type: string
+                  logFormatName:
                     type: string
                   syslogEnabled:
                     type: boolean
