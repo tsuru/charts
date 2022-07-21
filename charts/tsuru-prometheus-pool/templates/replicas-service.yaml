@@ -38,7 +38,7 @@ items:
       {{- $labels | nindent 6}}
     {{- with $baseAnnotations }}
     annotations:
-      {{- toYaml . | nindent 4 }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
   spec:
     rules:
