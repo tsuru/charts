@@ -28,6 +28,8 @@ spec:
           - path: {{ .Values.ingress.path }}
             pathType: ImplementationSpecific
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: 9090
+              service:
+                name: {{ $fullName }}
+                service:
+                  number: 9090
   {{- end }}
