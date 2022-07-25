@@ -12,11 +12,11 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - pods
+  - events
   verbs:
-  - get
-  - list
-  - watch
+  - create
+  - patch
+  - update
 - apiGroups:
   - ""
   resources:
@@ -70,4 +70,3 @@ rules:
   - get
   - patch
   - update
-
