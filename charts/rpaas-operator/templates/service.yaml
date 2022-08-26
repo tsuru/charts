@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "rpaas-operator.fullname" . }}
+  labels:
+    {{- include "rpaas-operator.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: api
+      protocol: TCP
+      name: api
+  selector:
+    {{- include "rpaas-operator.selectorLabels" . | nindent 4 }}

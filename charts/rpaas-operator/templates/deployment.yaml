@@ -40,7 +40,13 @@ spec:
 
           ports:
             - name: metrics
-              containerPort: 6000
+              containerPort: 8080
+              protocol: TCP
+            - name: health
+              containerPort: 8081
+              protocol: TCP
+            - name: api
+              containerPort: 8082
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
