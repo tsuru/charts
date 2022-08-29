@@ -1,0 +1,300 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+{{ include "tsuru-monitoring.labels" . | indent 4 }}
+{{- if .Values.tsuruRules.labels }}
+{{ toYaml .Values.tsuruRules.labels | indent 4 }}
+{{- end }}
+{{- if .Values.tsuruRules.annotations }}
+  annotations:
+{{ toYaml .Values.tsuruRules.annotations | indent 4 }}
+{{- end }}
+  name: tsuru-cost-optimization
+spec:
+  groups:
+  - interval: 1m
+    name: rpaas:cost_optization.rules
+    rules:
+    - record: "tsuru:cost_optimization:cpu_allocated"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    kube_pod_container_resource_requests{container!="", container!="POD", resource="cpu"}
+                  * on (pod) group_left (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name, label_rpaas_extensions_tsuru_io_team_owner)
+                    kube_pod_labels{label_nginx_tsuru_io_app="nginx"},
+                  "app",
+                  "$0",
+                  "label_rpaas_extensions_tsuru_io_service_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_rpaas_extensions_tsuru_io_instance_name",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_rpaas_extensions_tsuru_io_team_owner",
+              ".*"
+            )
+          )
+        )
+
+    - record: "tsuru:cost_optimization:cpu_used"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[5m])
+                  * on (pod) group_left (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name, label_rpaas_extensions_tsuru_io_team_owner)
+                    kube_pod_labels{label_nginx_tsuru_io_app="nginx"},
+                  "app",
+                  "$0",
+                  "label_rpaas_extensions_tsuru_io_service_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_rpaas_extensions_tsuru_io_instance_name",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_rpaas_extensions_tsuru_io_team_owner",
+              ".*"
+            )
+          )
+        )
+
+    - record: "tsuru:cost_optimization:cpu_peak"
+      expr: |
+        sort_desc (
+          max_over_time(sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[5m])
+                  * on (pod) group_left (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name, label_rpaas_extensions_tsuru_io_team_owner)
+                    kube_pod_labels{label_nginx_tsuru_io_app="nginx"},
+                  "app",
+                  "$0",
+                  "label_rpaas_extensions_tsuru_io_service_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_rpaas_extensions_tsuru_io_instance_name",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_rpaas_extensions_tsuru_io_team_owner",
+              ".*"
+            )
+          )[5m:1m])
+        )
+
+    - record: "tsuru:cost_optimization:memory_allocated"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    kube_pod_container_resource_requests{container!="", container!="POD", resource="memory"}
+                  * on (pod) group_left (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name, label_rpaas_extensions_tsuru_io_team_owner)
+                    kube_pod_labels{label_nginx_tsuru_io_app="nginx"},
+                  "app",
+                  "$0",
+                  "label_rpaas_extensions_tsuru_io_service_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_rpaas_extensions_tsuru_io_instance_name",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_rpaas_extensions_tsuru_io_team_owner",
+              ".*"
+            )
+          )
+        )
+
+    - record: "tsuru:cost_optimization:memory_used"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    avg_over_time(container_memory_usage_bytes{container!="", container!="POD"}[5m])
+                  * on (pod) group_left (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name, label_rpaas_extensions_tsuru_io_team_owner)
+                    kube_pod_labels{label_nginx_tsuru_io_app="nginx"},
+                  "app",
+                  "$0",
+                  "label_rpaas_extensions_tsuru_io_service_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_rpaas_extensions_tsuru_io_instance_name",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_rpaas_extensions_tsuru_io_team_owner",
+              ".*"
+            )
+          )
+        )
+
+  - interval: 1m
+    name: tsuru_apps:cost_optization.rules
+    rules:
+    - record: "tsuru:cost_optimization:cpu_allocated"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    kube_pod_container_resource_requests{container!="", container!="POD", resource="cpu"}
+                  * on (pod) group_left (label_tsuru_io_app_name, label_tsuru_io_app_process, label_tsuru_io_app_team)
+                    kube_pod_labels{label_tsuru_io_is_tsuru="true"},
+                  "app",
+                  "$0",
+                  "label_tsuru_io_app_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_tsuru_io_app_process",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_tsuru_io_app_team",
+              ".*"
+            )
+          )
+        )
+
+    - record: "tsuru:cost_optimization:cpu_used"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[5m])
+                  * on (pod) group_left (label_tsuru_io_app_name, label_tsuru_io_app_process, label_tsuru_io_app_team)
+                    kube_pod_labels{label_tsuru_io_is_tsuru="true"},
+                  "app",
+                  "$0",
+                  "label_tsuru_io_app_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_tsuru_io_app_process",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_tsuru_io_app_team",
+              ".*"
+            )
+          )
+        )
+
+    - record: "tsuru:cost_optimization:cpu_peak"
+      expr: |
+        sort_desc (
+          max_over_time(sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[5m])
+                  * on (pod) group_left (label_tsuru_io_app_name, label_tsuru_io_app_process, label_tsuru_io_app_team)
+                    kube_pod_labels{label_tsuru_io_is_tsuru="true"},
+                  "app",
+                  "$0",
+                  "label_tsuru_io_app_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_tsuru_io_app_process",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_tsuru_io_app_team",
+              ".*"
+            )
+          )[5m:1m])
+        )
+
+    - record: "tsuru:cost_optimization:memory_allocated"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    kube_pod_container_resource_requests{container!="", container!="POD", resource="memory"}
+                  * on (pod) group_left (label_tsuru_io_app_name, label_tsuru_io_app_process, label_tsuru_io_app_team)
+                    kube_pod_labels{label_tsuru_io_is_tsuru="true"},
+                  "app",
+                  "$0",
+                  "label_tsuru_io_app_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_tsuru_io_app_process",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_tsuru_io_app_team",
+              ".*"
+            )
+          )
+        )
+
+    - record: "tsuru:cost_optimization:memory_used"
+      expr: |
+        sort_desc (
+          sum by (app, process, team) (
+            label_replace (
+              label_replace (
+                label_replace (
+                    avg_over_time(container_memory_usage_bytes{container!="", container!="POD"}[5m])
+                  * on (pod) group_left (label_tsuru_io_app_name, label_tsuru_io_app_process, label_tsuru_io_app_team)
+                    kube_pod_labels{label_tsuru_io_is_tsuru="true"},
+                  "app",
+                  "$0",
+                  "label_tsuru_io_app_name",
+                  ".*"
+                ),
+                "process",
+                "$0",
+                "label_tsuru_io_app_process",
+                ".*"
+              ),
+              "team",
+              "$0",
+              "label_tsuru_io_app_team",
+              ".*"
+            )
+          )
+        )
