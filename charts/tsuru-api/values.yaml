@@ -171,6 +171,7 @@ tsuruConfig:
   # http://docs.tsuru.io/en/stable/reference/config.html#quota-management
   quota:
     appsPerUser: 10
+    appsPerTeam: 20
     unitsPerApp: 10
 
   # Tsuru API database

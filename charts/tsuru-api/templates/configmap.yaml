@@ -81,6 +81,7 @@ data:
 {{- if .Values.tsuruConfig.quota }}
     quota:
       apps-per-user: {{ .Values.tsuruConfig.quota.appsPerUser }}
+      apps-per-team: {{ .Values.tsuruConfig.quota.appsPerTeam }}
       units-per-app: {{ .Values.tsuruConfig.quota.unitsPerApp }}
 {{- end }}
 
