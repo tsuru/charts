@@ -19,6 +19,9 @@ spec:
     http:
       paths:
       - path: {{ $.Values.ingress.path }}
+        {{- with $.Values.ingress.pathType }}
+        pathType: {{ . }}
+        {{- end }}
         backend:
           service:
             name: rpaas-purger
