@@ -74,6 +74,7 @@ securityContext: {}
 service:
   type: ClusterIP
   httpsOnly: true
+  externalTrafficPolicy: Local
   httpPort: 80
   targetHTTPPort: 8080
   httpsPort: 443

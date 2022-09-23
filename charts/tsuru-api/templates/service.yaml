@@ -10,6 +10,7 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.service.type }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   ports:
   {{- if eq .Values.service.type "ClusterIP" }}
     - port: {{ .Values.service.httpPort }}
