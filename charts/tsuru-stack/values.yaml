@@ -55,6 +55,8 @@ tsuru-api:
     debug: true
 
 kubernetes-router:
+  service:
+    type: ClusterIP
   controllerModes:
   - ingress-nginx
   ingressExpose:
