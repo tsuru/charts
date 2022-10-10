@@ -16,9 +16,9 @@ dependencies:
   version: 1.10.1
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
-  version: 13.1.7
+  version: 12.1.31
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.3.1
-digest: sha256:0c25da7a212d9fbcf9bf91ad45ac5afee5cfbdbcc8486aea2d218c02d330f1e9
-generated: "2022-10-10T11:23:52.037098-03:00"
+digest: sha256:19a4ca92515827d6fdbd8394ba2562ab688109e7305e5765966a11a4afafff71
+generated: "2022-10-10T11:52:30.545579-03:00"
