@@ -69,10 +69,17 @@ kubernetes-router:
 
 mongodb:
   enabled: true
+  image:
+    tag: 4.2.21-debian-10-r8 # tsuru does not support mongo 5 yet
   auth:
-    username: tsuru
-    password: tsuru
-    database: tsuru
+    rootPassword: tsuru
+    rootUser: root
+    usernames:
+    - tsuru
+    passwords:
+    - tsuru
+    databases:
+    - tsuru
 
 monitoring:
   enabled: false
