@@ -1,7 +1,7 @@
 dependencies:
 - name: tsuru-api
   repository: https://tsuru.github.io/charts
-  version: 0.1.18
+  version: 0.2.8
 - name: kubernetes-router
   repository: https://tsuru.github.io/charts
   version: 0.1.15
@@ -20,5 +20,5 @@ dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.3.1
-digest: sha256:19a4ca92515827d6fdbd8394ba2562ab688109e7305e5765966a11a4afafff71
-generated: "2022-10-10T11:52:30.545579-03:00"
+digest: sha256:446e595d26794617c53610c72a7d4a3b5278d78b7e81169e64e2f12d00b7c1c9
+generated: "2022-10-11T14:19:21.309029-03:00"
