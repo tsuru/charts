@@ -156,7 +156,7 @@ tsuruConfig:
   TLS:
     certFilename: ""
     certKeyFile: ""
-    listen: 8443
+    listen: "0.0.0.0:8443"
     autoreloadInterval: 30s
     validateCertificate: true
 

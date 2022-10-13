@@ -15,7 +15,7 @@ data:
 {{- if .Values.tsuruConfig.useTLS }}
     use-tls: true
     tls:
-      {{- if .Values.certManager.enabled }}
+      {{- if or (.Values.tlsSecretName) (.Values.certManager.enabled) }}
       cert-file: /mnt/tls/tls.crt
       key-file: /mnt/tls/tls.key
       {{- else }}
