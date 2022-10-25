@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "acl-operator.fullname" . }}
+  labels:
+    {{- include "acl-operator.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "acl-operator.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "acl-operator.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "acl-operator.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: metrics
+              containerPort: 8000
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          - name: TSURU_TARGET
+            value: {{ .Values.tsuru.address }}
+          - name: TSURU_TOKEN
+            value: {{ .Values.tsuru.token }}
+          
+          {{- with .Values.aclapi.address }}
+          - name: ACL_API_ADDRESS
+            value: {{ . }}
+          {{- end }}
+
+          {{- with .Values.aclapi.user }}
+          - name: ACL_API_USER
+            value: {{ . }}
+          {{- end }}
+
+          {{- with .Values.aclapi.password }}
+          - name: ACL_API_PASSWORD
+            value: {{ .}}
+          {{- end }}
+
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml .| nindent 12 }}
+          {{- end }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
