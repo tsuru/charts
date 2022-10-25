@@ -66,7 +66,6 @@ spec:
               reason:
                 type: string
             required:
-            - ips
             - ready
             type: object
         type: object
@@ -219,14 +218,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.9.0
   creationTimestamp: null
-  name: rpaasinstanceadresses.extensions.tsuru.io
+  name: rpaasinstanceaddresses.extensions.tsuru.io
 spec:
   group: extensions.tsuru.io
   names:
-    kind: RpaasInstanceAdress
-    listKind: RpaasInstanceAdressList
-    plural: rpaasinstanceadresses
-    singular: rpaasinstanceadress
+    kind: RpaasInstanceAddress
+    listKind: RpaasInstanceAddressList
+    plural: rpaasinstanceaddresses
+    singular: rpaasinstanceaddress
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -239,7 +238,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: RpaasInstanceAdress is the Schema for the rpaasinstanceadresses
+        description: RpaasInstanceAddress is the Schema for the rpaasinstanceaddresses
           API
         properties:
           apiVersion:
@@ -255,7 +254,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: RpaasInstanceAdressSpec defines the desired state of RpaasInstanceAdress
+            description: RpaasInstanceAddressSpec defines the desired state of RpaasInstanceAddress
             properties:
               instance:
                 type: string
@@ -263,8 +262,8 @@ spec:
                 type: string
             type: object
           status:
-            description: ResourceAdressStatus defines the observed state of TsuruAppAdress
-              and RpaasInstanceAdress
+            description: ResourceAddressStatus defines the observed state of TsuruAppAddress
+              and RpaasInstanceAddress
             properties:
               ips:
                 items:
@@ -272,10 +271,11 @@ spec:
                 type: array
               ready:
                 type: boolean
+              reason:
+                type: string
               updatedAt:
                 type: string
             required:
-            - ips
             - ready
             type: object
         type: object
@@ -290,14 +290,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.9.0
   creationTimestamp: null
-  name: tsuruappadresses.extensions.tsuru.io
+  name: tsuruappaddresses.extensions.tsuru.io
 spec:
   group: extensions.tsuru.io
   names:
-    kind: TsuruAppAdress
-    listKind: TsuruAppAdressList
-    plural: tsuruappadresses
-    singular: tsuruappadress
+    kind: TsuruAppAddress
+    listKind: TsuruAppAddressList
+    plural: tsuruappaddresses
+    singular: tsuruappaddress
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -310,7 +310,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: TsuruAppAdress is the Schema for the tsuruappadresses API
+        description: TsuruAppAddress is the Schema for the tsuruappaddresses API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -325,14 +325,14 @@ spec:
           metadata:
             type: object
           spec:
-            description: TsuruAppAdressSpec defines the desired state of TsuruAppAdress
+            description: TsuruAppAddressSpec defines the desired state of TsuruAppAddress
             properties:
               name:
                 type: string
             type: object
           status:
-            description: ResourceAdressStatus defines the observed state of TsuruAppAdress
-              and RpaasInstanceAdress
+            description: ResourceAddressStatus defines the observed state of TsuruAppAddress
+              and RpaasInstanceAddress
             properties:
               ips:
                 items:
@@ -340,10 +340,11 @@ spec:
                 type: array
               ready:
                 type: boolean
+              reason:
+                type: string
               updatedAt:
                 type: string
             required:
-            - ips
             - ready
             type: object
         type: object
