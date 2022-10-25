@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   acl-operator:
   - apiVersion: v2
+    created: "2022-10-25T20:08:06.434633138Z"
+    description: Control network access in high abstractions by Tsuru Applications
+    digest: d67c47c874cdcfe9f352f5401387bd8ef7f0f55e65094107da830fef2dacc008
+    name: acl-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/acl-operator-0.1.2/acl-operator-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2022-10-25T16:42:59.684678229Z"
     description: Control network access in high abstractions by Tsuru Applications
     digest: 8d9fd3594951ce243afdd2453bcd22865f6299f486a9321ddaffdf4939977d8d
@@ -3182,4 +3191,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-25T16:42:59.685465032Z"
+generated: "2022-10-25T20:08:06.435953838Z"
