@@ -1,0 +1,353 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.0
+  creationTimestamp: null
+  name: acldnsentries.extensions.tsuru.io
+spec:
+  group: extensions.tsuru.io
+  names:
+    kind: ACLDNSEntry
+    listKind: ACLDNSEntryList
+    plural: acldnsentries
+    singular: acldnsentry
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.ready
+      name: Ready
+      type: boolean
+    - jsonPath: .status.ips[*].address
+      name: Addresses
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ACLDNSEntry is the Schema for the ACLDNSEntrys API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ACLDNSEntrySpec defines the desired state of ACLDNSEntry
+            properties:
+              host:
+                type: string
+            required:
+            - host
+            type: object
+          status:
+            description: ACLDNSEntryStatus defines the observed state of ACLDNSEntry
+            properties:
+              ips:
+                items:
+                  properties:
+                    address:
+                      type: string
+                    validUtil:
+                      type: string
+                  required:
+                  - address
+                  - validUtil
+                  type: object
+                type: array
+              ready:
+                type: boolean
+              reason:
+                type: string
+            required:
+            - ips
+            - ready
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.0
+  creationTimestamp: null
+  name: acls.extensions.tsuru.io
+spec:
+  group: extensions.tsuru.io
+  names:
+    kind: ACL
+    listKind: ACLList
+    plural: acls
+    singular: acl
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.ready
+      name: Ready
+      type: boolean
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ACL is the Schema for the acls API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ACLSpec defines the desired state of ACL
+            properties:
+              destinations:
+                items:
+                  properties:
+                    externalDNS:
+                      properties:
+                        name:
+                          type: string
+                        ports:
+                          items:
+                            properties:
+                              number:
+                                type: integer
+                              protocol:
+                                type: string
+                            required:
+                            - number
+                            - protocol
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    externalIP:
+                      properties:
+                        ip:
+                          type: string
+                        ports:
+                          items:
+                            properties:
+                              number:
+                                type: integer
+                              protocol:
+                                type: string
+                            required:
+                            - number
+                            - protocol
+                            type: object
+                          type: array
+                      required:
+                      - ip
+                      type: object
+                    rpaasInstance:
+                      properties:
+                        instance:
+                          type: string
+                        serviceName:
+                          type: string
+                      required:
+                      - instance
+                      - serviceName
+                      type: object
+                    tsuruApp:
+                      type: string
+                    tsuruAppPool:
+                      type: string
+                  type: object
+                type: array
+              source:
+                properties:
+                  rpaasInstance:
+                    properties:
+                      instance:
+                        type: string
+                      serviceName:
+                        type: string
+                    required:
+                    - instance
+                    - serviceName
+                    type: object
+                  tsuruApp:
+                    type: string
+                type: object
+            required:
+            - destinations
+            - source
+            type: object
+          status:
+            description: ACLStatus defines the observed state of ACL
+            properties:
+              networkPolicy:
+                type: string
+              ready:
+                type: boolean
+              reason:
+                type: string
+              warningErrors:
+                items:
+                  type: string
+                type: array
+            required:
+            - ready
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.0
+  creationTimestamp: null
+  name: rpaasinstanceadresses.extensions.tsuru.io
+spec:
+  group: extensions.tsuru.io
+  names:
+    kind: RpaasInstanceAdress
+    listKind: RpaasInstanceAdressList
+    plural: rpaasinstanceadresses
+    singular: rpaasinstanceadress
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.ready
+      name: Ready
+      type: boolean
+    - jsonPath: .status.ips[*]
+      name: Addresses
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: RpaasInstanceAdress is the Schema for the rpaasinstanceadresses
+          API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: RpaasInstanceAdressSpec defines the desired state of RpaasInstanceAdress
+            properties:
+              instance:
+                type: string
+              serviceName:
+                type: string
+            type: object
+          status:
+            description: ResourceAdressStatus defines the observed state of TsuruAppAdress
+              and RpaasInstanceAdress
+            properties:
+              ips:
+                items:
+                  type: string
+                type: array
+              ready:
+                type: boolean
+              updatedAt:
+                type: string
+            required:
+            - ips
+            - ready
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.0
+  creationTimestamp: null
+  name: tsuruappadresses.extensions.tsuru.io
+spec:
+  group: extensions.tsuru.io
+  names:
+    kind: TsuruAppAdress
+    listKind: TsuruAppAdressList
+    plural: tsuruappadresses
+    singular: tsuruappadress
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.ready
+      name: Ready
+      type: boolean
+    - jsonPath: .status.ips[*]
+      name: Addresses
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: TsuruAppAdress is the Schema for the tsuruappadresses API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TsuruAppAdressSpec defines the desired state of TsuruAppAdress
+            properties:
+              name:
+                type: string
+            type: object
+          status:
+            description: ResourceAdressStatus defines the observed state of TsuruAppAdress
+              and RpaasInstanceAdress
+            properties:
+              ips:
+                items:
+                  type: string
+                type: array
+              ready:
+                type: boolean
+              updatedAt:
+                type: string
+            required:
+            - ips
+            - ready
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
