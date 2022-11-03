@@ -2,12 +2,12 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: rpaasv2-purger
+  name: rpaas-purger
   labels:
-    app: rpaasv2-purger
+    app: rpaas-purger
 spec:
   maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
   selector:
     matchLabels:
-      name: rpaasv2-purger
+      name: rpaas-purger
 {{- end }}
