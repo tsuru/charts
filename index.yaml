@@ -157,6 +157,17 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/conntrack-exporter-0.1.2/conntrack-exporter-0.1.2.tgz
     version: 0.1.2
+  deploy-agent:
+  - apiVersion: v2
+    appVersion: 2.0.0
+    created: "2022-11-23T21:24:24.10284851Z"
+    description: A Helm chart for Kubernetes
+    digest: 2c90c7699956242a7b2f3cbed2efe3b99a3295d4abe80441339bf54155644890
+    name: deploy-agent
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/deploy-agent-1.0.0/deploy-agent-1.0.0.tgz
+    version: 1.0.0
   gcp-state-metrics:
   - apiVersion: v2
     appVersion: 0.0.4
@@ -3266,4 +3277,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-10T21:17:10.646641086Z"
+generated: "2022-11-23T21:24:24.104044406Z"
