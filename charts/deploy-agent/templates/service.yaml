@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "deploy-agent.fullname" . }}
+  labels:
+    {{- include "deploy-agent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: http
+    port: {{ .Values.service.port }}
+    targetPort: http-grpc
+  selector:
+    {{- include "deploy-agent.selectorLabels" . | nindent 4 }}

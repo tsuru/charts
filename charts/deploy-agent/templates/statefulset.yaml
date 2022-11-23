@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "deploy-agent.fullname" . }}
+  labels:
+    {{- include "deploy-agent.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  serviceName: {{ include "deploy-agent.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "deploy-agent.selectorLabels" . | nindent 6 }}
+  {{- with .Values.updateStategy }}
+  updateStategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.volumeClaimTemplates }}
+  volumeClaimTemplates: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "deploy-agent.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "deploy-agent.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 6 }}
+      {{- end }}
+      containers:
+      - name: deploy-agent
+        image: "{{ .Values.deployAgent.image.repository }}:{{ .Values.deployAgent.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.deployAgent.image.pullPolicy }}
+        command:
+        - /usr/local/bin/deploy-agent
+        - --buildkit-addr=unix:///var/run/buildkit/buildkitd.sock
+        - --port=8080
+        ports:
+        - name: http-grpc
+          containerPort: 8080
+        {{- with .Values.deployAgent.readinessProbe }}
+        readinessProbe: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.deployAgent.livenessProbe }}
+        livenessProbe: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.deployAgent.resources }}
+        resources: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.deployAgent.securityContext }}
+        securityContext: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+        - name: buildkit-run
+          mountPath: /var/run/buildkit
+        {{- if .Values.deployAgent.dockerConfig }}
+        - name: docker-config
+          mountPath: /root/.docker/config.json
+        {{- end }}
+        {{- with .Values.deployAgent.volumeMounts }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+
+      - name: buildkit
+        image: "{{ .Values.buildkit.image.repository }}:{{ .Values.buildkit.image.tag }}"
+        imagePullPolicy: {{ .Values.buildkit.image.pullPolicy }}
+        command:
+        - /usr/bin/buildkitd
+        {{- if .Values.buildkit.config }}
+        - --config=/etc/buildkit/buildkitd.toml
+        {{- end }}
+        {{- with .Values.buildkit.resources }}
+        resources: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.buildkit.securityContext }}
+        securityContext: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.buildkit.readinessProbe }}
+        readinessProbe: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+        - name: buildkit-run
+          mountPath: /var/run/buildkit
+        {{- if .Values.buildkit.config }}
+        - name: buildkit-config
+          mountPath: /etc/buildkit/buildkitd.toml
+          subPath: buildkitd.toml
+        {{- end }}
+        {{- with .Values.buildkit.volumeMounts }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+
+      volumes:
+      - name: buildkit-run
+        emptyDir: {}
+      {{- if .Values.deployAgent.dockerConfig }}
+      - name: docker-config
+        secret:
+          secretName: {{ include "deploy-agent.dockerConfigName" . }}
+      {{- end }}
+      {{- if .Values.buildkit.config }}
+      - name: buildkit-config
+        configMap:
+          name: {{ include "deploy-agent.buildkitConfigName" . }}
+      {{- end }}
+      {{- with .Values.volumes }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity: {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations: {{- toYaml . | nindent 6 }}
+      {{- end }}
