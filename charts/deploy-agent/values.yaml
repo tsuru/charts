@@ -1,0 +1,103 @@
+# Default values for deploy-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+deployAgent:
+  image:
+    repository: tsuru/deploy-agent
+    pullPolicy: IfNotPresent
+    tag: "" # defaults to chart appVersion
+
+  readinessProbe:
+    exec:
+      command:
+      - /usr/local/bin/grpc_health_probe
+      - -addr=127.0.0.1:8080
+      - -rpc-timeout=500ms
+    periodSeconds: 5
+    successThreshold: 5
+
+  livenessProbe: {}
+
+  resources: {}
+  volumeMounts: []
+  securityContext: {}
+
+  # Docker config file
+  # See more https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-configuration-file-configjson-properties
+  dockerConfig: ""
+
+buildkit:
+  image:
+    repository: moby/buildkit
+    pullPolicy: IfNotPresent
+    tag: v0.10.6
+
+  resources: {}
+  volumeMounts: []
+
+  securityContext:
+    privileged: true
+
+  readinessProbe:
+    exec:
+      command:
+      - /usr/bin/buildctl
+      - -timeout=1
+      - debug
+      - workers
+    periodSeconds: 5
+    successThreshold: 5
+
+  # buildkitd config file
+  # See more: https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md
+  config: ""
+
+updateStategy: {}
+
+volumeClaimTemplates: []
+
+volumes: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+  behavior: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,11 @@
+{{- if .Values.buildkit.config }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "deploy-agent.buildkitConfigName" . }}
+  labels:
+    {{- include "deploy-agent.labels" . | nindent 4 }}
+data:
+  buildkitd.toml: |-
+    {{- .Values.buildkit.config | nindent 4 }}
+{{- end }}
