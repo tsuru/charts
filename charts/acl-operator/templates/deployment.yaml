@@ -42,7 +42,7 @@ spec:
             value: {{ .Values.tsuru.address }}
           - name: TSURU_TOKEN
             value: {{ .Values.tsuru.token }}
-          
+
           {{- with .Values.aclapi.address }}
           - name: ACL_API_ADDRESS
             value: {{ . }}
@@ -56,6 +56,11 @@ spec:
           {{- with .Values.aclapi.password }}
           - name: ACL_API_PASSWORD
             value: {{ .}}
+          {{- end }}
+
+          {{- if .Values.gc.dryRun }}
+          - name: GC_DRY_RUN
+            value: "true"
           {{- end }}
 
           {{- with .Values.volumeMounts }}

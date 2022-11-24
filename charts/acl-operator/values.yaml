@@ -16,8 +16,7 @@ aclapi:
 image:
   repository: tsuru/acl-operator
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "edge"
+  tag: "0.1.4"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -66,3 +65,6 @@ affinity: {}
 
 volumes: []
 volumeMounts: []
+
+gc:
+  dryRun: false
