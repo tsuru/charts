@@ -59,15 +59,15 @@ spec:
       record: long_term:rpaas:upstream_requests_total:irate:5m
 
     - expr: |
-        histogram_quantile(0.5, sum by (namespace, service_instance, le) (sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
+        histogram_quantile(0.5, sum by (namespace, service, service_instance, le) (sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
       record: long_term:rpaas:request_duration:p50:5m
 
     - expr: |
-        histogram_quantile(0.95, sum by (namespace, service_instance, le) (sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
+        histogram_quantile(0.95, sum by (namespace, service, service_instance, le) (sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
       record: long_term:rpaas:request_duration:p95:5m
 
     - expr: |
-        histogram_quantile(0.99, sum by (namespace, service_instance, le) (sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
+        histogram_quantile(0.99, sum by (namespace, service, service_instance, le) (sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
       record: long_term:rpaas:request_duration:p99:5m
 
     # cpu
