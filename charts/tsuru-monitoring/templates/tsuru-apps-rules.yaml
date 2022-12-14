@@ -30,17 +30,17 @@ spec:
     rules:
     - record: long_term:tsuru:app_cpu_usage:max:3m
       expr: |
-        max by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
+        max by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
         on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_usage:avg:3m
       expr: |
-        avg by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
+        avg by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
         on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_usage:min:3m
       expr: |
-        min by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
+        min by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
         on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_usage:sum:3m

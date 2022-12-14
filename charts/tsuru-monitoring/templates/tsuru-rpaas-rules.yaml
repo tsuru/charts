@@ -77,11 +77,11 @@ spec:
         on (pod) group_left(label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) kube_pod_labels{label_nginx_tsuru_io_app="nginx"})
     - record: long_term:rpaas:cpu_usage:min:3m
       expr: |
-        min by (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
+        min by (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
         on (pod) group_left(label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) kube_pod_labels{label_nginx_tsuru_io_app="nginx"})
     - record: long_term:rpaas:cpu_usage:avg:3m
       expr: |
-        avg by (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
+        avg by (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
         on (pod) group_left(label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) kube_pod_labels{label_nginx_tsuru_io_app="nginx"})
     - record: long_term:rpaas:cpu_usage:sum:3m
       expr: |
