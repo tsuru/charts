@@ -88,6 +88,23 @@ service:
   type: ClusterIP
   port: 80
 
+ingress:
+  enabled: false
+  annotations: {}
+  className: ""
+  path: /
+  pathType: ImplementationSpecific
+  # hosts:
+  # - example.com
+  # - *.example.com
+  hosts: []
+  # tls:
+  # - hosts:
+  #   - example.com
+  #   - *.example.com
+  #   secretName: example-com-tls
+  tls: []
+
 autoscaling:
   enabled: false
   minReplicas: 1
