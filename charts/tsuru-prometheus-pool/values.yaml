@@ -90,6 +90,10 @@ rpaas:
 #   name: additional-alert-manager-configs
 #   key: alert-manager-additional.yaml
 
+
+# remoteWrite:
+#   # Read more at: https://github.com/prometheus-operator/prometheus-operator/blob/371192cdc95e4596c4f07591ff65104d8c85bad9/pkg/apis/monitoring/v1/types.go#L215
+
 # Kubernetes Tolerations to Prometheus CR (https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 #
 # e.g.
