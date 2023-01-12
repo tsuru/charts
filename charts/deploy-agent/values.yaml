@@ -118,3 +118,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: "10%"
