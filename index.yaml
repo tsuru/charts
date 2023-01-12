@@ -169,6 +169,16 @@ entries:
   deploy-agent:
   - apiVersion: v2
     appVersion: 2.0.0
+    created: "2023-01-12T19:44:48.118359172Z"
+    description: A Helm chart for Kubernetes
+    digest: 0ce3a4bf91a05cca52f7c101abe82ce6175d493517168d11fed74d5abe19539b
+    name: deploy-agent
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/deploy-agent-1.1.1/deploy-agent-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 2.0.0
     created: "2023-01-09T14:50:05.501399544Z"
     description: A Helm chart for Kubernetes
     digest: 2ad73cd78ebb2cc18075c30f1fc4b70e17fa9d942c128db71ea6788c41014071
@@ -3362,4 +3372,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-10T17:32:24.244029913Z"
+generated: "2023-01-12T19:44:48.119177233Z"
