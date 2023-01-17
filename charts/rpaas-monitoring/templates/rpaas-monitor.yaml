@@ -61,3 +61,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
 {{- toYaml .Values.rpaas.selector | nindent 4}}
+  {{- with .Values.rpaas.sampleLimit }}
+  sampleLimit: {{ . }}
+  {{- end }}
