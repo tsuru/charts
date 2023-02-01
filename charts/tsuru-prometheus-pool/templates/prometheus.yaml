@@ -79,7 +79,7 @@ spec:
 
   {{- with .Values.nodeSelector }}
   nodeSelector:
-  {{- toYaml . | nindent 2 }}
+  {{- toYaml . | nindent 4 }}
   {{- end }}
 
   {{- with .Values.tolerations }}
