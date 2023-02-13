@@ -26,16 +26,16 @@ spec:
         severity: page
     - alert: rpaas:cert-expiring-10-days
       annotations:
-        message: {{`RPaaS Instance {{ $labels.service }}/{{ $labels.service_instance}} has a certificate named {{ $labels.servername }} that expires in 10 days, team owner {{ $labels.team_owner }}`}}
+        message: {{`RPaaS Instance {{ $labels.service }}/{{ $labels.service_instance}} has a certificate named {{ $labels.servername }} that expires in {{ $value }} days, team owner {{ $labels.team_owner }}`}}
       expr: |
-        label_replace(time() < probe_ssl_earliest_cert_expiry{service_instance!=""} < (time()-10*24*60*60), "tsuru_team_owner", "$0", "team_owner", ".*")
+        label_replace(floor((((probe_ssl_earliest_cert_expiry{service_instance!=""} - time())/24/60/60)>0)<10), "tsuru_team_owner", "$0", "team_owner", ".*")
       labels:
         severity: page
     - alert: rpaas:cert-expiring-20-days
       annotations:
-        message: {{`RPaaS Instance {{ $labels.service }}/{{ $labels.service_instance}} has a certificate named {{ $labels.servername }} that expires in 20 days, team owner {{ $labels.team_owner }}`}}
+        message: {{`RPaaS Instance {{ $labels.service }}/{{ $labels.service_instance}} has a certificate named {{ $labels.servername }} that expires in {{ $value }} days, team owner {{ $labels.team_owner }}`}}
       expr: |
-        label_replace((time()-10*24*60*60) < probe_ssl_earliest_cert_expiry{service_instance!=""} < (time()-20*24*60*60), "tsuru_team_owner", "$0", "team_owner", ".*")
+        label_replace(floor((((probe_ssl_earliest_cert_expiry{service_instance!=""} - time())/24/60/60)>10)<20), "tsuru_team_owner", "$0", "team_owner", ".*")
       labels:
         severity: ticket
 
