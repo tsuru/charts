@@ -13,6 +13,30 @@ metadata:
   name: tsuru-apps-rule
 spec:
   groups:
+  - interval: 2m
+    name: tsuru-apps.alerts
+    rules:
+    - alert: app:cert-expired
+      annotations:
+        message: {{`Tsuru Application {{ $labels.app }} has an expired certificate {{ $labels.servername }}, team owner {{ $labels.team_owner }}, ingress class {{ $labels.classname }}`}}
+      expr: |
+        label_replace( probe_ssl_earliest_cert_expiry{app!=""} < time(), "tsuru_team_owner", "$0", "team_owner", ".*")
+      labels:
+        severity: page
+    - alert: app:cert-expiring-10-days
+      annotations:
+        message: {{`Tsuru Application {{ $labels.app }} has a certificate named {{ $labels.servername }} that expires in {{ $value }} days, team owner {{ $labels.team_owner }}, ingress class {{ $labels.classname }}`}}
+      expr: |
+        label_replace(floor((((probe_ssl_earliest_cert_expiry{app!=""} - time())/24/60/60)>0)<10), "tsuru_team_owner", "$0", "team_owner", ".*")
+      labels:
+        severity: page
+    - alert: app:cert-expiring-20-days
+      annotations:
+        message: {{`Tsuru Application {{ $labels.app }} has a certificate named {{ $labels.servername }} that expires in {{ $value }} days, team owner {{ $labels.team_owner }}, ingress class {{ $labels.classname }}`}}
+      expr: |
+        label_replace(floor((((probe_ssl_earliest_cert_expiry{app!=""} - time())/24/60/60)>10)<20), "tsuru_team_owner", "$0", "team_owner", ".*")
+      labels:
+        severity: ticket
   - interval: 30s
     name: tsuru-apps.rules
     rules:
