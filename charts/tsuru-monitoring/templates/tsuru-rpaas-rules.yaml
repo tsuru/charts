@@ -155,6 +155,6 @@ spec:
     ## units ready
     - record: long_term:rpaas:replicas:sum
       expr: |
-        sum by (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) (kube_pod_status_ready *
+        sum by (label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) (kube_pod_status_phase{phase="Running"} *
         on (pod) group_left(label_rpaas_extensions_tsuru_io_service_name, label_rpaas_extensions_tsuru_io_instance_name) kube_pod_labels{label_nginx_tsuru_io_app="nginx"})
 {{- end }}
