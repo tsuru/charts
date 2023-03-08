@@ -21,6 +21,12 @@ rules:
   - leases
   verbs:
   - '*'
+- apiGroups:
+  - tsuru.io
+  resources:
+  - apps
+  verbs:
+  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
