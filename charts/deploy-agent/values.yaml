@@ -33,6 +33,15 @@ deployAgent:
   # See more https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-configuration-file-configjson-properties
   dockerConfig: ""
 
+  buildkit:
+    autoDiscovery:
+      enabled: false
+      podSelector: ""
+      namespace: ""
+      port: 8080
+      useSameNamespaceAsTsuruApp: false
+      setTsuruAppLabels: false
+
 buildkit:
   image:
     repository: moby/buildkit

@@ -41,6 +41,16 @@ spec:
         - /usr/local/bin/deploy-agent
         - --buildkit-addr=unix:///var/run/buildkit/buildkitd.sock
         - --port=8080
+        {{- if .Values.deployAgent.buildkit.autoDiscovery.enabled }}
+        {{- with .Values.deployAgent.buildkit.autoDiscovery }}
+        - --buildkit-autodiscovery
+        - --buildkit-autodiscovery-kubernetes-pod-selector={{ .podSelector }}
+        - --buildkit-autodiscovery-kubernetes-namespace={{ .namespace }}
+        - --buildkit-autodiscovery-kubernetes-port={{ .port }}
+        - --buildkit-autodiscovery-kubernetes-set-tsuru-app-labels={{ .setTsuruAppLabels }}
+        - --buildkit-autodiscovery-kubernetes-use-same-namespace-as-tsuru-app={{ .useSameNamespaceAsTsuruApp }}
+        {{- end }}
+        {{- end }}
         ports:
         - name: http-grpc
           containerPort: 8080
