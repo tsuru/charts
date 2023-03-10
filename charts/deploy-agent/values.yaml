@@ -41,6 +41,7 @@ deployAgent:
       port: 8080
       useSameNamespaceAsTsuruApp: false
       setTsuruAppLabels: false
+      timeout: 5m
 
 buildkit:
   image:

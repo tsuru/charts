@@ -44,6 +44,7 @@ spec:
         {{- if .Values.deployAgent.buildkit.autoDiscovery.enabled }}
         {{- with .Values.deployAgent.buildkit.autoDiscovery }}
         - --buildkit-autodiscovery
+        - --buildkit-autodiscovery-timeout={{ .timeout }}
         - --buildkit-autodiscovery-kubernetes-pod-selector={{ .podSelector }}
         - --buildkit-autodiscovery-kubernetes-namespace={{ .namespace }}
         - --buildkit-autodiscovery-kubernetes-port={{ .port }}
