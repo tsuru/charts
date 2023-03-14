@@ -73,6 +73,17 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/acl-operator-0.1.0/acl-operator-0.1.0.tgz
     version: 0.1.0
+  buildkit:
+  - apiVersion: v2
+    appVersion: 0.11.4
+    created: "2023-03-14T14:46:18.732001179Z"
+    description: Helm Chart for BuildKit (moby/buildkit)
+    digest: 80ade5c0fd6480987edf62ac5bc7e2baa20faf3b91b6dc694dc380b8d6f2b880
+    name: buildkit
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/buildkit-0.1.0/buildkit-0.1.0.tgz
+    version: 0.1.0
   certmanager-certificate:
   - apiVersion: v2
     created: "2021-07-26T12:08:49.95510107Z"
@@ -3503,4 +3514,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-10T20:16:32.456791674Z"
+generated: "2023-03-14T14:46:18.733344221Z"
