@@ -41,6 +41,9 @@ spec:
         {{- if .Values.config }}
         - --config=/etc/buildkit/buildkitd.toml
         {{- end }}
+        ports:
+        - name: http
+          containerPort: 8080
         {{- with .Values.resources }}
         resources: {{- toYaml . | nindent 10 }}
         {{- end }}
