@@ -75,3 +75,7 @@ volumeClaimTemplates: []
 # buildkitd config file
 # See more: https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md
 config: ""
+
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: "10%"
