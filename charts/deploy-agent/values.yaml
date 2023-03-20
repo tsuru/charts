@@ -105,8 +105,10 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  externalTrafficPolicy: ""
   type: ClusterIP
   port: 80
+  annotations: {}
 
 ingress:
   enabled: false

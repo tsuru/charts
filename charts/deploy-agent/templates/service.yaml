@@ -4,7 +4,14 @@ metadata:
   name: {{ include "deploy-agent.fullname" . }}
   labels:
     {{- include "deploy-agent.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
+  {{- with .Values.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ . }}
+  {{- end }}
   type: {{ .Values.service.type }}
   ports:
   - name: http
