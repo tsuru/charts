@@ -52,6 +52,9 @@ spec:
         - --buildkit-autodiscovery-kubernetes-use-same-namespace-as-tsuru-app={{ .useSameNamespaceAsTsuruApp }}
         {{- end }}
         {{- end }}
+        {{- with .Values.deployAgent.env }}
+        env: {{- toYaml . | nindent 8 }}
+        {{- end }}
         ports:
         - name: http-grpc
           containerPort: 8080
@@ -86,6 +89,9 @@ spec:
         - /usr/bin/buildkitd
         {{- if .Values.buildkit.config }}
         - --config=/etc/buildkit/buildkitd.toml
+        {{- end }}
+        {{- with .Values.buildkit.env }}
+        env: {{- toYaml . | nindent 8 }}
         {{- end }}
         {{- with .Values.buildkit.resources }}
         resources: {{- toYaml . | nindent 10 }}

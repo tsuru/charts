@@ -14,6 +14,11 @@ deployAgent:
     pullPolicy: IfNotPresent
     tag: "" # defaults to chart appVersion
 
+  # env:
+  # - name: MY_ENV
+  #   value: foo
+  env: []
+
   readinessProbe:
     exec:
       command:
@@ -48,6 +53,11 @@ buildkit:
     repository: moby/buildkit
     pullPolicy: IfNotPresent
     tag: v0.10.6
+
+  # env:
+  # - name: MY_ENV
+  #   value: foo
+  env: []
 
   resources: {}
   volumeMounts: []
