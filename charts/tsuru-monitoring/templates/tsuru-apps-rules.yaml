@@ -34,7 +34,7 @@ spec:
       annotations:
         message: {{`Tsuru Application {{ $labels.app }} has a certificate named {{ $labels.servername }} that expires in {{ $value }} days, team owner {{ $labels.team_owner }}, ingress class {{ $labels.classname }}`}}
       expr: |
-        label_replace(floor((((probe_ssl_earliest_cert_expiry{app!=""} - time())/24/60/60)>10)<20), "tsuru_team_owner", "$0", "team_owner", ".*")
+        label_replace(floor((((probe_ssl_earliest_cert_expiry{app!=""} - time())/24/60/60)>10)<19), "tsuru_team_owner", "$0", "team_owner", ".*")
       labels:
         severity: ticket
   - interval: 30s
