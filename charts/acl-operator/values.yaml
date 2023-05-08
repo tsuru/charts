@@ -16,7 +16,7 @@ aclapi:
 image:
   repository: tsuru/acl-operator
   pullPolicy: IfNotPresent
-  tag: "0.1.4"
+  tag: "0.1.10"
 
 imagePullSecrets: []
 nameOverride: ""
