@@ -40,7 +40,7 @@ spec:
           - /etc/rpaas-api/rpaas-api-conf.yaml
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag  }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           env:
             - name: RPAASV2_SERVICE_NAME
               value: {{with .Values.instances.serviceName }}{{.}}{{end}}
