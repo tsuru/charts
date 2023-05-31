@@ -100,15 +100,14 @@ rules:
   - list
   - watch
 - apiGroups:
-  - extensions.tsuru.io
+  - keda.sh
   resources:
-  - rpaasportallocations
+  - scaledobjects
   verbs:
   - create
   - get
-  - list
+  - patch
   - update
-  - watch
 - apiGroups:
   - nginx.tsuru.io
   resources:
