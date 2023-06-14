@@ -13,7 +13,6 @@ rules:
   - ""
   resources:
   - configmaps
-  - persistentvolumeclaims
   - secrets
   - services
   verbs:
@@ -23,6 +22,14 @@ rules:
   - list
   - update
   - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+  - update
 - apiGroups:
   - autoscaling
   resources:
@@ -105,9 +112,11 @@ rules:
   - scaledobjects
   verbs:
   - create
+  - delete
   - get
-  - patch
+  - list
   - update
+  - watch
 - apiGroups:
   - nginx.tsuru.io
   resources:
