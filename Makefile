@@ -1,16 +1,17 @@
+SHELL := /bin/bash
 .PHONY: all update-crds update-slis
 
 all: update-crds update-slis
 
 update-crds:
-	kustomize build \
-		github.com/tsuru/nginx-operator//config/crd/?ref=main > ./charts/nginx-operator/crds/crds.yaml
-
-	kustomize build \
-		github.com/tsuru/rpaas-operator//config/crd/?ref=main > ./charts/rpaas-operator/crds/crds.yaml
-
-	kustomize build \
-		github.com/tsuru/acl-operator//config/crd/?ref=main > ./charts/acl-operator/crds/crds.yaml
+	@for chart in nginx-operator rpaas-operator acl-operator ; \
+         do \
+           kustomize build github.com/tsuru/$${chart}//config/crd/?ref=main > ./charts/$${chart}/crds/crds.yaml ;\
+           crd=$$(<./charts/$${chart}/crds/crds.yaml) ;\
+           echo "{{- if .Values.installCRDs }}" > ./charts/$${chart}/templates/crds.yaml ;\
+           echo "$$crd" >> ./charts/$${chart}/templates/crds.yaml ;\
+           echo "{{- end }}" >> ./charts/$${chart}/templates/crds.yaml; \
+         done
 
 update-slis:
 	go get github.com/globocom/slo-generator
