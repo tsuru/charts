@@ -54,6 +54,10 @@ spec:
             - -workload-labels
             - '{{- join "," .Values.workloadLabels }}'
             {{- end }}
+            {{- if .Values.cidrClasses }}
+            - -cidr-classes
+            - '{{- join "," .Values.cidrClasses }}'
+            {{- end }}
             {{- if .Values.skipTLSVerify }}
             - '-insecure-skip-tls-verify=true'
             {{- end }}
