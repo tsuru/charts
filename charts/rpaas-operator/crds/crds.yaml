@@ -490,6 +490,8 @@ spec:
                             type: string
                           mapHashBucketSize:
                             type: integer
+                          mapHashMaxSize:
+                            type: integer
                           syslogEnabled:
                             type: boolean
                           syslogFacility:
@@ -6906,6 +6908,8 @@ spec:
                         type: string
                       mapHashBucketSize:
                         type: integer
+                      mapHashMaxSize:
+                        type: integer
                       syslogEnabled:
                         type: boolean
                       syslogFacility:
@@ -12735,6 +12739,8 @@ spec:
                   logFormatName:
                     type: string
                   mapHashBucketSize:
+                    type: integer
+                  mapHashMaxSize:
                     type: integer
                   syslogEnabled:
                     type: boolean
