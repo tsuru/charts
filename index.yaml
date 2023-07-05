@@ -93,6 +93,16 @@ entries:
     version: 0.1.0
   buildkit:
   - apiVersion: v2
+    appVersion: 0.11.6
+    created: "2023-07-05T01:26:14.454294885Z"
+    description: Helm Chart for BuildKit (moby/buildkit)
+    digest: a96073998de4cd2ec12814f35d1d21c4c2a529c9c915d3b050b0fcc7833918de
+    name: buildkit
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/buildkit-0.2.1/buildkit-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     appVersion: 0.11.4
     created: "2023-03-14T21:10:22.811988471Z"
     description: Helm Chart for BuildKit (moby/buildkit)
@@ -3778,4 +3788,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2023-07-04T19:52:10.265911474Z"
+generated: "2023-07-05T01:26:14.456713511Z"
