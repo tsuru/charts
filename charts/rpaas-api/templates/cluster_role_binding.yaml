@@ -8,7 +8,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: "{{ include "rpaas-api.fullname" . }}:api"
+  name: {{ include "rpaas-api.fullname" . }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "rpaas-api.serviceAccountName" . }}
