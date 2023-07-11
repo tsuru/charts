@@ -1,0 +1,28 @@
+slos:
+  - name: tsuru.nginx-ingress.discovery-services
+    honorLabels: true # use labels returned by the query
+    labels:
+      platform: tsuru.nginx-ingress
+    trafficRateRecord:
+      expr: |
+        sum(label_replace(label_join(sum by (namespace, ingress) (
+                                     rate(nginx_ingress_controller_requests[$window])),
+                                     "service", ".", "namespace", "ingress"),
+                          "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+
+    errorRateRecord:
+      expr: |
+        sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[$window])) /
+                                     sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests{}[$window])),
+                                     "service", ".", "namespace", "ingress"),
+                          "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+
+    latencyQuantileRecord:
+      expr: |
+        sum(label_replace(label_join(histogram_quantile($quantile,
+                                                        sum by (namespace, ingress, le) (
+                                                            sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[$window])) >= 0),
+                                     "service", ".", "namespace", "ingress"),
+                          "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0

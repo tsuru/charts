@@ -1,0 +1,41 @@
+{{- if .Values.nginx.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+{{ include "tsuru-monitoring.labels" . | indent 4 }}
+{{- if .Values.tsuruRules.labels }}
+{{ toYaml .Values.tsuruRules.labels | indent 4 }}
+{{- end }}
+{{- if .Values.tsuruRules.annotations }}
+  annotations:
+{{ toYaml .Values.tsuruRules.annotations | indent 4 }}
+{{- end }}
+  name: tsuru-nginx-rule
+spec:
+  groups:
+  - interval: 30s
+    name: tsuru-nginx.rules
+    rules:
+      - expr: |
+          sum by (namespace, ingress, le) (increase(nginx_ingress_controller_request_duration_seconds_bucket[2m]))/2
+        record: "nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m"
+
+  - interval: 2m
+    name: tsuru-nginx.long-term
+    rules:
+    - expr: |
+        sum by (namespace, ingress, status)(irate(nginx_ingress_controller_requests[5m]))
+      record: long_term:nginx:requests_total:irate:5m
+    - expr: |
+        histogram_quantile(0.5, sum by (namespace, ingress, le) (sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
+      record: long_term:nginx:request_duration:p50:5m
+
+    - expr: |
+        histogram_quantile(0.95, sum by (namespace, ingress, le) (sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
+      record: long_term:nginx:request_duration:p95:5m
+
+    - expr: |
+        histogram_quantile(0.99, sum by (namespace, ingress, le) (sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[5m])) >= 0)
+      record: long_term:nginx:request_duration:p99:5m
+{{- end }}

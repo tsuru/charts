@@ -1,0 +1,327 @@
+groups:
+    - name: slo:tsuru.nginx-ingress.discovery-services:short
+      interval: 30s
+      rules:
+        - record: slo:service_traffic:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[5m])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[5m])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[5m])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_5m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[5m])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_5m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[5m])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_5m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[5m])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_traffic:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[30m])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[30m])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[30m])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_30m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[30m])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_30m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[30m])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_30m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[30m])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_traffic:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[1h])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[1h])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[1h])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_1h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[1h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_1h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[1h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_1h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[1h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+    - name: slo:tsuru.nginx-ingress.discovery-services:medium
+      interval: 2m
+      rules:
+        - record: slo:service_traffic:ratio_rate_2h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[2h])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_2h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[2h])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[2h])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_2h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[2h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_2h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[2h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_2h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[2h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_traffic:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[6h])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[6h])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[6h])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_6h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[6h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_6h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[6h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_6h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[6h])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+    - name: slo:tsuru.nginx-ingress.discovery-services:daily
+      interval: 5m
+      rules:
+        - record: slo:service_traffic:ratio_rate_1d
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[1d])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_1d
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[1d])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[1d])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_1d
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[1d])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_1d
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[1d])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_1d
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[1d])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_traffic:ratio_rate_3d
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                         rate(nginx_ingress_controller_requests[3d])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_errors_total:ratio_rate_3d
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{status=~"5[0-9][0-9]"}[3d])) /
+                                         sum by (namespace, ingress) (
+                                             rate(nginx_ingress_controller_requests{}[3d])),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p50_3d
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[3d])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p95_3d
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[3d])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+        - record: slo:service_latency:p99_3d
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, ingress, le) (
+                                                                sum_over_time(nginx:nginx_ingress_controller_request_duration_seconds_bucket:increase_1m[3d])) >= 0),
+                                         "service", ".", "namespace", "ingress"),
+                              "service", "tsuru.nginx.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.nginx-ingress
+    - name: slo:tsuru.nginx-ingress.discovery-services:alert
+      rules: []

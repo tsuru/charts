@@ -11,6 +11,9 @@ rpaas:
   namespaceSelector: {}
   selector: {}
 
+nginx:
+  enabled: true
+
 remoteRead:
   enabled: false
   readers: []
