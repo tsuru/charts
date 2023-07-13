@@ -39,6 +39,8 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
+dnsConfig: {}
+
 securityContext: {}
   # capabilities:
   #   drop:
