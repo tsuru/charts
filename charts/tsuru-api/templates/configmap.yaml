@@ -128,25 +128,6 @@ data:
 {{- .Values.tsuruConfig.volumePlans | toYaml | nindent 6 }}
     {{- end }}
 
-    {{- if .Values.tsuruConfig.iaas }}
-    # - Iaas configuration
-    # http://docs.tsuru.io/en/stable/reference/config.html#iaas-configuration
-    iaas:
-      default: {{ .Values.tsuruConfig.iaas.iaas_default | default "ec2" }}
-      {{- if .Values.tsuruConfig.iaas.cloudstack }}
-      {{ .Values.tsuruConfig.iaas.cloudstack | indent 6 }}
-      {{- end }}
-      {{- if .Values.tsuruConfig.iaas.ec2 }}
-      {{ .Values.tsuruConfig.iaas.ec2 | indent 6 }}
-      {{- end }}
-      {{- if .Values.tsuruConfig.iaas.customIaaS }}
-      custom:
-{{- toYaml .Values.tsuruConfig.iaas.customIaaS | nindent 8 }}
-      {{- end }}
-      node-protocol: {{ .Values.tsuruConfig.iaas.nodeProtocol | default "http" }}
-      node-port: {{ .Values.tsuruConfig.iaas.nodePort | default "2375" }}
-    {{- end }}
-
     # - Debug configuration
     # http://docs.tsuru.io/en/stable/reference/config.html#log-level
     debug: {{ .Values.tsuruConfig.debug | default "false" }}
@@ -167,4 +148,10 @@ data:
     event:
       throttling:
 {{ .Values.tsuruConfig.eventThrottling | toYaml | indent 6 }}
+    {{- end }}
+
+
+    {{ if .Values.tsuruConfig.cors }}
+    cors:
+{{ .Values.tsuruConfig.cors | toYaml | indent 6 }}
     {{- end }}

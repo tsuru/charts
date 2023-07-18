@@ -217,6 +217,8 @@ tsuruConfig:
   # https://docs.tsuru.io/stable/managing/volumes.html#volume-plans
   volumePlans: {}
 
+  cors: {}
+
   # http://docs.tsuru.io/en/stable/reference/config.html#provisioner
   provisioner: ""
   docker: {}
@@ -225,15 +227,6 @@ tsuruConfig:
     deployInspectImage:
     poolNamespaces:
     progressTimeout:
-
-  # http://docs.tsuru.io/en/stable/reference/config.html#iaas-configuration
-  iaas:
-    nodeProtocol: "http"
-    nodePort: "2375"
-    default: "ec2"
-    ec2: {}
-    cloudstack: {}
-    customIaaS: {}
 
   events:
     suppressSensitiveEnvs: true
