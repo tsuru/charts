@@ -35,7 +35,7 @@ spec:
       {{- end }}
       containers:
       - name: deploy-agent
-        image: "{{ .Values.deployAgent.image.repository }}:{{ .Values.deployAgent.image.tag | default .Chart.AppVersion }}"
+        image: {{ .Values.deployAgent.image.repository }}:{{ default (printf "v%s" .Chart.AppVersion) .Values.deployAgent.image.tag }}
         imagePullPolicy: {{ .Values.deployAgent.image.pullPolicy }}
         command:
         - /usr/local/bin/deploy-agent
