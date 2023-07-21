@@ -206,6 +206,8 @@ tsuruConfig:
       collection:
       callbackPort:
 
+  authBlock: {}
+
   # http://docs.tsuru.io/en/stable/reference/config.html#config-queue
   queue:
     mongodbURL: "localhost:27017"

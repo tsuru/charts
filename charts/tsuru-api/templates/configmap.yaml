@@ -52,6 +52,9 @@ data:
 {{- end }}
 
     auth:
+    {{- if .Values.tsuruConfig.authBlock }}
+{{ .Values.tsuruConfig.authBlock | toYaml | indent 6 }}
+    {{- else }}
       scheme: {{ .Values.tsuruConfig.auth.scheme }}
       user-registration: {{ .Values.tsuruConfig.auth.userRegistration }}
       {{- with .Values.tsuruConfig.auth.maxSimultaneousSessions }}
@@ -70,6 +73,7 @@ data:
         info-url: {{ .Values.tsuruConfig.auth.oauth.infoURL }}
         collection: {{ .Values.tsuruConfig.auth.oauth.collection }}
         callback-port: {{ .Values.tsuruConfig.auth.oauth.callbackPort }}
+{{- end }}
 {{- end }}
 
     queue:
