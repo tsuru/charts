@@ -2,5 +2,5 @@ apiVersion: v2
 name: rpaas-api
 description: The API of Tsuru/RPaaS
 type: application
-version: 0.2.2
-appVersion: 0.35.7
+version: 0.2.3
+appVersion: 0.37.0
