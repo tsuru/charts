@@ -19,7 +19,7 @@ version: 0.4.4
 
 dependencies:
   - name: tsuru-api
-    version: "0.2.9"
+    version: "0.2.12"
     repository: https://tsuru.github.io/charts
   - name: kubernetes-router
     version: "0.1.15"

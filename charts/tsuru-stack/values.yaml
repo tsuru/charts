@@ -117,3 +117,32 @@ registry:
         enabled: true
         interval: 10s
         threshold: 3
+
+deploy-agent:
+  buildkit:
+    config: |
+      # Buildkitd config file
+      # https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md
+
+      [grpc]
+        address = [
+          "tcp://0.0.0.0:8081",
+          "unix:///run/buildkit/buildkitd.sock",
+        ]
+
+      [worker.containerd]
+        enabled = false
+
+      [worker.oci]
+        enabled = true
+        gc = false
+
+        # NOTE: Force x86_64 arch as Tsuru doesn't support different ones yet.
+        platforms = [
+          "linux/amd64"
+        ]
+
+      [registry."tsuru-registry.tsuru-system.svc.cluster.local"]
+        http = true
+
+      # vim: ft=toml
