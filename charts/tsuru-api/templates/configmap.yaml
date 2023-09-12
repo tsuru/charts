@@ -101,6 +101,11 @@ data:
     # - Provisioner configuration
     # http://docs.tsuru.io/en/stable/reference/config.html#provisioner
     provisioner: {{ .Values.tsuruConfig.provisioner }}
+{{- if .Values.tsuruConfig.clusters -}}
+    clusters:
+{{- toYaml .Values.tsuruConfig.clusters | nindent 6}}
+{{- end }}
+
 {{- if .Values.tsuruConfig.docker }}
     docker:
 {{- toYaml .Values.tsuruConfig.docker | nindent 6}}
