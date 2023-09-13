@@ -142,6 +142,7 @@ data:
       syslog-tag: {{ .Values.tsuruConfig.log.syslogTag | default "tsurud" }}
       use-stderr: {{ .Values.tsuruConfig.log.useStdErr | default "false" }}
       app-log-service: "memory"
+      format: json
       app-log-memory-buffer-bytes: {{ .Values.tsuruConfig.log.appLogBufferBytes | default "1048576"}}
 
 
