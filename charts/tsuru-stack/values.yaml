@@ -31,6 +31,17 @@ tsuru-api:
 
     provisioner: "kubernetes"
 
+    clusters:
+      defaults:
+        build-service-address: "dns:///tsuru-deploy-agent:80"
+        registry-insecure: "true"
+        registry: "tsuru-registry.tsuru-system.svc.cluster.local"
+        build-service-tls: "false"
+        disable-default-node-selector: "true"
+        disable-node-containers: "true"
+        disable-unit-register: "true"
+        enable-logs-from-apiserver: "true"
+
     docker:
       registry: tsuru-registry:80
       resolve-registry-name: true
@@ -70,7 +81,7 @@ kubernetes-router:
 mongodb:
   enabled: true
   image:
-    tag: 4.2.21-debian-10-r8 # tsuru does not support mongo 5 yet
+    tag: 4.4.15-debian-10-r8 # tsuru does not support mongo >4 yet
   auth:
     rootPassword: tsuru
     rootUser: root
@@ -80,6 +91,10 @@ mongodb:
     - tsuru
     databases:
     - tsuru
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
 
 monitoring:
   enabled: false

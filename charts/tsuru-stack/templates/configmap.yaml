@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: registry-aliases
+  namespace: tsuru-system
+  labels:
+    kubernetes.io/minikube-addons: registry-aliases
+    addonmanager.kubernetes.io/mode: Reconcile
+data:
+  registryAliases: >-
+    tsuru-registry.tsuru-system.svc.cluster.local
