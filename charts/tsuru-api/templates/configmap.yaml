@@ -117,12 +117,6 @@ data:
 {{- end }}
 
     kubernetes:
-      {{- if .Values.tsuruConfig.kubernetes.deploySidecarImage }}
-      deploy-sidecar-image: {{ .Values.tsuruConfig.kubernetes.deploySidecarImage }}
-      {{- end }}
-      {{- if .Values.tsuruConfig.kubernetes.deployInspectImage }}
-      deploy-inspect-image: {{ .Values.tsuruConfig.kubernetes.deployInspectImage }}
-      {{- end }}
       {{- if .Values.tsuruConfig.kubernetes.usePoolNamespaces }}
       use-pool-namespaces: {{ .Values.tsuruConfig.kubernetes.usePoolNamespaces }}
       {{- end }}
