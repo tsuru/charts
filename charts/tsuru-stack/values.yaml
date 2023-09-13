@@ -38,9 +38,6 @@ tsuru-api:
         registry: "tsuru-registry.tsuru-system.svc.cluster.local"
         build-service-tls: "false"
         disable-default-node-selector: "true"
-        disable-node-containers: "true"
-        disable-unit-register: "true"
-        enable-logs-from-apiserver: "true"
 
     docker:
       registry: tsuru-registry:80
