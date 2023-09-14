@@ -78,7 +78,15 @@ kubernetes-router:
 mongodb:
   enabled: true
   image:
-    tag: 4.4.15-debian-10-r8 # tsuru does not support mongo >4 yet
+    repository: mongo
+    tag: 4.4.24
+  extraEnvVars:
+    - name: MONGO_INITDB_ROOT_USERNAME
+      value: "root"
+    - name: MONGO_INITDB_ROOT_PASSWORD
+      value: "tsuru"
+    - name: MONGO_INITDB_DATABASE
+      value: "tsuru"
   auth:
     rootPassword: tsuru
     rootUser: root
@@ -92,6 +100,22 @@ mongodb:
     enabled: false
   readinessProbe:
     enabled: false
+  persistence:
+    mountPath: "/data/db"
+  initdbScripts:
+    init_tsuru_script.js: |
+      db.createUser(
+        {
+            user: "tsuru",
+            pwd: "tsuru",
+            roles: [
+                {
+                    role: "readWrite",
+                    db: "tsuru"
+                }
+            ]
+        }
+      );
 
 monitoring:
   enabled: false
