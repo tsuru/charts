@@ -1030,6 +1030,16 @@ entries:
     version: 0.1.0
   rpaas-api:
   - apiVersion: v2
+    appVersion: 0.37.2
+    created: "2023-09-18T16:59:23.961178945Z"
+    description: The API of Tsuru/RPaaS
+    digest: b6991e4854c41b389ece9a54a47caa439e37f9408b21a04fe0f065b1145560fb
+    name: rpaas-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-api-0.2.4/rpaas-api-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
     appVersion: 0.37.0
     created: "2023-08-09T21:07:43.498241205Z"
     description: The API of Tsuru/RPaaS
@@ -1189,6 +1199,24 @@ entries:
     - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.0/rpaas-monitoring-0.1.0.tgz
     version: 0.1.0
   rpaas-operator:
+  - apiVersion: v2
+    appVersion: 0.37.2
+    created: "2023-09-18T16:59:24.1434948Z"
+    dependencies:
+    - condition: nginxOperator.enabled
+      name: nginx-operator
+      repository: https://tsuru.github.io/charts
+      version: 1.*
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
+    digest: c81dadccddedd51edc1d8bece7028ecb9b11d43ac426576a416c7e4ef653e978
+    name: rpaas-operator
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.11.10/rpaas-operator-0.11.10.tgz
+    version: 0.11.10
   - apiVersion: v2
     appVersion: 0.37.0
     created: "2023-08-14T19:12:09.325145743Z"
@@ -1910,6 +1938,19 @@ entries:
     - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.1.0/rpaas-operator-0.1.0.tgz
     version: 0.1.0
   rpaas-purger:
+  - apiVersion: v2
+    appVersion: 0.37.2
+    created: "2023-09-18T16:59:24.302069066Z"
+    description: RpaaS Purger API is a HTTP API that purges cache from the nginx instances
+      created by RpaaS.
+    digest: 47606e628bbdec631bf4cb6f04279049968103bd0a602be676d886c2b402f3c6
+    name: rpaas-purger
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-purger-0.2.5/rpaas-purger-0.2.5.tgz
+    version: 0.2.5
   - apiVersion: v2
     appVersion: 0.26.2
     created: "2022-11-03T17:16:17.900839582Z"
@@ -4217,4 +4258,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-15T17:12:32.882294258Z"
+generated: "2023-09-18T16:59:24.303399476Z"
