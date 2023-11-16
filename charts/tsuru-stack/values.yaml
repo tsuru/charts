@@ -38,6 +38,7 @@ tsuru-api:
         registry: "tsuru-registry.tsuru-system.svc.cluster.local"
         build-service-tls: "false"
         disable-default-node-selector: "true"
+        job-event-creation: "false"
 
     docker:
       registry: tsuru-registry:80
