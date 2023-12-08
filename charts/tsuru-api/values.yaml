@@ -59,6 +59,7 @@ podAnnotations: {}
 
 volumes: []
 volumeMounts: []
+sidecars: []
 
 podSecurityContext: {}
   # fsGroup: 2000
