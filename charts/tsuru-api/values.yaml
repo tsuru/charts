@@ -221,6 +221,7 @@ tsuruConfig:
   volumePlans: {}
 
   cors: {}
+  tag: {}
 
   # http://docs.tsuru.io/en/stable/reference/config.html#provisioner
   provisioner: ""

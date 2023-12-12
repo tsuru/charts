@@ -106,6 +106,12 @@ data:
 {{- toYaml .Values.tsuruConfig.clusters | nindent 6}}
 {{- end }}
 
+
+{{- if .Values.tsuruConfig.tag }}
+    tag:
+{{- toYaml .Values.tsuruConfig.tag | nindent 6}}
+{{- end }}
+
 {{- if .Values.tsuruConfig.docker }}
     docker:
 {{- toYaml .Values.tsuruConfig.docker | nindent 6}}
