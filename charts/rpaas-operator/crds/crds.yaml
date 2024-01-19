@@ -538,6 +538,10 @@ spec:
                             type: string
                           syslogTag:
                             type: string
+                          templateExtraVars:
+                            additionalProperties:
+                              type: string
+                            type: object
                           upstreamKeepalive:
                             type: integer
                           user:
@@ -6536,6 +6540,12 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
+    - jsonPath: .status.externalAddresses.ips[*]
+      name: IPs
+      type: string
+    - jsonPath: .status.externalAddresses.hostnames[*]
+      name: Hostnames
+      type: string
     name: v1alpha1
     schema:
       openAPIV3Schema:
@@ -7035,6 +7045,10 @@ spec:
                         type: string
                       syslogTag:
                         type: string
+                      templateExtraVars:
+                        additionalProperties:
+                          type: string
+                        type: object
                       upstreamKeepalive:
                         type: integer
                       user:
@@ -12774,6 +12788,18 @@ spec:
                 description: CurrentReplicas is the last observed number of pods.
                 format: int32
                 type: integer
+              externalAddresses:
+                description: External IP addreses of Nginx
+                properties:
+                  hostnames:
+                    items:
+                      type: string
+                    type: array
+                  ips:
+                    items:
+                      type: string
+                    type: array
+                type: object
               nginxUpdated:
                 description: NginxUpdated is true if the wanted nginx revision hash
                   equals the observed nginx revision hash.
@@ -12908,6 +12934,10 @@ spec:
                     type: string
                   syslogTag:
                     type: string
+                  templateExtraVars:
+                    additionalProperties:
+                      type: string
+                    type: object
                   upstreamKeepalive:
                     type: integer
                   user:
