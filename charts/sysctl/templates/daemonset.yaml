@@ -47,7 +47,7 @@ spec:
       volumes:
         - name: sysctl
           configMap:
-            name: sysctl
+            name: {{ include "sysctl.fullname" . }}
             optional: true
             items:
               - key: config
