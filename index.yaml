@@ -1079,6 +1079,16 @@ entries:
     version: 0.1.0
   rpaas-api:
   - apiVersion: v2
+    appVersion: 0.38.6
+    created: "2024-01-25T13:21:45.711155477Z"
+    description: The API of Tsuru/RPaaS
+    digest: b1e0662e0ef8ed38c8efedc14cb3c3ea8095f59e6aa05fe15fc3ac4756cc0b15
+    name: rpaas-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-api-0.2.6/rpaas-api-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
     appVersion: 0.38.2
     created: "2024-01-19T21:05:46.476059938Z"
     description: The API of Tsuru/RPaaS
@@ -4625,4 +4635,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-25T12:05:14.104904739Z"
+generated: "2024-01-25T13:21:45.712520145Z"
