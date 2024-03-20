@@ -1,12 +1,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
+{{- if .Values.annotations }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+{{- end }}
   name: {{ include "buildkit.fullname" . }}
   labels:
     {{- include "buildkit.labels" . | nindent 4 }}
-  {{- with .Values.annotations }}
-  annotations: {{- toYaml . | nindent 4 }}
-  {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   serviceName: {{ include "buildkit.fullname" . }}

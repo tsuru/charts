@@ -1,6 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
+{{- if .Values.annotations }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+{{- end }}
   name: {{ include "..fullname" . }}
   labels:
     {{- include "..labels" . | nindent 4 }}
