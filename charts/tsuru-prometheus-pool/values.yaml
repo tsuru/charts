@@ -30,7 +30,10 @@ serviceAccount:
   annotations: {}
   name: "tsuru-prometheus-pool"
 
+annotations: {}
+
 podAnnotations: {}
+
 volumeClaimTemplate:
   spec:
     accessModes:
