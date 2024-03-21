@@ -103,6 +103,16 @@ entries:
   buildkit:
   - apiVersion: v2
     appVersion: 0.11.6
+    created: "2024-03-21T18:16:06.395876001Z"
+    description: Helm Chart for BuildKit (moby/buildkit)
+    digest: 91bfc8187f57879369890c35954e18ad1a28ce0f1cddb918ed83491cb669247b
+    name: buildkit
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/buildkit-0.2.2/buildkit-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 0.11.6
     created: "2023-07-05T01:26:14.454294885Z"
     description: Helm Chart for BuildKit (moby/buildkit)
     digest: a96073998de4cd2ec12814f35d1d21c4c2a529c9c915d3b050b0fcc7833918de
@@ -3180,6 +3190,16 @@ entries:
   tsuru-prometheus-pool:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-03-21T18:16:06.590223312Z"
+    description: Dedicated prometheus instance by tsuru pool
+    digest: 9e9c5431d4c99000fa6bce5e07efe0a113d848896cf55b5bba521b6fd691bda4
+    name: tsuru-prometheus-pool
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-prometheus-pool-0.2.5/tsuru-prometheus-pool-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-07-11T12:33:25.653327223Z"
     description: Dedicated prometheus instance by tsuru pool
     digest: 86afb808bb9057a996f2d3c2166367ba68363a3ae65eb0984cdfd774e2f814de
@@ -4753,4 +4773,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-21T12:37:17.410353758Z"
+generated: "2024-03-21T18:16:06.59153803Z"
