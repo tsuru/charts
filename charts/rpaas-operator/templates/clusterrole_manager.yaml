@@ -15,6 +15,7 @@ rules:
   - configmaps
   - secrets
   - services
+  - pods
   verbs:
   - create
   - delete
@@ -84,6 +85,7 @@ rules:
   - extensions.tsuru.io
   resources:
   - rpaasinstances
+  - rpaasvalidations
   verbs:
   - get
   - list
