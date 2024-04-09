@@ -10,7 +10,6 @@ spec:
     matchLabels:
       tsuru.io/is-tsuru: "true"
       tsuru.io/is-build: "false"
-      tsuru.io/is-deploy: "false"
   podMetricsEndpoints:
   - tlsConfig:
       insecureSkipVerify: true
