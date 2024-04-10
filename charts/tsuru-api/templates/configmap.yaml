@@ -129,6 +129,10 @@ data:
       {{- if .Values.tsuruConfig.kubernetes.deploymentProgressTimeout }}
       deployment-progress-timeout: {{ .Values.tsuruConfig.kubernetes.deploymentProgressTimeout }}
       {{- end }}
+      {{- if .Values.tsuruConfig.kubernetes.keda }}
+      keda:
+      {{- toYaml .Values.tsuruConfig.kubernetes.keda | nindent 8}}
+      {{- end }}
 
     {{ if .Values.tsuruConfig.volumePlans }}
     # - Volume Plans
