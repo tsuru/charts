@@ -96,6 +96,7 @@ rules:
   - extensions.tsuru.io
   resources:
   - rpaasinstances/status
+  - rpaasvalidations/status
   verbs:
   - get
   - patch
