@@ -6733,6 +6733,9 @@ spec:
     - jsonPath: .spec.suspend
       name: Suspended
       type: boolean
+    - jsonPath: .spec.shutdown
+      name: Shutdown
+      type: boolean
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
