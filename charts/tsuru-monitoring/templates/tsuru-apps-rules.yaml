@@ -43,73 +43,73 @@ spec:
     - record: tsuru:apps_cpu_usage_seconds_total
       expr: |
         container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"}
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"}
     - record: tsuru:apps_memory_working_set_bytes
       expr: |
         container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"}
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"}
 
   - interval: 2m
     name: tsuru-apps.long-term
     rules:
     - record: long_term:tsuru:app_cpu_usage:max:3m
       expr: |
-        max by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        max by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_usage:avg:3m
       expr: |
-        avg by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        avg by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_usage:min:3m
       expr: |
-        min by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        min by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (sum by (pod) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m])) *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_usage:sum:3m
       expr: |
-        sum by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        sum by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_cpu_usage_seconds_total{container!="POD", container!="", pod!=""}[3m]) *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_cpu_throttled:sum:3m
       expr: |
-        sum by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) ((
+        sum by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) ((
           sum by (namespace, pod) (rate(container_cpu_cfs_throttled_periods_total[3m])) /
           sum by (namespace, pod) (rate(container_cpu_cfs_periods_total[3m]))
-        ) * on (namespace, pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        ) * on (namespace, pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     ## memory
     - record: long_term:tsuru:app_memory_usage:max
       expr: |
-        max by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        max by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
     - record: long_term:tsuru:app_memory_usage:avg
       expr: |
-        avg by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        avg by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
     - record: long_term:tsuru:app_memory_usage:min
       expr: |
-        min by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        min by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
     - record: long_term:tsuru:app_memory_usage:sum
       expr: |
-        sum by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        sum by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (container_memory_working_set_bytes{container!="POD", container!="", pod!=""} *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     ## network
     - record: long_term:tsuru:app_network_transmit_bytes:sum:3m
       expr: |
-        sum by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_network_transmit_bytes_total{pod!=""}[3m]) *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        sum by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_network_transmit_bytes_total{pod!=""}[3m]) *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     - record: long_term:tsuru:app_network_receive_bytes:sum:3m
       expr: |
-        sum by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_network_receive_bytes_total{pod!=""}[3m]) *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        sum by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (rate(container_network_receive_bytes_total{pod!=""}[3m]) *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
 
     ## units ready
     - record: long_term:tsuru:app_replicas:sum
       expr: |
-        sum by (label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (kube_pod_status_phase{phase="Running"} *
-        on (pod) group_left(label_tsuru_io_app_name, label_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
+        sum by (label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) (kube_pod_status_phase{phase="Running"} *
+        on (pod) group_left(label_tsuru_io_app_name, label_tsuru_io_app_version, label_tsuru_io_app_process, label_tsuru_io_app_pool) kube_pod_labels{label_tsuru_io_is_tsuru="true"})
