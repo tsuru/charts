@@ -22,6 +22,12 @@ rules:
   verbs:
   - '*'
 - apiGroups:
+  - "apps"
+  resources:
+  - statefulset
+  verbs:
+  - '*'
+- apiGroups:
   - tsuru.io
   resources:
   - apps
