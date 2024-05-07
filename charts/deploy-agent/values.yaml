@@ -48,6 +48,11 @@ deployAgent:
       setTsuruAppLabels: false
       timeout: 5m
 
+    scale:
+      enabled: false
+      statefulset: "buildkit"
+      gracefulPeriod: 2h
+
 buildkit:
   image:
     repository: moby/buildkit

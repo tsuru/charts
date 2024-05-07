@@ -52,6 +52,12 @@ spec:
         - --buildkit-autodiscovery-kubernetes-use-same-namespace-as-tsuru-app={{ .useSameNamespaceAsTsuruApp }}
         {{- end }}
         {{- end }}
+        {{- if .Values.deployAgent.buildkit.scale.enabled }}
+        {{- with .Values.deployAgent.buildkit.scale }}
+        - --buildkit-autodiscovery-scale-statefulset={{ .statefulset }}
+        - --buildkit-autodiscovery-scale-graceful-period={{ .gracefulPeriod }}
+        {{- end }}
+        {{- end }}
         {{- with .Values.deployAgent.env }}
         env: {{- toYaml . | nindent 8 }}
         {{- end }}
