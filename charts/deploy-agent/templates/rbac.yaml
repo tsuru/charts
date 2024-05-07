@@ -24,7 +24,7 @@ rules:
 - apiGroups:
   - "apps"
   resources:
-  - statefulset
+  - statefulsets
   verbs:
   - '*'
 - apiGroups:
