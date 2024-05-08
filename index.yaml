@@ -3,6 +3,16 @@ entries:
   acl-api:
   - apiVersion: v2
     appVersion: 0.1.6
+    created: "2024-05-08T21:31:35.743338293Z"
+    description: The API of Tsuru/ACL
+    digest: 8ed6012183f65eea68b24c477abccbdce19ea100cda4a25470b55ace4010f6b0
+    name: acl-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/acl-api-0.0.2/acl-api-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
+    appVersion: 0.1.6
     created: "2024-05-08T18:45:05.132579002Z"
     description: The API of Tsuru/ACL
     digest: 66265ba7428b2fd50926ce3ec9f784904a0dece424a3e7d1b31d6dacdc03a732
@@ -4982,4 +4992,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-08T18:45:05.133997803Z"
+generated: "2024-05-08T21:31:35.744753781Z"
