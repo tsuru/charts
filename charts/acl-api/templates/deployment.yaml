@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "acl-api.fullname" . }}
+  labels:
+    {{- include "acl-api.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "acl-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.metrics.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.api.port | quote }}
+        prometheus.io/path: "/metrics"
+        {{- end }}
+      labels:
+        {{- include "acl-api.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "acl-api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: acl-api
+          command:
+          - acl-api
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: ENGINES
+              value: "{{ .Values.api.engines }}"
+            {{ if .Values.api.dbaasMongodbDatabase }}
+            - name: DBAAS_MONGODB_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.api.secretName }}
+                  key: dbaas_mongodb_endpoint
+            {{- end }}
+            {{ if .Values.api.storage }}
+            - name : STORAGE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.api.secretName }}
+                  key: storage
+            {{-  end }}
+            {{- if .Values.api.auth.enabled }}
+            - name: AUTH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.api.secretName }}
+                  key: api_username
+            - name: AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.api.secretName }}
+                  key: api_password
+            {{- end }}
+            - name: LOGLEVEL
+              value: "{{ .Values.api.logLevel }}"
+            - name: DEBUG
+              value: "{{ .Values.api.debug }}"
+            - name: TSURU_HOST
+              value: "{{ .Values.api.tsuruHost }}"
+            - name: TSURU_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.api.secretName }}
+                  key: tsuru_token
+            - name: PORT
+              value: {{ .Values.api.port | quote }}
+          tty: true
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.api.port }}
+              name: api
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: api
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.volumeMounts }}
+          volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 10 }}
+          {{- end }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- if .Values.volumes }}
+      volumes:
+      {{- toYaml .Values.volumes | nindent 6 }}
+      {{- end }}
