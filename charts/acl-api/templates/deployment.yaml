@@ -81,6 +81,10 @@ spec:
                   key: tsuru_token
             - name: PORT
               value: {{ .Values.api.port | quote }}
+            - name: SYNC_DISABLED
+              value: {{ .Values.api.syncDisabled }}
+            - name: SYNC_INTERVAL
+              value: {{ .Values.api.syncInterval }}
           tty: true
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
