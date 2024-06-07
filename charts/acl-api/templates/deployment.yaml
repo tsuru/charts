@@ -82,9 +82,9 @@ spec:
             - name: PORT
               value: {{ .Values.api.port | quote }}
             - name: SYNC_DISABLED
-              value: {{ .Values.api.syncDisabled }}
+              value: "{{ .Values.api.syncDisabled }}"
             - name: SYNC_INTERVAL
-              value: {{ .Values.api.syncInterval }}
+              value: "{{ .Values.api.syncInterval }}"
           tty: true
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

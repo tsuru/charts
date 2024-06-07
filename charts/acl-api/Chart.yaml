@@ -2,5 +2,5 @@ apiVersion: v2
 name: acl-api
 description: The API of Tsuru/ACL
 type: application
-version: 0.0.3
+version: 0.0.4
 appVersion: 0.1.7
