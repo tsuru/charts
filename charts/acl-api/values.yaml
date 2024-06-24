@@ -92,6 +92,10 @@ instances:
   serviceName: ""
   serviceAnnotations: {}
 
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: "10%"
+
 api:
   secretName: acl-api # name of the secret that contains api username, password, mongo credentials and Tsuru token
   engines: "acl-operator"
