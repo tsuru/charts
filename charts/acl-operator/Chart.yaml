@@ -2,4 +2,4 @@ apiVersion: v2
 name: acl-operator
 description: Control network access in high abstractions by Tsuru Applications
 type: application
-version: 0.1.10
+version: 0.1.11
