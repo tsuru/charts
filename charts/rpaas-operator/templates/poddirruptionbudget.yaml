@@ -1,0 +1,13 @@
+{{- if and .Values.podDisruptionBudget.enabled (gt (.Values.replicaCount|int) 1) }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "rpaas-operator.fullname" . }}
+  labels:
+    {{- include "rpaas-operator.labels" . | nindent 4 }}
+spec:
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  selector:
+    matchLabels:
+      {{- include "rpaas-operator.selectorLabels" . | nindent 6 }}
+{{- end }}

@@ -40,6 +40,10 @@ podSecurityContext:
   {}
   # fsGroup: 2000
 
+podDisruptionBudget:
+  enabled: true
+  maxUnavailable: "10%"
+
 securityContext:
   {}
   # capabilities:
