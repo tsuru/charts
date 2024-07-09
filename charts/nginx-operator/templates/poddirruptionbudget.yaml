@@ -1,0 +1,13 @@
+{{- if and .Values.podDisruptionBudget.enabled (gt (.Values.replicaCount|int) 1) }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "nginx-operator.fullname" . }}
+  labels:
+    {{- include "nginx-operator.labels" . | nindent 4 }}
+spec:
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  selector:
+    matchLabels:
+      {{- include "nginx-operator.selectorLabels" . | nindent 6 }}
+{{- end }}
