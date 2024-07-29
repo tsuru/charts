@@ -110,7 +110,7 @@ spec:
         {{- if .Values.multiCluster.enabled }}
         - name: clusters
           secret:
-            secretName: kubernetes-router-clusters
+            secretName: {{ .Values.multiCluster.secretName }}
         {{- end }}
         {{- if .Values.hostCertBundleFile }}
         - name: host-cert-bundle

@@ -33,6 +33,7 @@ ingressExpose: {}
 # multicluster support
 multiCluster:
   enabled: false
+  secretName: "kubernetes-router-clusters"
 
 hostCertBundleFile: ""
 
