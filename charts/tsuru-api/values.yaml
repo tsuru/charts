@@ -222,6 +222,8 @@ tsuruConfig:
 
   cors: {}
   tag: {}
+  apps: {}
+  jobs: {}
 
   # http://docs.tsuru.io/en/stable/reference/config.html#provisioner
   provisioner: ""

@@ -169,3 +169,13 @@ data:
     cors:
 {{ .Values.tsuruConfig.cors | toYaml | indent 6 }}
     {{- end }}
+
+    {{ if .Values.tsuruConfig.apps }}
+    apps:
+{{ .Values.tsuruConfig.apps | toYaml | indent 6 }}
+    {{- end }}
+
+    {{ if .Values.tsuruConfig.jobs }}
+    jobs:
+{{ .Values.tsuruConfig.jobs | toYaml | indent 6 }}
+    {{- end }}
