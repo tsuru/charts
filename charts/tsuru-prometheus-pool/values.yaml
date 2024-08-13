@@ -54,6 +54,7 @@ networkPolicy:
   enabled: true
   k8sAPIAddresses: []
   # - IPs of k8s-apiserver
+  k8sAPIPorts: [80, 443]
 
   # additionalEgressRules:
   # - to:

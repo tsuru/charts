@@ -13,10 +13,10 @@ spec:
           name: tsuru-{{ .Values.tsuru.pool.name }}
 
   - ports: # allow egress to k8s-apiserver
-    - port: 80
+  {{- range $_, $port := .Values.networkPolicy.k8sAPIPorts }}
+    - port: {{ $port }}
       protocol: TCP
-    - port: 443
-      protocol: TCP
+  {{- end }}
     to:
     - namespaceSelector:
         matchLabels:
