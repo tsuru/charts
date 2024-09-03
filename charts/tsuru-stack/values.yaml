@@ -80,7 +80,7 @@ mongodb:
   enabled: true
   image:
     repository: mongo
-    tag: 4.4.24
+    tag: 5.0.28
   extraEnvVars:
     - name: MONGO_INITDB_ROOT_USERNAME
       value: "root"
