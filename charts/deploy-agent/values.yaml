@@ -34,6 +34,8 @@ deployAgent:
   volumeMounts: []
   securityContext: {}
 
+  extraArgs: []
+
   # Docker config file
   # See more https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-configuration-file-configjson-properties
   dockerConfig: ""

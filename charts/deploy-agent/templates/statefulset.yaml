@@ -58,6 +58,9 @@ spec:
         - --buildkit-autodiscovery-scale-graceful-period={{ .gracefulPeriod }}
         {{- end }}
         {{- end }}
+        {{- if .Values.deployAgent.extraArgs }}
+        {{- toYaml .Values.deployAgent.extraArgs | nindent 8 }}
+        {{- end }}
         {{- with .Values.deployAgent.env }}
         env: {{- toYaml . | nindent 8 }}
         {{- end }}
