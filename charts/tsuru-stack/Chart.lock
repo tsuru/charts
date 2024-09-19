@@ -4,13 +4,13 @@ dependencies:
   version: 0.3.3
 - name: kubernetes-router
   repository: https://tsuru.github.io/charts
-  version: 0.1.15
+  version: 0.1.16
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
   version: 4.11.2
 - name: tsuru-monitoring
   repository: https://tsuru.github.io/charts
-  version: 0.1.1
+  version: 0.3.31
 - name: docker-registry
   repository: https://helm.twun.io
   version: 1.10.1
@@ -22,6 +22,6 @@ dependencies:
   version: v1.3.1
 - name: deploy-agent
   repository: https://tsuru.github.io/charts
-  version: 1.4.6
-digest: sha256:e5935a272bef2928aed16fb65e2fd0c3a9d94e883c89e9b5c90feaae97323ff4
-generated: "2024-09-03T10:17:00.227672-03:00"
+  version: 1.5.8
+digest: sha256:4425337a8f3bb224c6d80f9c8dd315508921167ec2b37658d6bf63f4fb6d01f7
+generated: "2024-09-19T11:43:56.609415-03:00"
