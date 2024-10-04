@@ -22,6 +22,6 @@ dependencies:
   version: v1.3.1
 - name: deploy-agent
   repository: https://tsuru.github.io/charts
-  version: 1.5.8
-digest: sha256:4425337a8f3bb224c6d80f9c8dd315508921167ec2b37658d6bf63f4fb6d01f7
-generated: "2024-09-19T11:43:56.609415-03:00"
+  version: 1.5.9
+digest: sha256:a932b4464132ac39ba8f6c90a0ef9a474de70cacd52f71841db5697b7c91b935
+generated: "2024-10-04T10:51:31.025489-03:00"
