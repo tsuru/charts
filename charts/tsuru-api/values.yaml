@@ -22,7 +22,7 @@ strategy:
 
 ingress:
   enabled: false
-  ingressClassName: "nginx"
+  ingressClassName: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
