@@ -1,3 +1,4 @@
+{{- if .Values.registryAliases.enabled }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -49,3 +50,4 @@ spec:
         - name: etchosts
           hostPath:
             path: /etc/hosts
+{{- end }}

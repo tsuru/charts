@@ -67,7 +67,7 @@ kubernetes-router:
   service:
     type: ClusterIP
   controllerModes:
-  - ingress-nginx
+    - ingress-nginx
   ingressExpose:
     domain: cloud.127.0.0.1.nip.io
     port: 8890
@@ -92,11 +92,11 @@ mongodb:
     rootPassword: tsuru
     rootUser: root
     usernames:
-    - tsuru
+      - tsuru
     passwords:
-    - tsuru
+      - tsuru
     databases:
-    - tsuru
+      - tsuru
   livenessProbe:
     enabled: false
   readinessProbe:
@@ -183,3 +183,6 @@ deploy-agent:
         http = true
 
       # vim: ft=toml
+
+registryAliases:
+  enabled: false
