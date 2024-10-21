@@ -1548,6 +1548,24 @@ entries:
   rpaas-operator:
   - apiVersion: v2
     appVersion: 0.42.3
+    created: "2024-10-21T14:12:59.435981675Z"
+    dependencies:
+    - condition: nginxOperator.enabled
+      name: nginx-operator
+      repository: https://tsuru.github.io/charts
+      version: 1.*
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
+    digest: e555a6ff03215b7ccc74c0397c4b6506dc8249f261e55dfaf91d15a52647d7b5
+    name: rpaas-operator
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.15.5/rpaas-operator-0.15.5.tgz
+    version: 0.15.5
+  - apiVersion: v2
+    appVersion: 0.42.3
     created: "2024-09-10T12:53:04.222487981Z"
     dependencies:
     - condition: nginxOperator.enabled
@@ -5509,4 +5527,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-21T14:09:14.29290722Z"
+generated: "2024-10-21T14:12:59.437510682Z"
