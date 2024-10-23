@@ -1,3 +1,4 @@
+{{- if .Values.registryAliases.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,3 +10,4 @@ metadata:
 data:
   registryAliases: >-
     tsuru-registry.tsuru-system.svc.cluster.local
+{{- end }}
