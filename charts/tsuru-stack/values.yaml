@@ -185,4 +185,4 @@ deploy-agent:
       # vim: ft=toml
 
 registryAliases:
-  enabled: false
+  enabled: true
