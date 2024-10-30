@@ -1,6 +1,6 @@
 dependencies:
 - name: nginx-operator
   repository: https://tsuru.github.io/charts
-  version: 1.5.8
-digest: sha256:a168c1b0a32d14a707f6e2bc843038c4dbdef1fbf81f903aea688eb4dbbf1905
-generated: "2024-10-21T11:10:35.375483-03:00"
+  version: 1.5.9
+digest: sha256:67523c18cd7e9b8d43f3f5325c7dc8acf4a3ccad4dc842fff4253449a853f6ba
+generated: "2024-10-30T14:16:35.870523-03:00"
