@@ -230,7 +230,7 @@ tsuruConfig:
   provisioner: ""
   docker: {}
   kubernetes:
-    poolNamespaces:
+    usePoolNamespaces:
     progressTimeout:
 
   events:
