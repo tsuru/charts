@@ -62,6 +62,8 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
+          - name: "GCP_PROJECT_ID"
+            value: { .Values.gcp.projectID }
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
