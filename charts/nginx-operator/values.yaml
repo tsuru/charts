@@ -67,3 +67,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+gcp: 
+  gcpProjectID: ""
