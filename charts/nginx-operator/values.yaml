@@ -69,4 +69,4 @@ tolerations: []
 affinity: {}
 
 gcp: 
-  gcpProjectID: ""
+  projectID: ""
