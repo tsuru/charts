@@ -507,6 +507,11 @@ spec:
                           type: boolean
                         path:
                           type: string
+                        serverName:
+                          description: ServerName is an optional parameter used to
+                            match the server name in the location block. If not provided,
+                            it will apply to all servers.
+                          type: string
                       required:
                       - path
                       type: object
@@ -624,7 +629,7 @@ spec:
                               DynamicResourceAllocation feature gate.
 
 
-                              This field is immutable.
+                              This field is immutable. It can only be set for containers.
                             items:
                               description: ResourceClaim references one entry in PodSpec.ResourceClaims.
                               properties:
@@ -1911,7 +1916,9 @@ spec:
                                               header to be used in HTTP probes
                                             properties:
                                               name:
-                                                description: The header field name
+                                                description: |-
+                                                  The header field name.
+                                                  This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                                 type: string
                                               value:
                                                 description: The header field value
@@ -2008,7 +2015,9 @@ spec:
                                               header to be used in HTTP probes
                                             properties:
                                               name:
-                                                description: The header field name
+                                                description: |-
+                                                  The header field name.
+                                                  This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                                 type: string
                                               value:
                                                 description: The header field value
@@ -2128,7 +2137,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -2340,7 +2351,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -2446,7 +2459,7 @@ spec:
                                     DynamicResourceAllocation feature gate.
 
 
-                                    This field is immutable.
+                                    This field is immutable. It can only be set for containers.
                                   items:
                                     description: ResourceClaim references one entry
                                       in PodSpec.ResourceClaims.
@@ -2730,7 +2743,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -3201,7 +3216,9 @@ spec:
                                               header to be used in HTTP probes
                                             properties:
                                               name:
-                                                description: The header field name
+                                                description: |-
+                                                  The header field name.
+                                                  This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                                 type: string
                                               value:
                                                 description: The header field value
@@ -3298,7 +3315,9 @@ spec:
                                               header to be used in HTTP probes
                                             properties:
                                               name:
-                                                description: The header field name
+                                                description: |-
+                                                  The header field name.
+                                                  This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                                 type: string
                                               value:
                                                 description: The header field value
@@ -3418,7 +3437,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -3630,7 +3651,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -3736,7 +3759,7 @@ spec:
                                     DynamicResourceAllocation feature gate.
 
 
-                                    This field is immutable.
+                                    This field is immutable. It can only be set for containers.
                                   items:
                                     description: ResourceClaim references one entry
                                       in PodSpec.ResourceClaims.
@@ -4020,7 +4043,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -5356,7 +5381,7 @@ spec:
                                                 DynamicResourceAllocation feature gate.
 
 
-                                                This field is immutable.
+                                                This field is immutable. It can only be set for containers.
                                               items:
                                                 description: ResourceClaim references
                                                   one entry in PodSpec.ResourceClaims.
@@ -6397,6 +6422,53 @@ spec:
                       zero and not specified. Defaults to 1.
                     format: int32
                     type: integer
+                  serverBlocks:
+                    description: ServerBlocks are configuration file fragments added
+                      to a specific serverName
+                    items:
+                      properties:
+                        content:
+                          properties:
+                            value:
+                              type: string
+                            valueFrom:
+                              properties:
+                                configMapKeyRef:
+                                  description: Selects a key from a ConfigMap.
+                                  properties:
+                                    key:
+                                      description: The key to select.
+                                      type: string
+                                    name:
+                                      description: |-
+                                        Name of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                        TODO: Add other useful fields. apiVersion, kind, uid?
+                                      type: string
+                                    optional:
+                                      description: Specify whether the ConfigMap or
+                                        its key must be defined
+                                      type: boolean
+                                  required:
+                                  - key
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                namespace:
+                                  type: string
+                              type: object
+                          type: object
+                        extend:
+                          type: boolean
+                        serverName:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - content
+                      - serverName
+                      - type
+                      type: object
+                    type: array
                   service:
                     description: Service to expose the nginx instance
                     properties:
@@ -7008,6 +7080,11 @@ spec:
                       type: boolean
                     path:
                       type: string
+                    serverName:
+                      description: ServerName is an optional parameter used to match
+                        the server name in the location block. If not provided, it
+                        will apply to all servers.
+                      type: string
                   required:
                   - path
                   type: object
@@ -7124,7 +7201,7 @@ spec:
                           DynamicResourceAllocation feature gate.
 
 
-                          This field is immutable.
+                          This field is immutable. It can only be set for containers.
                         items:
                           description: ResourceClaim references one entry in PodSpec.ResourceClaims.
                           properties:
@@ -8402,7 +8479,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -8498,7 +8577,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -8616,7 +8697,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -8827,7 +8910,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -8933,7 +9018,7 @@ spec:
                                 DynamicResourceAllocation feature gate.
 
 
-                                This field is immutable.
+                                This field is immutable. It can only be set for containers.
                               items:
                                 description: ResourceClaim references one entry in
                                   PodSpec.ResourceClaims.
@@ -9216,7 +9301,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -9683,7 +9770,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -9779,7 +9868,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -9897,7 +9988,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -10108,7 +10201,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -10214,7 +10309,7 @@ spec:
                                 DynamicResourceAllocation feature gate.
 
 
-                                This field is immutable.
+                                This field is immutable. It can only be set for containers.
                               items:
                                 description: ResourceClaim references one entry in
                                   PodSpec.ResourceClaims.
@@ -10497,7 +10592,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -11825,7 +11922,7 @@ spec:
                                             DynamicResourceAllocation feature gate.
 
 
-                                            This field is immutable.
+                                            This field is immutable. It can only be set for containers.
                                           items:
                                             description: ResourceClaim references
                                               one entry in PodSpec.ResourceClaims.
@@ -12861,6 +12958,53 @@ spec:
                   zero and not specified. Defaults to 1.
                 format: int32
                 type: integer
+              serverBlocks:
+                description: ServerBlocks are configuration file fragments added to
+                  a specific serverName
+                items:
+                  properties:
+                    content:
+                      properties:
+                        value:
+                          type: string
+                        valueFrom:
+                          properties:
+                            configMapKeyRef:
+                              description: Selects a key from a ConfigMap.
+                              properties:
+                                key:
+                                  description: The key to select.
+                                  type: string
+                                name:
+                                  description: |-
+                                    Name of the referent.
+                                    More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                    TODO: Add other useful fields. apiVersion, kind, uid?
+                                  type: string
+                                optional:
+                                  description: Specify whether the ConfigMap or its
+                                    key must be defined
+                                  type: boolean
+                              required:
+                              - key
+                              type: object
+                              x-kubernetes-map-type: atomic
+                            namespace:
+                              type: string
+                          type: object
+                      type: object
+                    extend:
+                      type: boolean
+                    serverName:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - content
+                  - serverName
+                  - type
+                  type: object
+                type: array
               service:
                 description: Service to expose the nginx instance
                 properties:
@@ -13163,7 +13307,7 @@ spec:
                       DynamicResourceAllocation feature gate.
 
 
-                      This field is immutable.
+                      This field is immutable. It can only be set for containers.
                     items:
                       description: ResourceClaim references one entry in PodSpec.ResourceClaims.
                       properties:
@@ -13728,6 +13872,11 @@ spec:
                       type: boolean
                     path:
                       type: string
+                    serverName:
+                      description: ServerName is an optional parameter used to match
+                        the server name in the location block. If not provided, it
+                        will apply to all servers.
+                      type: string
                   required:
                   - path
                   type: object
@@ -13844,7 +13993,7 @@ spec:
                           DynamicResourceAllocation feature gate.
 
 
-                          This field is immutable.
+                          This field is immutable. It can only be set for containers.
                         items:
                           description: ResourceClaim references one entry in PodSpec.ResourceClaims.
                           properties:
@@ -15122,7 +15271,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -15218,7 +15369,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -15336,7 +15489,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -15547,7 +15702,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -15653,7 +15810,7 @@ spec:
                                 DynamicResourceAllocation feature gate.
 
 
-                                This field is immutable.
+                                This field is immutable. It can only be set for containers.
                               items:
                                 description: ResourceClaim references one entry in
                                   PodSpec.ResourceClaims.
@@ -15936,7 +16093,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -16403,7 +16562,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -16499,7 +16660,9 @@ spec:
                                           header to be used in HTTP probes
                                         properties:
                                           name:
-                                            description: The header field name
+                                            description: |-
+                                              The header field name.
+                                              This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                             type: string
                                           value:
                                             description: The header field value
@@ -16617,7 +16780,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -16828,7 +16993,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -16934,7 +17101,7 @@ spec:
                                 DynamicResourceAllocation feature gate.
 
 
-                                This field is immutable.
+                                This field is immutable. It can only be set for containers.
                               items:
                                 description: ResourceClaim references one entry in
                                   PodSpec.ResourceClaims.
@@ -17217,7 +17384,9 @@ spec:
                                       to be used in HTTP probes
                                     properties:
                                       name:
-                                        description: The header field name
+                                        description: |-
+                                          The header field name.
+                                          This will be canonicalized upon output, so case-variant names will be understood as the same header.
                                         type: string
                                       value:
                                         description: The header field value
@@ -18545,7 +18714,7 @@ spec:
                                             DynamicResourceAllocation feature gate.
 
 
-                                            This field is immutable.
+                                            This field is immutable. It can only be set for containers.
                                           items:
                                             description: ResourceClaim references
                                               one entry in PodSpec.ResourceClaims.
@@ -19581,6 +19750,53 @@ spec:
                   zero and not specified. Defaults to 1.
                 format: int32
                 type: integer
+              serverBlocks:
+                description: ServerBlocks are configuration file fragments added to
+                  a specific serverName
+                items:
+                  properties:
+                    content:
+                      properties:
+                        value:
+                          type: string
+                        valueFrom:
+                          properties:
+                            configMapKeyRef:
+                              description: Selects a key from a ConfigMap.
+                              properties:
+                                key:
+                                  description: The key to select.
+                                  type: string
+                                name:
+                                  description: |-
+                                    Name of the referent.
+                                    More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                    TODO: Add other useful fields. apiVersion, kind, uid?
+                                  type: string
+                                optional:
+                                  description: Specify whether the ConfigMap or its
+                                    key must be defined
+                                  type: boolean
+                              required:
+                              - key
+                              type: object
+                              x-kubernetes-map-type: atomic
+                            namespace:
+                              type: string
+                          type: object
+                      type: object
+                    extend:
+                      type: boolean
+                    serverName:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - content
+                  - serverName
+                  - type
+                  type: object
+                type: array
               service:
                 description: Service to expose the nginx instance
                 properties:
