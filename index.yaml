@@ -1005,6 +1005,19 @@ entries:
   nginx-operator:
   - apiVersion: v2
     appVersion: 0.17.0
+    created: "2025-02-06T14:53:24.439633279Z"
+    description: Nginx operator follows the Kubernetes Operator pattern to provide
+      a way to deploy and manage nginx instances inside a cluster.
+    digest: 01482365b47cd596269d8634d4019617d441d967fc20c1b8d93ea5474b7d8b3e
+    name: nginx-operator
+    sources:
+    - https://github.com/tsuru/nginx-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/nginx-operator-1.7.0/nginx-operator-1.7.0.tgz
+    version: 1.7.0
+  - apiVersion: v2
+    appVersion: 0.17.0
     created: "2025-01-24T13:57:10.198503352Z"
     description: Nginx operator follows the Kubernetes Operator pattern to provide
       a way to deploy and manage nginx instances inside a cluster.
@@ -1595,6 +1608,24 @@ entries:
     - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.0/rpaas-monitoring-0.1.0.tgz
     version: 0.1.0
   rpaas-operator:
+  - apiVersion: v2
+    appVersion: 0.44.0
+    created: "2025-02-06T14:53:24.561442233Z"
+    dependencies:
+    - condition: nginxOperator.enabled
+      name: nginx-operator
+      repository: https://tsuru.github.io/charts
+      version: 1.*
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
+    digest: 384f8716b1cb217299ab96113e2d9c292b3a113790834d8940fc4e9291003db6
+    name: rpaas-operator
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.19.0/rpaas-operator-0.19.0.tgz
+    version: 0.19.0
   - apiVersion: v2
     appVersion: 0.44.0
     created: "2025-01-24T14:00:53.840021336Z"
@@ -5735,4 +5766,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-24T14:00:53.841649003Z"
+generated: "2025-02-06T14:53:24.563031873Z"
