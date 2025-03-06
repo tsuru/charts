@@ -3682,6 +3682,15 @@ entries:
     version: 0.1.0
   tsuru-monitoring:
   - apiVersion: v2
+    created: "2025-03-06T11:53:27.71394071Z"
+    description: A Helm chart for Kubernetes
+    digest: 230b52a9cc250451c2217d557b1faa574238668dddad29c69103887fa5437f74
+    name: tsuru-monitoring
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-monitoring-0.3.32/tsuru-monitoring-0.3.32.tgz
+    version: 0.3.32
+  - apiVersion: v2
     created: "2024-04-29T13:16:51.958671687Z"
     description: A Helm chart for Kubernetes
     digest: c8741962da0d91ffff767580115610c7825df51a1f3a5638c0171c4311e44115
@@ -3989,6 +3998,15 @@ entries:
     - https://github.com/tsuru/charts/releases/download/tsuru-monitoring-0.1.1/tsuru-monitoring-0.1.1.tgz
     version: 0.1.1
   tsuru-prometheus-pool:
+  - apiVersion: v2
+    created: "2025-03-06T11:53:27.852890939Z"
+    description: Dedicated prometheus instance by tsuru pool
+    digest: e502d4ae9b9d90ba204f2044d82acd775fa60700321f72b59f0b99624c00358a
+    name: tsuru-prometheus-pool
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-prometheus-pool-0.2.8/tsuru-prometheus-pool-0.2.8.tgz
+    version: 0.2.8
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2024-08-13T14:40:39.582845214Z"
@@ -5881,4 +5899,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-24T15:05:50.339866456Z"
+generated: "2025-03-06T11:53:27.856082432Z"
