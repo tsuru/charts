@@ -5,7 +5,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_5m
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[5m])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[5m])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -15,7 +15,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[5m])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[5m])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[5m])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
@@ -116,7 +116,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_30m
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[30m])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[30m])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -126,7 +126,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[30m])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[30m])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[30m])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
@@ -227,7 +227,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_1h
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[1h])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[1h])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -237,7 +237,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[1h])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[1h])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[1h])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
@@ -341,7 +341,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_2h
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[2h])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[2h])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -351,7 +351,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[2h])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[2h])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[2h])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
@@ -452,7 +452,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_6h
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[6h])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[6h])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -462,7 +462,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[6h])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[6h])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[6h])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
@@ -566,7 +566,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_1d
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[1d])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[1d])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -576,7 +576,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[1d])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[1d])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[1d])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
@@ -677,7 +677,7 @@ groups:
         - record: slo:service_traffic:ratio_rate_3d
           expr: |
             sum(label_replace(label_join(sum by (namespace, service_instance) (
-                                         rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[3d])),
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[3d])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
           labels:
@@ -687,7 +687,7 @@ groups:
             sum(label_replace(label_join(sum by (namespace, service_instance) (
                                              rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[3d])) /
                                          sum by (namespace, service_instance) (
-                                             rate(nginx_vts_server_requests_total{code="total",host="*",service_instance!=""}[3d])),
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[3d])),
                                          "service", ".", "namespace", "service_instance"),
                               "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
           labels:
