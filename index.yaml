@@ -1369,6 +1369,16 @@ entries:
     version: 0.1.0
   rpaas-api:
   - apiVersion: v2
+    appVersion: 0.48.0
+    created: "2025-04-07T12:47:17.420290645Z"
+    description: The API of Tsuru/RPaaS
+    digest: 6151e43a26851a3d7c6203e3ba6d2f0d11567b5d85385bd52dfd8edb6a809ae4
+    name: rpaas-api
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-api-0.7.2/rpaas-api-0.7.2.tgz
+    version: 0.7.2
+  - apiVersion: v2
     appVersion: 0.47.0
     created: "2025-03-25T12:25:20.873458444Z"
     description: The API of Tsuru/RPaaS
@@ -1628,24 +1638,6 @@ entries:
     - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.0/rpaas-monitoring-0.1.0.tgz
     version: 0.1.0
   rpaas-operator:
-  - apiVersion: v2
-    appVersion: 0.48.0
-    created: "2025-04-07T12:46:53.496850915Z"
-    dependencies:
-    - condition: nginxOperator.enabled
-      name: nginx-operator
-      repository: https://tsuru.github.io/charts
-      version: 1.*
-    description: RPaaS operator manages reverse proxy as service instances inside
-      a Kubernetes cluster
-    digest: 3aa25568eadf2074c2f179543244075e3e49e044f4eaf08a34c00ee28e9a1e9c
-    name: rpaas-operator
-    sources:
-    - https://github.com/tsuru/rpaas-operator
-    type: application
-    urls:
-    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.20.3/rpaas-operator-0.20.3.tgz
-    version: 0.20.3
   - apiVersion: v2
     appVersion: 0.47.1
     created: "2025-03-27T18:34:46.182882482Z"
@@ -5981,4 +5973,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-07T12:46:53.498547256Z"
+generated: "2025-04-07T12:47:17.42314793Z"
