@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: tsuru/rate-limit-control-plane
   pullPolicy: IfNotPresent
-  tag: "0.1.0"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -29,6 +29,10 @@ podLabels: {}
 
 podSecurityContext: {}
   # fsGroup: 2000
+
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: "10%"
 
 securityContext: {}
   # capabilities:
