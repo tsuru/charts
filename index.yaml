@@ -1367,6 +1367,17 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/nginx-operator-0.1.0/nginx-operator-0.1.0.tgz
     version: 0.1.0
+  rate-limit-control-plane:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-04-28T17:51:11.985039793Z"
+    description: A Helm chart for Kubernetes
+    digest: fa76cb9a9fc0541dd211902e5c285871da10622d023b7df13517bfbfee71f6c1
+    name: rate-limit-control-plane
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rate-limit-control-plane-0.1.0/rate-limit-control-plane-0.1.0.tgz
+    version: 0.1.0
   rpaas-api:
   - apiVersion: v2
     appVersion: 0.48.0
@@ -5991,4 +6002,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-07T13:16:22.148953856Z"
+generated: "2025-04-28T17:51:11.986653428Z"
