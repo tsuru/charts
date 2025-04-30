@@ -37,7 +37,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-          - rate-limit-control-plane
+          - ./rate-limit-control-plane
           args:
           - --leader-elect=true
           {{- with .Values.arguments }}
