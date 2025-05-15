@@ -1370,6 +1370,16 @@ entries:
   rate-limit-control-plane:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-15T13:43:10.13547423Z"
+    description: A Helm chart for Kubernetes
+    digest: 2c8845da0ecedb7e0ec4eb37483ec4af95a19812144f2719a505b4a41d0d1c39
+    name: rate-limit-control-plane
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rate-limit-control-plane-0.2.8/rate-limit-control-plane-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-04-30T18:56:22.301065132Z"
     description: A Helm chart for Kubernetes
     digest: 2d6373afbf8430e9f9111f6b2014b614e258c0f3eb12877018289fb3de0b5c08
@@ -6072,4 +6082,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-30T18:56:22.303955598Z"
+generated: "2025-05-15T13:43:10.137341309Z"
