@@ -76,8 +76,8 @@ resources: {}
 
 livenessProbe:
   httpGet:
-    path: /
-    port: api
+    path: /healthz
+    port: healthcheck
 
 readinessProbe:
   httpGet:
