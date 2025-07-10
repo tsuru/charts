@@ -661,6 +661,8 @@ spec:
                             - type: string
                             pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                             x-kubernetes-int-or-string: true
+                          cacheZonePurgeName:
+                            type: string
                           cacheZoneSize:
                             anyOf:
                             - type: integer
@@ -7350,6 +7352,8 @@ spec:
                         - type: string
                         pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                         x-kubernetes-int-or-string: true
+                      cacheZonePurgeName:
+                        type: string
                       cacheZoneSize:
                         anyOf:
                         - type: integer
@@ -13456,6 +13460,8 @@ spec:
                     - type: string
                     pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                     x-kubernetes-int-or-string: true
+                  cacheZonePurgeName:
+                    type: string
                   cacheZoneSize:
                     anyOf:
                     - type: integer
@@ -14258,6 +14264,8 @@ spec:
                         - type: string
                         pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                         x-kubernetes-int-or-string: true
+                      cacheZonePurgeName:
+                        type: string
                       cacheZoneSize:
                         anyOf:
                         - type: integer
