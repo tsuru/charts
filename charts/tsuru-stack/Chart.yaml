@@ -25,7 +25,7 @@ dependencies:
     version: "0.1.16"
     repository: https://tsuru.github.io/charts
   - name: ingress-nginx
-    version: "4.*.*"
+    version: "4.12.*"
     repository: https://kubernetes.github.io/ingress-nginx
     condition: ingress-nginx.enabled
   - name: tsuru-monitoring
