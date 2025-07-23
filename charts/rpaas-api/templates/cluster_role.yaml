@@ -74,6 +74,13 @@ rules:
   - get
   - watch
 - apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - update
+- apiGroups:
   - nginx.tsuru.io
   resources:
   - nginxes
