@@ -27,18 +27,11 @@ rules:
   - serviceaccounts
   - namespaces
   - nodes
+  - secrets
   - persistentvolumes
   - persistentvolumeclaims
   verbs:
   - "*"
-
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - create
-  - update
 
 - apiGroups:
   - ""
