@@ -19,7 +19,7 @@ aclapi:
 image:
   repository: tsuru/acl-operator
   pullPolicy: IfNotPresent
-  tag: "0.1.10"
+  tag: "0.1.12"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -55,7 +55,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
