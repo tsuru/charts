@@ -20,6 +20,9 @@ service:
   type: ClusterIP
   annotations: {}
 
+tickets:
+  enabled: true
+
 resources: {}
 
 nameOverride: ""

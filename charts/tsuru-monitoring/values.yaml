@@ -6,6 +6,9 @@ tsuruRules:
   labels: {}
   annotations: {}
 
+tickets:
+  enabled: true
+
 rpaas:
   enabled: true
   namespaceSelector: {}

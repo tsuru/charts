@@ -7,5 +7,9 @@ metadata:
     {{- include "..labels" . | nindent 4 }}
   name: tsuru-rpaas-slis
 spec:
+{{- if .Values.tickets.enabled }}
 {{ .Files.Get "files/rules/tsuru-rpaas-slis.yaml" | indent 2 }}
+{{- else }}
+{{ .Files.Get "files/rules/tsuru-rpaas-slis-light.yaml" | indent 2 }}
+{{- end }}
 {{- end }}

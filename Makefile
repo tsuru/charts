@@ -18,3 +18,7 @@ update-slis:
 	slo-generator -slo.path slis/tsuru-rpaas.yaml -rule.output charts/tsuru-monitoring/files/rules/tsuru-rpaas-slis.yaml
 	slo-generator -slo.path slis/nginx-ingress.yaml -rule.output charts/tsuru-monitoring/files/rules/nginx-ingress.yaml
 	slo-generator -slo.path slis/tsuru-rpaas.yaml -rule.output charts/tsuru-prometheus-pool/files/rules/tsuru-rpaas-slis.yaml
+
+	slo-generator -disable.ticket -slo.path slis/tsuru-rpaas.yaml -rule.output charts/tsuru-monitoring/files/rules/tsuru-rpaas-slis-light.yaml
+	slo-generator -disable.ticket -slo.path slis/nginx-ingress.yaml -rule.output charts/tsuru-monitoring/files/rules/nginx-ingress-slis-light.yaml
+	slo-generator -disable.ticket -slo.path slis/tsuru-rpaas.yaml -rule.output charts/tsuru-prometheus-pool/files/rules/tsuru-rpaas-slis-light.yaml

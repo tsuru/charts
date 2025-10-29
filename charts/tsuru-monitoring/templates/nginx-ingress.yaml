@@ -13,5 +13,9 @@ metadata:
 {{- end }}
   name: nginx-ingress-slis
 spec:
+{{- if .Values.tickets.enabled }}
 {{ .Files.Get "files/rules/nginx-ingress.yaml" | indent 2 }}
+{{- else }}
+{{ .Files.Get "files/rules/nginx-ingress-slis-light.yaml" | indent 2 }}
+{{- end }}
 {{- end }}

@@ -1,0 +1,453 @@
+groups:
+    - name: slo:tsuru.rpaas-v2.discovery-services:short
+      interval: 30s
+      rules:
+        - record: slo:service_traffic:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_errors_total:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p50_5m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p95_5m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p99_5m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[5m])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.050"}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.050"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.100"}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.100"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.200"}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.200"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.500"}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.500"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="1.000"}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "1.000"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_5m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="5.000"}[5m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[5m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "5.000"
+            platform: tsuru.rpaasv2
+        - record: slo:service_traffic:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_errors_total:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p50_30m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[30m])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p95_30m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[30m])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p99_30m
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[30m])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.050"}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.050"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.100"}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.100"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.200"}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.200"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.500"}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.500"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="1.000"}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "1.000"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_30m
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="5.000"}[30m])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[30m])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "5.000"
+            platform: tsuru.rpaasv2
+        - record: slo:service_traffic:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_errors_total:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p50_1h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[1h])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p95_1h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[1h])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p99_1h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[1h])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.050"}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.050"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.100"}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.100"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.200"}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.200"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.500"}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.500"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="1.000"}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "1.000"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_1h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="5.000"}[1h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[1h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "5.000"
+            platform: tsuru.rpaasv2
+    - name: slo:tsuru.rpaas-v2.discovery-services:medium
+      interval: 2m
+      rules:
+        - record: slo:service_traffic:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                         rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace)
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_errors_total:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code="5xx",host="*",service_instance!=""}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             rate(nginx_vts_server_requests_total{code!="total",host="*",service_instance!=""}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p50_6h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.5,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[6h])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p95_6h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.95,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[6h])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:p99_6h
+          expr: |
+            sum(label_replace(label_join(histogram_quantile(0.99,
+                                                            sum by (namespace, service_instance, le) (
+                                                                sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m[6h])) >= 0),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.050"}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.050"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.100"}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.100"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.200"}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.200"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="0.500"}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "0.500"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="1.000"}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "1.000"
+            platform: tsuru.rpaasv2
+        - record: slo:service_latency:ratio_rate_6h
+          expr: |
+            sum(label_replace(label_join(sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="5.000"}[6h])) /
+                                         sum by (namespace, service_instance) (
+                                             sum_over_time(rpaas:nginx_vts_server_request_duration_seconds_bucket:increase_1m{le="+Inf"}[6h])),
+                                         "service", ".", "namespace", "service_instance"),
+                              "service", "tsuru.$1", "service",  "(.*)")) by (service, namespace) >= 0
+          labels:
+            le: "5.000"
+            platform: tsuru.rpaasv2
+    - name: slo:tsuru.rpaas-v2.discovery-services:alert
+      rules: []
