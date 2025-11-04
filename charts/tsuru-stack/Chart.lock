@@ -7,12 +7,12 @@ dependencies:
   version: 0.1.17
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
-  version: 4.12.6
+  version: 4.12.8
 - name: tsuru-monitoring
   repository: https://tsuru.github.io/charts
   version: 0.3.32
 - name: docker-registry
-  repository: https://helm.twun.io
+  repository: https://twuni.github.io/docker-registry.helm
   version: 1.10.1
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
@@ -23,5 +23,5 @@ dependencies:
 - name: deploy-agent
   repository: https://tsuru.github.io/charts
   version: 1.5.9
-digest: sha256:704a642defeb21670833e5eed6dcf25b0180ee309328aae39dcb7ee1a29a0958
-generated: "2025-09-12T09:49:23.718018-03:00"
+digest: sha256:4f070e46b73fd508f84dd1f3838a872c9c38ad9afaf281853ece01cd48c6f0ee
+generated: "2025-11-04T14:24:26.194094-03:00"

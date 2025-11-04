@@ -28,7 +28,7 @@ jobs:
         run: |
           helm repo add tsuru https://tsuru.github.io/charts
           helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-          helm repo add twun https://helm.twun.io
+          helm repo add twuni https://twuni.github.io/docker-registry.helm
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add jetstack https://charts.jetstack.io
 
