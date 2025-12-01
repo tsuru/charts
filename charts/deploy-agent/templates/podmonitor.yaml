@@ -1,0 +1,17 @@
+{{- if .Values.podMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ include "deploy-agent.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{- include "deploy-agent.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+{{- include "deploy-agent.selectorLabels" . | nindent 6 }}
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+{{- end }}
