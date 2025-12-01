@@ -41,6 +41,7 @@ spec:
         - /usr/local/bin/deploy-agent
         - --buildkit-addr=unix:///var/run/buildkit/buildkitd.sock
         - --port=8080
+        - --metrics-port=8081
         {{- if .Values.deployAgent.buildkit.autoDiscovery.enabled }}
         {{- with .Values.deployAgent.buildkit.autoDiscovery }}
         - --buildkit-autodiscovery
@@ -67,6 +68,9 @@ spec:
         ports:
         - name: http-grpc
           containerPort: 8080
+        - name: metrics
+          containerPort: 8081
+          protocol: TCP
         {{- with .Values.deployAgent.readinessProbe }}
         readinessProbe: {{- toYaml . | nindent 10 }}
         {{- end }}
