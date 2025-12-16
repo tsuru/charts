@@ -22,6 +22,20 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+metricsScaling:
+  enabled: false
+  # ScaledObject spec configuration
+  cooldownPeriod: 7200 # 2 hours
+  idleReplicaCount: 0
+  maxReplicaCount: 3
+  minReplicaCount: 1
+  pollingInterval: 15
+  # Prometheus trigger configuration
+  prometheus:
+    serverAddress: ""
+    query: ""
+    threshold: "1"
+
 annotations: {}
 
 podAnnotations: {}

@@ -1,0 +1,24 @@
+{{- if .Values.metricsScaling.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "buildkit.fullname" . }}
+  labels:
+    {{- include "buildkit.labels" . | nindent 4 }}
+spec:
+  cooldownPeriod: {{ .Values.metricsScaling.cooldownPeriod }}
+  idleReplicaCount: {{ .Values.metricsScaling.idleReplicaCount }}
+  maxReplicaCount: {{ .Values.metricsScaling.maxReplicaCount }}
+  minReplicaCount: {{ .Values.metricsScaling.minReplicaCount }}
+  pollingInterval: {{ .Values.metricsScaling.pollingInterval }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: {{ include "buildkit.fullname" . }}
+  triggers:
+  - metadata:
+      query: {{ .Values.metricsScaling.prometheus.query | quote }}
+      serverAddress: {{ .Values.metricsScaling.prometheus.serverAddress | quote }}
+      threshold: {{ .Values.metricsScaling.prometheus.threshold | quote }}
+    type: prometheus
+{{- end }}
