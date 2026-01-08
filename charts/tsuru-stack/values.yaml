@@ -163,7 +163,6 @@ deploy-agent:
 
       [grpc]
         address = [
-          "tcp://0.0.0.0:8081",
           "unix:///run/buildkit/buildkitd.sock",
         ]
 
