@@ -25,6 +25,26 @@ tickets:
 
 resources: {}
 
+initContainers:
+  - name: init-config-reloader
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        cpu: 100m
+        memory: 100Mi
+
+containers:
+  - name: config-reloader
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        cpu: 100m
+        memory: 100Mi
+
 nameOverride: ""
 fullnameOverride: ""
 

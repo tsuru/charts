@@ -40,6 +40,8 @@ spec:
   replicas: {{ .Values.replicaCount }}
   resources:
   {{- .Values.resources | toYaml |nindent 4 }}
+  initContainers: {{ toYaml .Values.initContainers | nindent 4 }}
+  containers: {{ toYaml .Values.containers | nindent 4 }}
   retention: 10d
   routePrefix: /
   ruleNamespaceSelector:
