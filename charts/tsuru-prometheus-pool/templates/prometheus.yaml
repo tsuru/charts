@@ -23,6 +23,7 @@ spec:
   image: {{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.version }}
   logFormat: logfmt
   logLevel: info
+  nameValidationScheme: {{ .Values.nameValidationScheme }}
   podMetadata:
     labels:
       tsuru.io/pool: {{ .Values.tsuru.pool.name }}
