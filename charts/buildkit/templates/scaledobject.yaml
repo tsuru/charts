@@ -2,6 +2,10 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
+{{- if .Values.annotations }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+{{- end }}
   name: {{ include "buildkit.fullname" . }}
   labels:
     {{- include "buildkit.labels" . | nindent 4 }}
