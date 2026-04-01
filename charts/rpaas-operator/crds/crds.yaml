@@ -3,6 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.17.0
+    helm.sh/resource-policy: keep
   name: rpaasflavors.extensions.tsuru.io
 spec:
   group: extensions.tsuru.io
@@ -6734,6 +6735,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.17.0
+    helm.sh/resource-policy: keep
   name: rpaasinstances.extensions.tsuru.io
 spec:
   group: extensions.tsuru.io
@@ -13470,6 +13472,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.17.0
+    helm.sh/resource-policy: keep
   name: rpaasplans.extensions.tsuru.io
 spec:
   group: extensions.tsuru.io
@@ -13692,6 +13695,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.17.0
+    helm.sh/resource-policy: keep
   name: rpaasvalidations.extensions.tsuru.io
 spec:
   group: extensions.tsuru.io

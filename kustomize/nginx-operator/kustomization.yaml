@@ -1,0 +1,4 @@
+resources:
+- github.com/tsuru/nginx-operator//config/crd/?ref=main
+commonAnnotations:
+  helm.sh/resource-policy: keep
