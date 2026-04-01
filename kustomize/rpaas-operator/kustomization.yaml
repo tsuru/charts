@@ -1,0 +1,4 @@
+resources:
+- github.com/tsuru/rpaas-operator//config/crd/?ref=main
+commonAnnotations:
+  helm.sh/resource-policy: keep
