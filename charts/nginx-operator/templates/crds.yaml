@@ -13,8 +13,8 @@ spec:
     listKind: NginxList
     plural: nginxes
     singular: nginx
-  scope: Namespaced
   preserveUnknownFields: false
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
     - jsonPath: .status.currentReplicas
