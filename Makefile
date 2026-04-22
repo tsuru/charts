@@ -6,7 +6,7 @@ all: update-crds update-slis
 update-crds:
 	@for chart in nginx-operator rpaas-operator acl-operator ; \
 		 do \
-		   kustomize build github.com/tsuru/$${chart}//config/crd/?ref=main > ./charts/$${chart}/crds/crds.yaml ;\
+		   kustomize build ./kustomize/$${chart} > ./charts/$${chart}/crds/crds.yaml ;\
 		   crd=$$(<./charts/$${chart}/crds/crds.yaml) ;\
 		   echo "{{- if .Values.installCRDs }}" > ./charts/$${chart}/templates/crds.yaml ;\
 		   echo "$$crd" >> ./charts/$${chart}/templates/crds.yaml ;\
