@@ -54,6 +54,16 @@ entries:
   acl-operator:
   - apiVersion: v2
     appVersion: 0.1.14
+    created: "2026-04-24T18:25:56.289078244Z"
+    description: Control network access in high abstractions by Tsuru Applications
+    digest: 5286cefcc3916cf8a96a6c53f41e4c3ab1cfcfb672bbd5c00175a80abd8100fd
+    name: acl-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/acl-operator-0.1.16/acl-operator-0.1.16.tgz
+    version: 0.1.16
+  - apiVersion: v2
+    appVersion: 0.1.14
     created: "2026-03-10T14:09:17.13771819Z"
     description: Control network access in high abstractions by Tsuru Applications
     digest: ebcbabda3a395586f066dd19c8d7baf7a4274c6bb39fe254f46909df40cc0712
@@ -1938,6 +1948,24 @@ entries:
     - https://github.com/tsuru/charts/releases/download/rpaas-monitoring-0.1.0/rpaas-monitoring-0.1.0.tgz
     version: 0.1.0
   rpaas-operator:
+  - apiVersion: v2
+    appVersion: 0.53.2
+    created: "2026-04-24T18:25:56.684097119Z"
+    dependencies:
+    - condition: nginxOperator.enabled
+      name: nginx-operator
+      repository: https://tsuru.github.io/charts
+      version: 1.*
+    description: RPaaS operator manages reverse proxy as service instances inside
+      a Kubernetes cluster
+    digest: a25e73aa1e1adda7abc07bf4e43fe34f0020156a8e8a1f0007577c8dfaf70bbf
+    name: rpaas-operator
+    sources:
+    - https://github.com/tsuru/rpaas-operator
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/rpaas-operator-0.24.1/rpaas-operator-0.24.1.tgz
+    version: 0.24.1
   - apiVersion: v2
     appVersion: 0.53.2
     created: "2026-02-25T16:36:59.103416486Z"
@@ -6795,4 +6823,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-10T14:09:17.140195902Z"
+generated: "2026-04-24T18:25:56.686098544Z"
