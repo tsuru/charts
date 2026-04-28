@@ -49,7 +49,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.externalSecrets.secretName }}
-                key: {{ .Values.externalSecrets.secretKey }}
+                key: tsuru-token
             {{- else }}
             value: {{ .Values.tsuru.token }}
             {{- end }}
@@ -64,10 +64,15 @@ spec:
             value: {{ . }}
           {{- end }}
 
-          {{- with .Values.aclapi.password }}
           - name: ACL_API_PASSWORD
-            value: {{ .}}
-          {{- end }}
+            {{- if .Values.aclapi.externalSecret.enabled }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.aclapi.externalSecret.secretName }}
+                key: acl-api-password
+            {{- else }}
+            value: {{ .Values.aclapi.password }}
+            {{- end }}
 
           {{- if .Values.gc.dryRun }}
           - name: GC_DRY_RUN
