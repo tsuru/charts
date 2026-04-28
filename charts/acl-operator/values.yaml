@@ -14,12 +14,14 @@ tsuru:
 externalSecrets:
   enabled: false
   secretName: "acl-tsuru-token"
-  secretKey: "tsuru-token"
 
 aclapi:
   address: ""
   user: ""
   password: ""
+  externalSecret:
+    enabled: false
+    secretName: "acl-api-password"
 
 image:
   repository: tsuru/acl-operator
