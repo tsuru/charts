@@ -45,10 +45,10 @@ spec:
           - name: TSURU_TARGET
             value: {{ .Values.tsuru.address }}
           - name: TSURU_TOKEN
-            {{- if .Values.tsuru.externalSecret.enabled }}
+            {{- if .Values.externalSecrets.tsuruToken.enabled }}
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.tsuru.externalSecret.secretName }}
+                name: {{ .Values.externalSecrets.tsuruToken.secretName }}
                 key: tsuru-token
             {{- else }}
             value: {{ .Values.tsuru.token }}
@@ -65,10 +65,10 @@ spec:
           {{- end }}
 
           - name: ACL_API_PASSWORD
-            {{- if .Values.aclapi.externalSecret.enabled }}
+            {{- if .Values.externalSecrets.aclPassword.enabled }}
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.aclapi.externalSecret.secretName }}
+                name: {{ .Values.externalSecrets.aclPassword.secretName }}
                 key: acl-api-password
             {{- else }}
             value: {{ .Values.aclapi.password }}

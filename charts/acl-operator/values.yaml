@@ -10,15 +10,17 @@ replicaCount: 1
 tsuru:
   address: ""
   token: ""
-  externalSecret:
-    enabled: false
-    secretName: "acl-tsuru-token"
 
 aclapi:
   address: ""
   user: ""
   password: ""
-  externalSecret:
+
+externalSecrets:
+  tsuruToken:
+    enabled: false
+    secretName: "acl-tsuru-token"
+  aclPassword:
     enabled: false
     secretName: "acl-operator-secret"
 
