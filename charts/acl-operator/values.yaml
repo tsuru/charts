@@ -16,13 +16,9 @@ aclapi:
   user: ""
   password: ""
 
-externalSecrets:
-  tsuruToken:
-    enabled: false
-    secretName: "acl-tsuru-token"
-  aclPassword:
-    enabled: false
-    secretName: "acl-operator-secret"
+secret:
+  enabled: false
+  secretName: "acl-operator-secret"
 
 image:
   repository: tsuru/acl-operator
