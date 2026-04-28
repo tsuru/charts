@@ -10,10 +10,9 @@ replicaCount: 1
 tsuru:
   address: ""
   token: ""
-
-externalSecrets:
-  enabled: false
-  secretName: "acl-tsuru-token"
+  externalSecret:
+    enabled: false
+    secretName: "acl-tsuru-token"
 
 aclapi:
   address: ""
@@ -21,7 +20,7 @@ aclapi:
   password: ""
   externalSecret:
     enabled: false
-    secretName: "acl-api-password"
+    secretName: "acl-operator-secret"
 
 image:
   repository: tsuru/acl-operator

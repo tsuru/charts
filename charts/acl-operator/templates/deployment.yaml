@@ -45,10 +45,10 @@ spec:
           - name: TSURU_TARGET
             value: {{ .Values.tsuru.address }}
           - name: TSURU_TOKEN
-            {{- if .Values.externalSecrets.enabled }}
+            {{- if .Values.tsuru.externalSecret.enabled }}
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.externalSecrets.secretName }}
+                name: {{ .Values.tsuru.externalSecret.secretName }}
                 key: tsuru-token
             {{- else }}
             value: {{ .Values.tsuru.token }}
