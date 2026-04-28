@@ -45,7 +45,14 @@ spec:
           - name: TSURU_TARGET
             value: {{ .Values.tsuru.address }}
           - name: TSURU_TOKEN
+            {{- if .Values.externalSecrets.enabled }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.externalSecrets.secretName }}
+                key: {{ .Values.externalSecrets.secretKey }}
+            {{- else }}
             value: {{ .Values.tsuru.token }}
+            {{- end }}
 
           {{- with .Values.aclapi.address }}
           - name: ACL_API_ADDRESS
