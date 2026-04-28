@@ -11,6 +11,11 @@ tsuru:
   address: ""
   token: ""
 
+externalSecrets:
+  enabled: false
+  secretName: "acl-tsuru-token"
+  secretKey: "tsuru-token"
+
 aclapi:
   address: ""
   user: ""
