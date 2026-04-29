@@ -4354,6 +4354,15 @@ entries:
     version: 0.1.0
   tsuru-apps-crd:
   - apiVersion: v2
+    created: "2026-04-29T15:15:06.275026135Z"
+    description: Pre install Tsuru Apps CRD
+    digest: 76fda891a32f5324366578059bab48743b1aa68384358c09b49f43dbbb1ae216
+    name: tsuru-apps-crd
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-apps-crd-0.1.1/tsuru-apps-crd-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2026-04-29T14:54:51.288116669Z"
     description: Pre install Tsuru Apps CRD
     digest: dc728a1f04f47d1f57311f8e475a71f90ed074d8cf1c990415cd6ddb4ba2a6db
@@ -6863,4 +6872,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2026-04-29T14:54:51.290178406Z"
+generated: "2026-04-29T15:15:06.278187191Z"
