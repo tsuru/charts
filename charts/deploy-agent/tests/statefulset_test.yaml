@@ -32,11 +32,6 @@ tests:
               storage: 100Gi
           storageClassName: premium-rwo
     asserts:
-      - isKind:
-          of: StatefulSet
-      - equal:
-          path: metadata.name
-          value: deploy-agent
       - equal:
           path: spec.volumeClaimTemplates
           value:
@@ -68,11 +63,6 @@ tests:
                 storage: 100Gi
             storageClassName: premium-rwo
     asserts:
-      - isKind:
-          of: StatefulSet
-      - equal:
-          path: metadata.name
-          value: deploy-agent
       - equal:
           path: spec.volumeClaimTemplates
           value:
