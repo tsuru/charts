@@ -1,0 +1,89 @@
+suite: test statefulset
+templates:
+  - statefulset.yaml
+release:
+  name: deploy-agent
+tests:
+  - it: should work
+    set:
+      deployAgent.image.tag: latest
+    asserts:
+      - isKind:
+          of: StatefulSet
+      - equal:
+          path: metadata.name
+          value: deploy-agent
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: tsuru/deploy-agent:latest
+
+  - it: with volumeClaimTemplates list
+    set:
+      volumeClaimTemplates:
+      - metadata:
+          labels:
+            excluded-from-alerts: "true"
+          name: buildkit-data
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 100Gi
+          storageClassName: premium-rwo
+    asserts:
+      - isKind:
+          of: StatefulSet
+      - equal:
+          path: metadata.name
+          value: deploy-agent
+      - equal:
+          path: spec.volumeClaimTemplates
+          value:
+          - metadata:
+              labels:
+                excluded-from-alerts: "true"
+              name: buildkit-data
+            spec:
+              accessModes:
+              - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 100Gi
+              storageClassName: premium-rwo
+
+  - it: with volumeClaimTemplates map
+    set:
+      volumeClaimTemplates:
+        buildkit-data:
+          metadata:
+            labels:
+              excluded-from-alerts: "true"
+            name: buildkit-data
+          spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 100Gi
+            storageClassName: premium-rwo
+    asserts:
+      - isKind:
+          of: StatefulSet
+      - equal:
+          path: metadata.name
+          value: deploy-agent
+      - equal:
+          path: spec.volumeClaimTemplates
+          value:
+          - metadata:
+              labels:
+                excluded-from-alerts: "true"
+              name: buildkit-data
+            spec:
+              accessModes:
+              - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 100Gi
+              storageClassName: premium-rwo              
