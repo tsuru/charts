@@ -2,4 +2,4 @@ apiVersion: v2
 name: tsuru-apps-crd
 description: Pre install Tsuru Apps CRD
 type: application
-version: 0.1.0
+version: 0.1.1
