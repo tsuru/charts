@@ -15,8 +15,13 @@ spec:
   {{- with .Values.updateStategy }}
   updateStategy: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .Values.volumeClaimTemplates }}
-  volumeClaimTemplates: {{- toYaml . | nindent 2 }}
+  {{- if and (kindIs "slice" .Values.volumeClaimTemplates) .Values.volumeClaimTemplates }}
+  volumeClaimTemplates: {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}
+  {{- else if .Values.volumeClaimTemplates }}
+  volumeClaimTemplates:
+  {{- range $name, $value := .Values.volumeClaimTemplates }}
+  - {{- toYaml $value | nindent 4 }}
+  {{- end }}
   {{- end }}
   template:
     metadata:
@@ -147,8 +152,8 @@ spec:
       nodeSelector: {{- toYaml . | nindent 6 }}
       {{- end }}
       {{- with .Values.affinity }}
-      affinity: {{- toYaml . | nindent 6 }}
+      affinity: {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.tolerations }}
-      tolerations: {{- toYaml . | nindent 6 }}
+      tolerations: {{- toYaml . | nindent 8 }}
       {{- end }}
