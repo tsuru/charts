@@ -76,4 +76,48 @@ tests:
               resources:
                 requests:
                   storage: 100Gi
-              storageClassName: premium-rwo              
+              storageClassName: premium-rwo
+
+  - it: with tolerations
+    set:
+      tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "deploy-agent"
+        effect: "NoSchedule"
+    asserts:
+      - equal:
+          path: spec.template.spec.tolerations
+          value:
+          - key: "dedicated"
+            operator: "Equal"
+            value: "deploy-agent"
+            effect: "NoSchedule"
+
+  - it: with affinity
+    set:
+      affinity:
+        nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: "cloud.google.com/gke-spot"
+                  operator: "NotIn"
+                  values: ["true"]
+                - key: "cloud.google.com/gke-preemptible"
+                  operator: "NotIn"
+                  values: ["true"]
+    asserts:
+      - equal:
+          path: spec.template.spec.affinity
+          value:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: "cloud.google.com/gke-spot"
+                    operator: "NotIn"
+                    values: ["true"]
+                  - key: "cloud.google.com/gke-preemptible"
+                    operator: "NotIn"
+                    values: ["true"]
