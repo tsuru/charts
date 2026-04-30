@@ -21,7 +21,7 @@ jobs:
       - name: Detect charts with tests
         id: charts
         run: |
-          charts=$(find charts -type d -name tests | sed 's|/tests$||' | sort -u | tr '\n' ' ')
+          charts=$(find charts -mindepth 2 -maxdepth 2 -type d -name tests | sed 's|/tests$||' | sort -u | tr '\n' ' ')
           echo "list=${charts}" >> "$GITHUB_OUTPUT"
 
       - name: Run helm unittest
