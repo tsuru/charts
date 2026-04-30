@@ -6,7 +6,33 @@ on:
       - main
 
 jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Install helm-unittest plugin
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest
+
+      - name: Detect charts with tests
+        id: charts
+        run: |
+          charts=$(find charts -type d -name tests | sed 's|/tests$||' | sort -u | tr '\n' ' ')
+          echo "list=${charts}" >> "$GITHUB_OUTPUT"
+
+      - name: Run helm unittest
+        run: |
+          for chart in ${{ steps.charts.outputs.list }}; do
+            echo "==> Testing ${chart}"
+            helm unittest "${chart}"
+          done
+
   release:
+    needs: unittest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
