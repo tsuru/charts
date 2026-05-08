@@ -33,6 +33,9 @@ metricsScaling:
   # Prometheus trigger configuration
   prometheus:
     serverAddress: ""
+    # discoverFromDeployAgent: when true, the query is auto-generated using deploy-agent metrics
+    # for the release namespace (.Release.Namespace). The 'query' field below is ignored.
+    discoverFromDeployAgent: false
     query: ""
     threshold: "1"
 

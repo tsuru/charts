@@ -1,0 +1,141 @@
+suite: test scaledobject
+templates:
+  - scaledobject.yaml
+release:
+  name: buildkit
+  namespace: myteam
+tests:
+  - it: should not render when metricsScaling is disabled
+    set:
+      metricsScaling.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render ScaledObject when metricsScaling is enabled
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.query: my_custom_query
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ScaledObject
+      - equal:
+          path: metadata.name
+          value: buildkit
+
+  - it: should auto-generate query from release namespace when discoverFromDeployAgent is true
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+    asserts:
+      - equal:
+          path: spec.triggers[0].metadata.query
+          value: "(sum(deploy_agent_builds_waiting_for_lease{exported_namespace=\"myteam\"}) or vector(0)) + (sum(deploy_agent_builds_active{exported_namespace=\"myteam\"}) or vector(0))"
+
+  - it: should use provided query when discoverFromDeployAgent is false
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: false
+      metricsScaling.prometheus.query: my_custom_query
+    asserts:
+      - equal:
+          path: spec.triggers[0].metadata.query
+          value: "my_custom_query"
+
+  - it: should use provided query by default
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.query: explicit_query
+    asserts:
+      - equal:
+          path: spec.triggers[0].metadata.query
+          value: "explicit_query"
+
+  - it: should set serverAddress correctly
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus.monitoring:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+    asserts:
+      - equal:
+          path: spec.triggers[0].metadata.serverAddress
+          value: "http://prometheus.monitoring:9090"
+
+  - it: should use default threshold of 1
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+    asserts:
+      - equal:
+          path: spec.triggers[0].metadata.threshold
+          value: "1"
+
+  - it: should allow custom threshold
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+      metricsScaling.prometheus.threshold: "5"
+    asserts:
+      - equal:
+          path: spec.triggers[0].metadata.threshold
+          value: "5"
+
+  - it: should set scaling parameters correctly
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.cooldownPeriod: 3600
+      metricsScaling.idleReplicaCount: 1
+      metricsScaling.maxReplicaCount: 10
+      metricsScaling.minReplicaCount: 2
+      metricsScaling.pollingInterval: 30
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+    asserts:
+      - equal:
+          path: spec.cooldownPeriod
+          value: 3600
+      - equal:
+          path: spec.idleReplicaCount
+          value: 1
+      - equal:
+          path: spec.maxReplicaCount
+          value: 10
+      - equal:
+          path: spec.minReplicaCount
+          value: 2
+      - equal:
+          path: spec.pollingInterval
+          value: 30
+
+  - it: should target the correct StatefulSet
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+    asserts:
+      - equal:
+          path: spec.scaleTargetRef.kind
+          value: StatefulSet
+      - equal:
+          path: spec.scaleTargetRef.name
+          value: buildkit
+
+  - it: should include annotations when set
+    set:
+      metricsScaling.enabled: true
+      metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: true
+      annotations:
+        my-annotation: my-value
+    asserts:
+      - equal:
+          path: metadata.annotations.my-annotation
+          value: my-value
