@@ -3,6 +3,7 @@ templates:
   - scaledobject.yaml
 release:
   name: buildkit
+  namespace: myteam
 tests:
   - it: should not render when metricsScaling is disabled
     set:
@@ -25,31 +26,31 @@ tests:
           path: metadata.name
           value: buildkit
 
-  - it: should use auto-generated query when namespace is set
+  - it: should auto-generate query from release namespace when discoverFromDeployAgent is true
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
     asserts:
       - equal:
           path: spec.triggers[0].metadata.query
           value: "(sum(deploy_agent_builds_waiting_for_lease{exported_namespace=\"myteam\"}) or vector(0)) + (sum(deploy_agent_builds_active{exported_namespace=\"myteam\"}) or vector(0))"
 
-  - it: should use provided query when namespace is not set
+  - it: should use provided query when discoverFromDeployAgent is false
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
+      metricsScaling.prometheus.discoverFromDeployAgent: false
       metricsScaling.prometheus.query: my_custom_query
     asserts:
       - equal:
           path: spec.triggers[0].metadata.query
           value: "my_custom_query"
 
-  - it: should use provided query when namespace is empty string
+  - it: should use provided query by default
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: ""
       metricsScaling.prometheus.query: explicit_query
     asserts:
       - equal:
@@ -60,7 +61,7 @@ tests:
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus.monitoring:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
     asserts:
       - equal:
           path: spec.triggers[0].metadata.serverAddress
@@ -70,7 +71,7 @@ tests:
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
     asserts:
       - equal:
           path: spec.triggers[0].metadata.threshold
@@ -80,7 +81,7 @@ tests:
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
       metricsScaling.prometheus.threshold: "5"
     asserts:
       - equal:
@@ -96,7 +97,7 @@ tests:
       metricsScaling.minReplicaCount: 2
       metricsScaling.pollingInterval: 30
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
     asserts:
       - equal:
           path: spec.cooldownPeriod
@@ -118,7 +119,7 @@ tests:
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
     asserts:
       - equal:
           path: spec.scaleTargetRef.kind
@@ -131,7 +132,7 @@ tests:
     set:
       metricsScaling.enabled: true
       metricsScaling.prometheus.serverAddress: http://prometheus:9090
-      metricsScaling.prometheus.namespace: myteam
+      metricsScaling.prometheus.discoverFromDeployAgent: true
       annotations:
         my-annotation: my-value
     asserts:
