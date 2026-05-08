@@ -9,7 +9,9 @@ metadata:
   labels:
     {{- include "buildkit.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.metricsScaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   serviceName: {{ include "buildkit.fullname" . }}
   selector:
     matchLabels:
