@@ -1,4 +1,9 @@
 {{- if .Values.metricsScaling.enabled }}
+{{- $namespace := .Values.metricsScaling.prometheus.namespace }}
+{{- $query := .Values.metricsScaling.prometheus.query }}
+{{- if $namespace }}
+{{- $query = printf "(sum(deploy_agent_builds_waiting_for_lease{exported_namespace=\"%s\"}) or vector(0)) + (sum(deploy_agent_builds_active{exported_namespace=\"%s\"}) or vector(0))" $namespace $namespace }}
+{{- end }}
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
@@ -21,7 +26,7 @@ spec:
     name: {{ include "buildkit.fullname" . }}
   triggers:
   - metadata:
-      query: {{ .Values.metricsScaling.prometheus.query | quote }}
+      query: {{ $query | quote }}
       serverAddress: {{ .Values.metricsScaling.prometheus.serverAddress | quote }}
       threshold: {{ .Values.metricsScaling.prometheus.threshold | quote }}
     type: prometheus

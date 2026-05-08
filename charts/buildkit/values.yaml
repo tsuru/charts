@@ -33,6 +33,9 @@ metricsScaling:
   # Prometheus trigger configuration
   prometheus:
     serverAddress: ""
+    # namespace: if set, the query is auto-generated using deploy-agent metrics for this namespace.
+    # When set, the 'query' field below is ignored.
+    namespace: ""
     query: ""
     threshold: "1"
 
