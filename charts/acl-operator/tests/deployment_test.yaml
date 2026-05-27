@@ -1,0 +1,141 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+release:
+  name: acl-operator
+tests:
+  - it: should set default config env vars
+    asserts:
+      - isKind:
+          of: Deployment
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: REQUEUE_AFTER
+            value: "10m"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_ACL
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_ACL_DNS_ENTRY
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_TSURU_APP
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_TSURU_CRONJOB
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_TSURU_APP_ADDRESS
+            value: "8"
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE_ADDRESS
+            value: "8"
+
+  - it: should set custom requeueAfter
+    set:
+      config.requeueAfter: 30s
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: REQUEUE_AFTER
+            value: "30s"
+
+  - it: should omit REQUEUE_AFTER when empty
+    set:
+      config.requeueAfter: ""
+    asserts:
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: REQUEUE_AFTER
+            value: ""
+
+  - it: should set custom maxConcurrentReconciles.default
+    set:
+      config.maxConcurrentReconciles.default: 16
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES
+            value: "16"
+
+  - it: should omit MAX_CONCURRENT_RECONCILES when default is zero
+    set:
+      config.maxConcurrentReconciles.default: 0
+    asserts:
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES
+            value: "0"
+
+  - it: should set all per-resource maxConcurrentReconciles env vars when provided
+    set:
+      config.maxConcurrentReconciles.acl: 1
+      config.maxConcurrentReconciles.aclDNSEntry: 2
+      config.maxConcurrentReconciles.tsuruApp: 3
+      config.maxConcurrentReconciles.tsuruCronJob: 4
+      config.maxConcurrentReconciles.rpaasInstance: 5
+      config.maxConcurrentReconciles.tsuruAppAddress: 6
+      config.maxConcurrentReconciles.rpaasInstanceAddress: 7
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_ACL
+            value: "1"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_ACL_DNS_ENTRY
+            value: "2"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_TSURU_APP
+            value: "3"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_TSURU_CRONJOB
+            value: "4"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE
+            value: "5"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_TSURU_APP_ADDRESS
+            value: "6"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE_ADDRESS
+            value: "7"

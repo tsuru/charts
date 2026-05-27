@@ -79,6 +79,51 @@ spec:
             value: "true"
           {{- end }}
 
+          {{- with .Values.config.requeueAfter }}
+          - name: REQUEUE_AFTER
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.default }}
+          - name: MAX_CONCURRENT_RECONCILES
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.acl }}
+          - name: MAX_CONCURRENT_RECONCILES_ACL
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.aclDNSEntry }}
+          - name: MAX_CONCURRENT_RECONCILES_ACL_DNS_ENTRY
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.tsuruApp }}
+          - name: MAX_CONCURRENT_RECONCILES_TSURU_APP
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.tsuruCronJob }}
+          - name: MAX_CONCURRENT_RECONCILES_TSURU_CRONJOB
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.rpaasInstance }}
+          - name: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.tsuruAppAddress }}
+          - name: MAX_CONCURRENT_RECONCILES_TSURU_APP_ADDRESS
+            value: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.config.maxConcurrentReconciles.rpaasInstanceAddress }}
+          - name: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE_ADDRESS
+            value: {{ . | quote }}
+          {{- end }}
+
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml .| nindent 12 }}

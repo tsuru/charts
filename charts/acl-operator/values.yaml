@@ -83,3 +83,15 @@ volumeMounts: []
 
 gc:
   dryRun: false
+
+config:
+  requeueAfter: 10m # env: REQUEUE_AFTER
+  maxConcurrentReconciles:
+    default: 8                # env: MAX_CONCURRENT_RECONCILES
+    # acl: 8                  # env: MAX_CONCURRENT_RECONCILES_ACL
+    # aclDNSEntry: 8          # env: MAX_CONCURRENT_RECONCILES_ACL_DNS_ENTRY
+    # tsuruApp: 8             # env: MAX_CONCURRENT_RECONCILES_TSURU_APP
+    # tsuruCronJob: 8         # env: MAX_CONCURRENT_RECONCILES_TSURU_CRONJOB
+    # rpaasInstance: 8        # env: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE
+    # tsuruAppAddress: 8      # env: MAX_CONCURRENT_RECONCILES_TSURU_APP_ADDRESS
+    # rpaasInstanceAddress: 8 # env: MAX_CONCURRENT_RECONCILES_RPAAS_INSTANCE_ADDRESS
