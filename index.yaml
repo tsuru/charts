@@ -991,6 +991,16 @@ entries:
     version: 0.1.0
   kubernetes-router:
   - apiVersion: v2
+    appVersion: 0.26.0
+    created: "2026-06-11T17:46:58.544180934Z"
+    description: A Helm chart for Kubernetes
+    digest: fa62ee5aae2d96716fcac77a93590c9cf6b89035e4bc3880f8cb94a9f22b056e
+    name: kubernetes-router
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/kubernetes-router-0.2.0/kubernetes-router-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 0.25.2
     created: "2026-05-21T18:18:05.002031053Z"
     description: A Helm chart for Kubernetes
@@ -6922,4 +6932,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2026-05-27T12:26:23.293705942Z"
+generated: "2026-06-11T17:46:58.548331504Z"
