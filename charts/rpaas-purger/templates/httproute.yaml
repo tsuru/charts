@@ -24,6 +24,9 @@ spec:
             type: {{ .Values.httpRoute.pathType }}
             value: {{ .Values.httpRoute.path }}
       backendRefs:
-        - name: {{ include "rpaas-purger.fullname" . }}
+        - group: ''
+          kind: Service
+          name: {{ include "rpaas-purger.fullname" . }}
           port: 80
+          weight: 1
 {{- end }}
