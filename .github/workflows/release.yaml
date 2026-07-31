@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   unittest:
@@ -32,6 +33,7 @@ jobs:
           done
 
   release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: unittest
     runs-on: ubuntu-latest
     steps:
