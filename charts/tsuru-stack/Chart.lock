@@ -1,7 +1,7 @@
 dependencies:
 - name: tsuru-api
   repository: https://tsuru.github.io/charts
-  version: 0.3.11
+  version: 0.3.12
 - name: kubernetes-router
   repository: https://tsuru.github.io/charts
   version: 0.1.17
@@ -23,5 +23,5 @@ dependencies:
 - name: deploy-agent
   repository: https://tsuru.github.io/charts
   version: 1.6.1
-digest: sha256:a60560a593278117d6c891bcf0479ef3c35ebef474f2084752fd4f21910326dd
-generated: "2026-01-08T09:37:02.67342-03:00"
+digest: sha256:3d71dc6957d6a6b56022798a1e1023fe37b6be636cb8ffbad3322c5ecf851d62
+generated: "2026-07-31T16:02:54.633874-03:00"
