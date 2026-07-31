@@ -1,0 +1,29 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+  - configmap.yaml
+release:
+  name: tsuru-api
+tests:
+  - it: should annotate the pod template with a checksum of the config
+    template: deployment.yaml
+    set:
+      tsuruConfig.host: https://tsuru.example.com
+    asserts:
+      - matchRegex:
+          path: spec.template.metadata.annotations["tsuru-api.tsuru.io/checksum-config"]
+          pattern: ^[a-f0-9]{64}$
+
+  - it: should keep user podAnnotations alongside the config checksum
+    template: deployment.yaml
+    set:
+      tsuruConfig.host: https://tsuru.example.com
+      podAnnotations:
+        my.custom/annotation: custom-value
+    asserts:
+      - equal:
+          path: spec.template.metadata.annotations["my.custom/annotation"]
+          value: custom-value
+      - matchRegex:
+          path: spec.template.metadata.annotations["tsuru-api.tsuru.io/checksum-config"]
+          pattern: ^[a-f0-9]{64}$
