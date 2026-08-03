@@ -4479,6 +4479,15 @@ entries:
     version: 0.1.0
   tsuru-monitoring:
   - apiVersion: v2
+    created: "2026-08-03T13:05:51.375727819Z"
+    description: A Helm chart for Kubernetes
+    digest: 053eafb653d73fc9b6aa01e92fe033e12f7b3d21c4923aa6b7d6cfc7f31e0f12
+    name: tsuru-monitoring
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-monitoring-0.4.1/tsuru-monitoring-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
     created: "2025-10-29T20:51:40.534715116Z"
     description: A Helm chart for Kubernetes
     digest: 66817658c4cc14096c27c37f957058fc035c0eb655f657d6c1fe049a37d5710e
@@ -7019,4 +7028,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2026-07-31T19:24:07.833177016Z"
+generated: "2026-08-03T13:05:51.377801092Z"
