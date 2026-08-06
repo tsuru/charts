@@ -22,6 +22,7 @@ spec:
         - '__meta_kubernetes_pod_annotation_prometheus_io_scheme'
         regex: '(https?)'
         targetLabel: '__scheme__'
+        action: replace
       - sourceLabels:
           - '__meta_kubernetes_pod_annotation_prometheus_io_path'
         regex: '(.+)'
@@ -38,25 +39,32 @@ spec:
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_name'
         targetLabel: 'tsuru_app'
+        action: replace
 
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_name'
         targetLabel: 'job' # to be compatible with older versions of prometheus
+        action: replace
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_version'
         targetLabel: 'tsuru_app_version'
+        action: replace
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_process'
         targetLabel: 'tsuru_app_process'
+        action: replace
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_team'
         targetLabel: 'tsuru_team'
+        action: replace
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_pool'
         targetLabel: 'tsuru_pool'
+        action: replace
       - sourceLabels:
         - '__meta_kubernetes_pod_label_tsuru_io_app_platform'
         targetLabel: 'tsuru_platform'
+        action: replace
       - sourceLabels:
         - 'pod'
         targetLabel: 'tsuru_unit'
