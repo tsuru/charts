@@ -42,7 +42,7 @@ tests:
         documentIndex: 0
       - equal:
           path: metadata.name
-          value: prometheus-reader
+          value: prometheus-reader-pool-mypool
         documentIndex: 0
       - equal:
           path: metadata.namespace
@@ -90,7 +90,7 @@ tests:
           value:
             apiGroup: rbac.authorization.k8s.io
             kind: Role
-            name: prometheus-reader
+            name: prometheus-reader-pool-mypool
         documentIndex: 1
       - equal:
           path: subjects
@@ -189,7 +189,7 @@ tests:
     asserts:
       - equal:
           path: metadata.name
-          value: my-reader
+          value: my-reader-pool-mypool
         documentIndex: 0
       - equal:
           path: metadata.name
@@ -197,5 +197,5 @@ tests:
         documentIndex: 1
       - equal:
           path: roleRef.name
-          value: my-reader
+          value: my-reader-pool-mypool
         documentIndex: 1

@@ -7,7 +7,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ $roleName }}
+  name: {{ printf "%s-pool-%s" $roleName $.Values.tsuru.pool.name }}
   namespace: {{ $namespace }}
   labels:
     app.kubernetes.io/part-of: pool
@@ -43,7 +43,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ $roleName }}
+  name: {{ printf "%s-pool-%s" $roleName $.Values.tsuru.pool.name }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "..serviceAccountName" $ }}

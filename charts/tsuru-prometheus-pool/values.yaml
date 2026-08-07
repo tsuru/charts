@@ -160,8 +160,9 @@ rpaas:
   # namespace above, not in the release one.
   reader:
     enabled: false
-    # The Role is shared by every pool scraping the namespace, so its name has
-    # no pool suffix. The RoleBinding is named <roleName>-pool-<pool name>.
+    # Both the Role and the RoleBinding are named <roleName>-pool-<pool name>,
+    # so every pool owns its own pair and they don't collide in the shared
+    # namespace.
     roleName: prometheus-reader
     # Namespaces getting the same pair on top of the matchNames ones, for what
     # is scraped outside the rpaas namespaces.
