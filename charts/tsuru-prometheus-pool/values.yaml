@@ -3,6 +3,11 @@ tsuru:
     name: "default"
 
 replicaCount: 1
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+
 prometheus:
   version: v2.30.0
   image:
@@ -149,6 +154,21 @@ rpaas:
   selector:
     matchLabels:
       'nginx.tsuru.io/app': nginx
+
+  # Grants this pool's prometheus read access to the rpaas namespaces it
+  # scrapes. The Role/RoleBinding pairs are created in those namespaces, not in
+  # the release one.
+  # The namespaces are the namespaceSelector.matchNames above, nothing is
+  # created when that list is empty.
+  reader:
+    enabled: false
+    # The Role is shared by every pool scraping the namespace, so its name has
+    # no pool suffix. The RoleBinding is named <roleName>-pool-<pool name>.
+    roleName: prometheus-reader
+    # Extra namespaces that get only the RoleBinding, on top of the matchNames
+    # ones. The Role there is expected to already exist, owned by whoever owns
+    # the namespace.
+    additionalBindingNamespaces: []
 # additionalScrapeConfigs:
 #   # Read more at: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/additional-scrape-config.md
 #   name: additional-scrape-configs

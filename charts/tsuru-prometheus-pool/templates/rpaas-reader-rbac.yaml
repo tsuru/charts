@@ -1,0 +1,54 @@
+{{- if and .Values.rpaas.enabled .Values.rpaas.reader.enabled }}
+{{- $roleName := .Values.rpaas.reader.roleName }}
+{{- $roleNamespaces := (.Values.rpaas.namespaceSelector).matchNames | default list }}
+{{- $bindingNamespaces := concat $roleNamespaces (.Values.rpaas.reader.additionalBindingNamespaces | default list) | uniq }}
+{{- range $namespace := $roleNamespaces }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $roleName }}
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/part-of: pool
+    {{- include "..labels" $ | nindent 4 }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - endpoints
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+{{- end }}
+{{- range $namespace := $bindingNamespaces }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ printf "%s-pool-%s" $roleName $.Values.tsuru.pool.name }}
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/part-of: pool
+    {{- include "..labels" $ | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $roleName }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "..serviceAccountName" $ }}
+  namespace: {{ $.Release.Namespace }}
+{{- end }}
+{{- end }}
