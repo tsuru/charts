@@ -20,30 +20,12 @@ tests:
       - hasDocuments:
           count: 0
 
-  - it: should not render without a namespaceSelector
+  - it: should not render without namespaces
     set:
       rpaas.reader.enabled: true
     asserts:
       - hasDocuments:
           count: 0
-
-  - it: should render only the extra bindings without a namespaceSelector
-    set:
-      tsuru.pool.name: mypool
-      rpaas.reader.enabled: true
-      rpaas.reader.additionalBindingNamespaces:
-        - tsuru-system
-    asserts:
-      - hasDocuments:
-          count: 1
-      - isKind:
-          of: RoleBinding
-      - equal:
-          path: metadata.name
-          value: prometheus-reader-pool-mypool
-      - equal:
-          path: metadata.namespace
-          value: tsuru-system
 
   - it: should render a role and a rolebinding per matchNames namespace
     set:
@@ -92,73 +74,106 @@ tests:
                 - list
                 - watch
         documentIndex: 0
-      - equal:
-          path: metadata.namespace
-          value: rpaasv2-be
-        documentIndex: 1
       - isKind:
           of: RoleBinding
-        documentIndex: 2
+        documentIndex: 1
       - equal:
           path: metadata.name
           value: prometheus-reader-pool-mypool
-        documentIndex: 2
+        documentIndex: 1
       - equal:
           path: metadata.namespace
           value: rpaasv2-fe
-        documentIndex: 2
+        documentIndex: 1
       - equal:
           path: roleRef
           value:
             apiGroup: rbac.authorization.k8s.io
             kind: Role
             name: prometheus-reader
-        documentIndex: 2
+        documentIndex: 1
       - equal:
           path: subjects
           value:
             - kind: ServiceAccount
               name: tsuru-prometheus-pool
               namespace: tsuru-mypool
+        documentIndex: 1
+      - isKind:
+          of: Role
         documentIndex: 2
+      - equal:
+          path: metadata.namespace
+          value: rpaasv2-be
+        documentIndex: 2
+      - isKind:
+          of: RoleBinding
+        documentIndex: 3
       - equal:
           path: metadata.namespace
           value: rpaasv2-be
         documentIndex: 3
 
-  - it: should bind on the additional namespaces on top of matchNames
+  - it: should cover the rpaas namespaces plus the additional ones
     set:
+      tsuru.pool.name: mypool
       rpaas.reader.enabled: true
       rpaas.namespaceSelector.matchNames:
-        - rpaasv2-fe
-      rpaas.reader.additionalBindingNamespaces:
+        - rpaasv2-fe-mypool
+        - rpaasv2-be-mypool
+      rpaas.reader.additionalNamespaces:
         - tsuru-system
-        - rpaasv2-be
     asserts:
       - hasDocuments:
-          count: 4
+          count: 6
+      - isKind:
+          of: Role
+        documentIndex: 4
+      - equal:
+          path: metadata.namespace
+          value: tsuru-system
+        documentIndex: 4
+      - isKind:
+          of: RoleBinding
+        documentIndex: 5
+      - equal:
+          path: metadata.name
+          value: prometheus-reader-pool-mypool
+        documentIndex: 5
+      - equal:
+          path: metadata.namespace
+          value: tsuru-system
+        documentIndex: 5
+
+  - it: should render the additional namespaces without a namespaceSelector
+    set:
+      rpaas.reader.enabled: true
+      rpaas.reader.additionalNamespaces:
+        - tsuru-system
+    asserts:
+      - hasDocuments:
+          count: 2
       - isKind:
           of: Role
         documentIndex: 0
       - equal:
           path: metadata.namespace
-          value: rpaasv2-fe
+          value: tsuru-system
+        documentIndex: 0
+      - isKind:
+          of: RoleBinding
         documentIndex: 1
       - equal:
           path: metadata.namespace
           value: tsuru-system
-        documentIndex: 2
-      - equal:
-          path: metadata.namespace
-          value: rpaasv2-be
-        documentIndex: 3
+        documentIndex: 1
 
-  - it: should not duplicate a namespace listed both in matchNames and in the additional ones
+  - it: should not duplicate a namespace listed on both lists
     set:
       rpaas.reader.enabled: true
       rpaas.namespaceSelector.matchNames:
         - rpaasv2-fe
-      rpaas.reader.additionalBindingNamespaces:
+      rpaas.reader.additionalNamespaces:
         - rpaasv2-fe
     asserts:
       - hasDocuments:
