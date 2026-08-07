@@ -1,0 +1,57 @@
+{{- if .Values.listenerSet.enabled }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: ListenerSet
+metadata:
+  name: {{ include "..fullname" . }}
+  labels:
+    {{- include "..labels" . | nindent 4 }}
+  {{- with .Values.listenerSet.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.listenerSet.parentRef }}
+  parentRef:
+    group: {{ .group | default "gateway.networking.k8s.io" }}
+    kind: {{ .kind | default "Gateway" }}
+    name: {{ .name }}
+    {{- with .namespace }}
+    namespace: {{ . }}
+    {{- end }}
+  {{- end }}
+  listeners:
+    {{- range .Values.listenerSet.listeners }}
+    - name: {{ .name }}
+      {{- with .hostname }}
+      hostname: {{ . | quote }}
+      {{- end }}
+      port: {{ .port | default 443 }}
+      protocol: {{ .protocol | default "HTTPS" }}
+      {{- with .tls }}
+      tls:
+        mode: {{ .mode | default "Terminate" }}
+        {{- with .certificateRefs }}
+        certificateRefs:
+          {{- range . }}
+          - group: {{ .group | default "" | quote }}
+            kind: {{ .kind | default "Secret" }}
+            name: {{ .name }}
+            {{- with .namespace }}
+            namespace: {{ . }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- with .options }}
+        options:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      {{- end }}
+      allowedRoutes:
+        {{- with .allowedRoutes }}
+        {{- toYaml . | nindent 8 }}
+        {{- else }}
+        namespaces:
+          from: Same
+        {{- end }}
+    {{- end }}
+{{- end }}

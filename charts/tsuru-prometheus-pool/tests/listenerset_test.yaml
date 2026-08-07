@@ -1,0 +1,186 @@
+suite: test listenerset
+templates:
+  - listenerset.yaml
+release:
+  name: tsuru-prometheus-pool
+tests:
+  - it: should not render when disabled
+    set:
+      listenerSet.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render listenerset with parentRef and a https listener
+    set:
+      listenerSet.enabled: true
+      listenerSet.parentRef:
+        name: my-gateway
+        namespace: gateway-namespace
+      listenerSet.listeners:
+        - name: https
+          hostname: default.mypool.io
+          port: 443
+          protocol: HTTPS
+          tls:
+            mode: Terminate
+            certificateRefs:
+              - name: default-mypool-io-tls
+    asserts:
+      - isKind:
+          of: ListenerSet
+      - equal:
+          path: apiVersion
+          value: gateway.networking.k8s.io/v1
+      - equal:
+          path: metadata.name
+          value: tsuru-prometheus-pool
+      - equal:
+          path: spec.parentRef
+          value:
+            group: gateway.networking.k8s.io
+            kind: Gateway
+            name: my-gateway
+            namespace: gateway-namespace
+      - equal:
+          path: spec.listeners[0]
+          value:
+            name: https
+            hostname: default.mypool.io
+            port: 443
+            protocol: HTTPS
+            tls:
+              mode: Terminate
+              certificateRefs:
+                - group: ""
+                  kind: Secret
+                  name: default-mypool-io-tls
+            allowedRoutes:
+              namespaces:
+                from: Same
+
+  - it: should default port, protocol, tls mode and certificateRef kind
+    set:
+      listenerSet.enabled: true
+      listenerSet.listeners:
+        - name: https
+          hostname: default.mypool.io
+          tls:
+            certificateRefs:
+              - name: default-mypool-io-tls
+    asserts:
+      - equal:
+          path: spec.listeners[0].port
+          value: 443
+      - equal:
+          path: spec.listeners[0].protocol
+          value: HTTPS
+      - equal:
+          path: spec.listeners[0].tls.mode
+          value: Terminate
+      - equal:
+          path: spec.listeners[0].tls.certificateRefs[0].kind
+          value: Secret
+      - equal:
+          path: spec.listeners[0].allowedRoutes.namespaces.from
+          value: Same
+
+  - it: should allow overriding the parentRef group and kind
+    set:
+      listenerSet.enabled: true
+      listenerSet.parentRef:
+        group: custom.networking.io
+        kind: CustomGateway
+        name: my-gateway
+      listenerSet.listeners:
+        - name: http
+          port: 80
+          protocol: HTTP
+    asserts:
+      - equal:
+          path: spec.parentRef.group
+          value: custom.networking.io
+      - equal:
+          path: spec.parentRef.kind
+          value: CustomGateway
+      - isNull:
+          path: spec.parentRef.namespace
+
+  - it: should render a plain http listener without tls
+    set:
+      listenerSet.enabled: true
+      listenerSet.listeners:
+        - name: http
+          hostname: default.mypool.io
+          port: 80
+          protocol: HTTP
+    asserts:
+      - equal:
+          path: spec.listeners[0].protocol
+          value: HTTP
+      - isNull:
+          path: spec.listeners[0].tls
+
+  - it: should render multiple listeners with allowedRoutes and tls options
+    set:
+      listenerSet.enabled: true
+      listenerSet.listeners:
+        - name: https-foo
+          hostname: foo.mypool.io
+          tls:
+            certificateRefs:
+              - name: foo-tls
+                namespace: cert-namespace
+            options:
+              gateway.networking.k8s.io/some-option: some-value
+          allowedRoutes:
+            namespaces:
+              from: All
+        - name: https-bar
+          hostname: bar.mypool.io
+          tls:
+            certificateRefs:
+              - name: bar-tls
+    asserts:
+      - lengthEqual:
+          path: spec.listeners
+          count: 2
+      - equal:
+          path: spec.listeners[0].tls.certificateRefs[0].namespace
+          value: cert-namespace
+      - equal:
+          path: spec.listeners[0].tls.options["gateway.networking.k8s.io/some-option"]
+          value: some-value
+      - equal:
+          path: spec.listeners[0].allowedRoutes.namespaces.from
+          value: All
+      - equal:
+          path: spec.listeners[1].hostname
+          value: bar.mypool.io
+
+  - it: should render annotations and honour fullnameOverride
+    set:
+      listenerSet.enabled: true
+      listenerSet.annotations:
+        custom.annotation/key: value
+      fullnameOverride: custom-prometheus
+      listenerSet.listeners:
+        - name: https
+          hostname: default.mypool.io
+    asserts:
+      - equal:
+          path: metadata.annotations["custom.annotation/key"]
+          value: value
+      - equal:
+          path: metadata.name
+          value: custom-prometheus
+
+  - it: should not render parentRef when not set
+    set:
+      listenerSet.enabled: true
+      listenerSet.listeners:
+        - name: https
+          hostname: default.mypool.io
+    asserts:
+      - isNull:
+          path: spec.parentRef

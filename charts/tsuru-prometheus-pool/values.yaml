@@ -99,6 +99,47 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# Gateway API HTTPRoute, an alternative to the Ingress above.
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs: []
+  # - name: my-gateway
+  #   namespace: gateway-namespace
+  # Attaching to the ListenerSet below instead of directly to a Gateway:
+  # - group: gateway.networking.k8s.io
+  #   kind: ListenerSet
+  #   name: tsuru-prometheus-pool
+  #   sectionName: https
+  hostnames: []
+  # - default.mypool.io
+  path: /
+  pathType: PathPrefix
+
+# Gateway API ListenerSet, used to attach listeners (usually HTTPS ones, holding
+# their own certificates) to a shared Gateway.
+listenerSet:
+  enabled: false
+  # cert-manager can issue the listener certificate from these annotations.
+  annotations: {}
+  #  cert-manager.io/common-name: default.mypool.io
+  #  cert-manager.io/issuer: globo-ca
+  #  cert-manager.io/issuer-group: certify.globoi.com
+  #  cert-manager.io/issuer-kind: CertifyProvider
+  parentRef: {}
+  #  name: gateway
+  #  namespace: gitops-system
+  #  group: gateway.networking.k8s.io
+  #  kind: Gateway
+  # Listeners default to port 443/HTTPS, tls mode Terminate and
+  # allowedRoutes.namespaces.from Same.
+  listeners: []
+  # - name: https
+  #   hostname: default.mypool.io
+  #   tls:
+  #     certificateRefs:
+  #       - name: default-mypool-io-tls
+
 rpaas:
   enabled: true
   # namespaceSelector:
