@@ -4834,6 +4834,15 @@ entries:
     version: 0.1.1
   tsuru-prometheus-pool:
   - apiVersion: v2
+    created: "2026-08-07T21:35:52.803656319Z"
+    description: Dedicated prometheus instance by tsuru pool
+    digest: f6b4c357198eba8272c42ed79640a1fd3df3ba8a8181a08a77e4eb3994539c2b
+    name: tsuru-prometheus-pool
+    type: application
+    urls:
+    - https://github.com/tsuru/charts/releases/download/tsuru-prometheus-pool-0.7.1/tsuru-prometheus-pool-0.7.1.tgz
+    version: 0.7.1
+  - apiVersion: v2
     created: "2026-08-07T21:13:43.750607382Z"
     description: Dedicated prometheus instance by tsuru pool
     digest: d1be5e7b543c75108d784cf02f05ca1f0d84564a044f01d9a67b7da65792f304
@@ -7084,4 +7093,4 @@ entries:
     urls:
     - https://github.com/tsuru/charts/releases/download/tsuru-stack-0.1.0/tsuru-stack-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-07T21:13:43.752835235Z"
+generated: "2026-08-07T21:35:52.805547161Z"
