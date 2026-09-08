@@ -23,7 +23,6 @@ secret:
 image:
   repository: tsuru/acl-operator
   pullPolicy: IfNotPresent
-  tag: "0.1.12"
 
 imagePullSecrets: []
 nameOverride: ""
