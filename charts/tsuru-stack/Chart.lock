@@ -16,12 +16,12 @@ dependencies:
   version: 1.10.1
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
-  version: 12.1.31
+  version: 19.2.1
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.3.1
 - name: deploy-agent
   repository: https://tsuru.github.io/charts
   version: 1.6.1
-digest: sha256:3d71dc6957d6a6b56022798a1e1023fe37b6be636cb8ffbad3322c5ecf851d62
-generated: "2026-07-31T16:02:54.633874-03:00"
+digest: sha256:cb4b26f1d1fe850aa280309498fe1ad79e16f89047f5a38ac007fc2ec3352669
+generated: "2026-09-20T09:07:15.618729282-03:00"
