@@ -78,9 +78,12 @@ kubernetes-router:
 
 mongodb:
   enabled: true
+  global:
+    security:
+      allowInsecureImages: true
   image:
-    repository: mongo
-    tag: 6.0.9
+    repository: library/mongo
+    tag: 8.0.32
   extraEnvVars:
     - name: MONGO_INITDB_ROOT_USERNAME
       value: "root"
