@@ -1,0 +1,48 @@
+suite: test service selectors
+templates:
+  - service.yaml
+  - replicas-service.yaml
+  - networkpolicy.yaml
+release:
+  name: mypool
+set:
+  tsuru.pool.name: mypool
+tests:
+  - it: service should select the pods of this release's Prometheus
+    template: service.yaml
+    asserts:
+      - equal:
+          path: spec.selector
+          value:
+            prometheus: mypool-tsuru-prometheus-pool
+            tsuru.io/pool: mypool
+
+  - it: per replica services should select the pods of this release's Prometheus
+    template: replicas-service.yaml
+    set:
+      replicaCount: 2
+    asserts:
+      - equal:
+          path: items[1].spec.selector
+          value:
+            prometheus: mypool-tsuru-prometheus-pool
+            tsuru.io/pool: mypool
+            statefulset.kubernetes.io/pod-name: prometheus-mypool-tsuru-prometheus-pool-1
+
+  - it: networkpolicy should select the pods of this release's Prometheus
+    template: networkpolicy.yaml
+    asserts:
+      - equal:
+          path: spec.podSelector.matchLabels
+          value:
+            prometheus: mypool-tsuru-prometheus-pool
+            tsuru.io/pool: mypool
+
+  - it: should honor fullnameOverride
+    template: service.yaml
+    set:
+      fullnameOverride: prom
+    asserts:
+      - equal:
+          path: spec.selector.prometheus
+          value: prom

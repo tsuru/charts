@@ -15,4 +15,4 @@ spec:
       name: http
   selector:
     tsuru.io/pool: {{ .Values.tsuru.pool.name }}
-    prometheus: tsuru-prometheus-pool
+    prometheus: {{ include "..fullname" . }}
