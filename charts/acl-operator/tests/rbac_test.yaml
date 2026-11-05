@@ -1,0 +1,47 @@
+suite: test rbac
+templates:
+  - serviceaccount.yaml
+release:
+  name: acl-operator
+tests:
+  - it: should only grant read access to tsuru apps
+    documentIndex: 1
+    asserts:
+      - isKind:
+          of: ClusterRole
+      - contains:
+          path: rules
+          content:
+            apiGroups:
+              - "tsuru.io"
+            resources:
+              - apps
+            verbs:
+              - get
+              - list
+              - watch
+      - notContains:
+          path: rules
+          content:
+            apiGroups:
+              - "extensions.tsuru.io"
+              - "tsuru.io"
+            resources:
+              - "*"
+            verbs:
+              - "*"
+
+  - it: should grant read access to rpaas instances
+    documentIndex: 1
+    asserts:
+      - contains:
+          path: rules
+          content:
+            apiGroups:
+              - "extensions.tsuru.io"
+            resources:
+              - rpaasinstances
+            verbs:
+              - get
+              - list
+              - watch
