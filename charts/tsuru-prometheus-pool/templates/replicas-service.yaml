@@ -25,7 +25,7 @@ items:
       protocol: TCP
       targetPort: 9090
     selector:
-      prometheus: tsuru-prometheus-pool
+      prometheus: {{ $fullName }}
       tsuru.io/pool: {{ $poolName }}
       statefulset.kubernetes.io/pod-name: prometheus-{{ $fullName }}-{{$i}}
     type: ClusterIP

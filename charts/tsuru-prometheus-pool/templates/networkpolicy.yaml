@@ -33,7 +33,7 @@ spec:
 
   podSelector:
     matchLabels:
-      prometheus: tsuru-prometheus-pool
+      prometheus: {{ include "..fullname" . }}
       tsuru.io/pool: {{ .Values.tsuru.pool.name }}
 
   policyTypes:
