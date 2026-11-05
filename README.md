@@ -12,3 +12,9 @@ helm repo add tsuru https://tsuru.github.io/charts
 ```
 
 You can then run `helm search repo tsuru` to see the charts.
+
+Charts are also published as OCI artifacts to GitHub Container Registry, so they can be installed without adding the repo:
+
+```console
+helm install tsuru-api oci://ghcr.io/tsuru/charts/tsuru-api --version <VERSION>
+```
